@@ -1,5 +1,0 @@
-- control if email exists in db
-
-- lost password
-
-- switch login register
