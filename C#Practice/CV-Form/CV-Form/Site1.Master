@@ -1,0 +1,192 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="CV_Form.Site1" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body { /* tüm sitenin yazı stili, arka plan ve yazı rengi */
+            font-family: Roboto;
+            background-color: #393939;
+            color: lightgoldenrodyellow;
+        }
+
+        .header { /* üst bar stil */
+            width: 100%;
+            background-color: #2D2D2D;
+            font-size: 30px;
+        }
+
+        a { /* a href linklerinin stillemeleri */
+            text-decoration: none;
+            color: lightgoldenrodyellow;
+        }
+
+            a:visited {
+                color: lightgoldenrodyellow;
+            }
+
+            a:hover {
+                text-decoration: none;
+                color: goldenrod;
+            }
+
+        .AktifSekme {
+            color: goldenrod !important;
+        }
+
+        p { /* tüm paragrafların yazı boyutunu yükselt */
+            font-size: larger;
+        }
+
+        .Link { /* alternatif a href stillemesi */
+            color: mediumturquoise;
+        }
+
+            .Link:visited {
+                color: mediumturquoise;
+            }
+
+            .Link:hover {
+                color: goldenrod;
+            }
+
+        .footer { /* alt bar stil */
+            width: 100%;
+            background-color: #2D2D2D;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-top: 100px;
+        }
+
+            .footer h5 {
+                text-indent: 20px;
+            }
+
+        .MainHeader { /* sayfaların üstünde ana başlık */
+            text-align: center;
+            margin-top: 100px;
+            color: goldenrod;
+        }
+
+        .SecondaryHeader { /* 2. cil başlık */
+            text-align: center;
+            color: goldenrod;
+        }
+
+        .IsmailContainer { /* kişisel bilgi konteynır ve içerik stillemeleri */
+            margin-top: 100px;
+            text-align: center;
+        }
+
+            .IsmailContainer .IsmailFoto {
+                height: auto;
+                width: 20%;
+                display: inline-block;
+            }
+
+            .IsmailContainer .IsmailInfo {
+                width: 75%;
+                display: inline-block;
+            }
+
+        .TableContainer { /* tablo içeren div stilleme */
+            margin-bottom: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+            .TableContainer table {
+                width: 80%;
+                table-layout: fixed;
+                display: table;
+            }
+
+        .ListBoxContainer { /* veri düzenlemesi için stil */
+            display: flex;
+            justify-content: center;
+        }
+
+            .ListBoxContainer .ListBox {
+                width: 80%;
+            }
+
+        .ButtonContainer {
+            display: flex;
+            justify-content: center;
+        }
+
+            .ButtonContainer table {
+                width: 30%;
+            }
+
+        .button {
+            background-color: #2D2D2D;
+            color: lightgoldenrodyellow;
+            padding: 10px 20px;
+            border: solid;
+            border-width: 2px;
+            border-color: lightgoldenrodyellow;
+            cursor: pointer;
+        }
+
+            .button:hover {
+                border-color: #2D2D2D;
+                background-color: goldenrod;
+                color: black;
+            }
+
+        td { /* hücre stil */
+            text-align: center;
+        }
+
+        .HeaderRow td { /* başlık hücreleri stilleme */
+            background-color: #2D2D2D;
+        }
+
+            .HeaderRow td label {
+                color: goldenrod;
+                font-size: larger;
+            }
+
+        .BlogCell { /* blog içeriğini taşmayı önler */
+            word-wrap: break-word;
+            word-break: break-word;
+            white-space: normal;
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="icerik">
+            <div class="header">
+                <table cellpadding="25 " cellspacing="0" align="center">
+                    <tr>
+                        <th><a href="WebForm1.aspx" id="AnaSayfa" runat="server">Ana Sayfa</a></th>
+                        <th><a href="WebForm2.aspx" id="KisiselBilgiler" runat="server">Kişisel Bilgiler</a></th>
+                        <th><a href="WebForm3.aspx" id="Egitim" runat="server">Eğitim</a></th>
+                        <th><a href="WebForm4.aspx" id="IsDeneyimleri" runat="server">İş Deneyimleri</a></th>
+                        <th><a href="WebForm5.aspx" id="Projeler" runat="server">Projeler</a></th>
+                        <th><a href="WebForm6.aspx" id="Yetenekler" runat="server">Yetenekler</a></th>
+                        <th><a href="WebForm7.aspx" id="Referanslar" runat="server">Referanslar</a></th>
+                        <th><a href="WebForm8.aspx" id="Bloglar" runat="server">Bloglar</a></th>
+                    </tr>
+                </table>
+            </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <div class="footer">
+                <h5>İletişim:</h5>
+                <ul>
+                    <li>E-posta adresi: <a href="mailto:ismailkalay21@gmail.com">ismailkalay21@gmail.com</a></li>
+                    <li>Telefon no: +905443147511</li>
+                    <li><a href="https://www.linkedin.com/in/ismail-kalay-891713318/">Linkedin</a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
