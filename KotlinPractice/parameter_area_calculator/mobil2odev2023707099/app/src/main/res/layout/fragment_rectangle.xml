@@ -18,7 +18,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/image_square" />
+            android:src="@drawable/image_rectangle" />
 
         <EditText
             android:id="@+id/rectangle_longside_input"

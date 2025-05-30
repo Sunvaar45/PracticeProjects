@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 class RectangleFragment : Fragment() {
 
@@ -23,8 +24,26 @@ class RectangleFragment : Fragment() {
 
         view.findViewById<Button>(R.id.calculate_rectangle_button).setOnClickListener {
 
-            val rectangleLongSide = view.findViewById<EditText>(R.id.rectangle_longside_input).text.toString().toFloat()
-            val rectangleShortSide = view.findViewById<EditText>(R.id.rectangle_shortside_input).text.toString().toFloat()
+            val rectangleLongSide = view.findViewById<EditText>(R.id.rectangle_longside_input).text.toString().toFloatOrNull()
+            val rectangleShortSide = view.findViewById<EditText>(R.id.rectangle_shortside_input).text.toString().toFloatOrNull()
+
+            if (rectangleLongSide == null || rectangleShortSide == null)
+            {
+                Toast.makeText(requireContext(), "Sayı girmedin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (rectangleLongSide <= 0 || rectangleShortSide <= 0)
+            {
+                Toast.makeText(requireContext(), "Pozitif sayı girmedin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (rectangleLongSide <= rectangleShortSide)
+            {
+                Toast.makeText(requireContext(), "Uzun kenar kısa kenardan uzun değil", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             val rectanglePerimeterResult = ((rectangleShortSide + rectangleLongSide) * 2).toString()
             view.findViewById<EditText>(R.id.rectangle_perimeter_result).setText(rectanglePerimeterResult)

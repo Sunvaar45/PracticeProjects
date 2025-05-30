@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 class SquareFragment : Fragment() {
 
@@ -23,7 +24,19 @@ class SquareFragment : Fragment() {
 
         view.findViewById<Button>(R.id.calculate_square_button).setOnClickListener {
 
-            val squareSide = view.findViewById<EditText>(R.id.square_side_input).text.toString().toFloat()
+            val squareSide = view.findViewById<EditText>(R.id.square_side_input).text.toString().toFloatOrNull()
+
+            if (squareSide == null)
+            {
+                Toast.makeText(requireContext(), "Sayı girmedin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (squareSide <= 0)
+            {
+                Toast.makeText(requireContext(), "Pozitif sayı girmedin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             val squarePerimeterResult = (squareSide * 4).toString()
             view.findViewById<EditText>(R.id.square_perimeter_result).setText(squarePerimeterResult)

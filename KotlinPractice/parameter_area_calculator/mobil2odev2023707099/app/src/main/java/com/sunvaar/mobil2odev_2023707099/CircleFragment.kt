@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 class CircleFragment : Fragment() {
 
@@ -23,7 +24,19 @@ class CircleFragment : Fragment() {
 
         view.findViewById<Button>(R.id.calculate_circle_button).setOnClickListener {
 
-            val circleRadius = view.findViewById<EditText>(R.id.circle_radius_input).text.toString().toFloat()
+            val circleRadius = view.findViewById<EditText>(R.id.circle_radius_input).text.toString().toFloatOrNull()
+
+            if (circleRadius == null)
+            {
+                Toast.makeText(requireContext(), "Sayı girmedin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (circleRadius <= 0)
+            {
+                Toast.makeText(requireContext(), "Pozitif sayı girmedin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             val circlePerimeterResult = (2 * Math.PI.toFloat() * circleRadius).toString()
             view.findViewById<EditText>(R.id.circle_perimeter_result).setText(circlePerimeterResult)
