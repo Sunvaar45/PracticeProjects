@@ -3,8 +3,8 @@
 // JSON.parse
 // let value = JSON.parse(str, reviver)
 
-let numbers = [0, 1, 2, 3, 4];
+let numbers = "[0, 1, 2, 3, 4]";
 
 numbers = JSON.parse(numbers);
 
-console.log( Array.isArray(numbers) );
+console.log( Array.isArray(numbers) ); // true, its an array now
