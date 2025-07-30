@@ -6,8 +6,7 @@ let range = {
     to: 5,
 }
 
-range[Symbol.iterator] = function()
-{
+range[Symbol.iterator] = function() {
     return {
         current: this.from,
         last: this.to,
@@ -19,7 +18,6 @@ range[Symbol.iterator] = function()
                     value: this.current++,
                 };
             }
-
             else {
                 return {
                     done: true,
