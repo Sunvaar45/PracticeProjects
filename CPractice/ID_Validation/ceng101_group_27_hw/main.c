@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void specialtyChecker(void);
+int specialtyChecker(int digit1, int digit6, int digit11);
 void seasonFinder(void);
 void vowelCounter(void);
 
 int main()
 {
-    int ch, prevCh;
-    int digitValue;
-    int idIsValid;
+    int ch, prevCh, digitValue;
+    int digit1, digit6, digit11;
+    int idIsValid, idIsSpecial;
     int digitCounter;
     int firstTenSum;
     int continueProgram = 1;
@@ -28,6 +28,9 @@ int main()
             }
             digitCounter++;
             digitValue = ch - 48;
+            if (digitCounter == 1) digit1 = digitValue;
+            if (digitCounter == 6) digit6 = digitValue;
+            if (digitCounter == 11) digit11 = digitValue;
 
             if (digitCounter <= 10) {
                 firstTenSum += digitValue;
@@ -48,23 +51,46 @@ int main()
             printf("Invalid Turkish ID Number!\n");
         }
         else {
-            // seasonFinder();
-            vowelCounter();
+            idIsSpecial = specialtyChecker(digit1, digit6, digit11);
+
+            if (idIsSpecial) {
+                printf("The entered Turkish ID number is special!\n");
+                seasonFinder();
+            }
+            else {
+                printf("The entered Turkish ID number is not special!\n");
+                vowelCounter();
+            }
 
             continueProgram = 0;
         }
     }
 }
 
+int specialtyChecker(int digit1, int digit6, int digit11) 
+{
+    int sum = digit1 + digit11;
 
-void specialtyChecker(void);
+    int difference;
+    if (digit1 > digit11) {
+        difference = digit1 - digit11;
+    }
+    else {
+        difference = digit11 - digit1;
+    }
+
+    if ((sum * difference) % 10 == digit6) {
+        return 1;
+    }
+    return 0;
+}
 
 void seasonFinder(void)
 {
     int remainingAttempts = 3, birthDateNumber;
     while (remainingAttempts > 0)
     {
-        printf("Enter your birth month between 1-12\n");
+        printf("Enter your birth month between (1-12):\n");
         scanf("%d", &birthDateNumber);
         getchar(); // consume buffer \n
         switch (birthDateNumber)
@@ -72,26 +98,26 @@ void seasonFinder(void)
         case 12:
         case 1:
         case 2:
-            printf("You were born in Winter\n");
+            printf("You were born in Winter.\n");
             return;
         case 3:
         case 4:
         case 5:
-            printf("You were born in Spring\n");
+            printf("You were born in Spring.\n");
             return;
         case 6:
         case 7:
         case 8:
-            printf("You were born in Summer\n");
+            printf("You were born in Summer.\n");
             return;
         case 9:
         case 10:
         case 11:
-            printf("You were born in Autumn\n");
+            printf("You were born in Autumn.\n");
             return;
         default:
             remainingAttempts--;
-            printf("Please enter a valid number between 1-12\n Remaining Attempt(s): %d\n", remainingAttempts);
+            printf("Try again. You have %d attempt(s) remaining. ", remainingAttempts);
             break;
         }
     }
@@ -104,8 +130,7 @@ void vowelCounter(void)
 
     printf("Please enter your full name (with English letters only):\n");
 
-    for (;;)
-    {
+    for (;;) {
         ch = getchar();
 
         if (ch == '\n')
