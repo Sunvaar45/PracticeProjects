@@ -48,7 +48,7 @@ int main()
         if (digitCounter != 11) idIsValid = 0; // 11 digits
         
         if (!idIsValid) {
-            printf("Invalid Turkish ID Number!\n");
+            printf("Invalid Turkish ID Number! ");
         }
         else {
             idIsSpecial = specialtyChecker(digit1, digit6, digit11);
