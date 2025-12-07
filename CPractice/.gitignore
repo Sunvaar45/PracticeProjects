@@ -1,0 +1,19 @@
+# Windows Çalıştırılabilir Dosyaları
+*.exe
+*.dll
+*.iso
+
+# Nesne Dosyaları (Derleme ara dosyaları)
+*.o
+*.obj
+
+# Önceki ekran görüntünde gördüğüm derleme klasörleri
+bin/
+obj/
+
+# VS Code Yerel Ayarları (Opsiyonel: Takım çalışması yapmıyorsan bunları da yollama)
+.vscode/
+
+# Sistem dosyaları
+Thumbs.db
+.DS_Store
