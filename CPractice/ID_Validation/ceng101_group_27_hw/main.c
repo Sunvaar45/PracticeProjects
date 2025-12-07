@@ -1,3 +1,7 @@
+// Group 27
+// 250401107 - İsmail Kalay
+// 250401106 - Hamza Aşıkoğlu
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,7 +11,7 @@ void vowelCounter(void);
 
 int main()
 {
-    int ch, prevCh, digitValue;
+    int ch, prevCh = 0, digitValue;
     int digit1, digit6, digit11;
     int idIsValid, idIsSpecial;
     int digitCounter;
@@ -90,7 +94,7 @@ void seasonFinder(void)
     int remainingAttempts = 3, birthDateNumber;
     while (remainingAttempts > 0)
     {
-        printf("Enter your birth month between (1-12):\n");
+        printf("Enter the month you were born (1-12):\n");
         scanf("%d", &birthDateNumber);
         getchar(); // consume buffer \n
         switch (birthDateNumber)
