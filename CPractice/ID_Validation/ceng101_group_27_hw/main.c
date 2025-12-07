@@ -22,7 +22,7 @@ int main()
         printf("Enter a Turkish ID Number (-1 to exit!): ");
         while (ch = getchar()) {
             if (ch == '\n') break; // quit when "enter" is pressed
-            if (ch == '1' && prevCh == '-') { // check for -1 to exit
+            if (prevCh == '-' && ch == '1') { // check for -1 to exit
                 continueProgram = 0;
                 break;
             }
