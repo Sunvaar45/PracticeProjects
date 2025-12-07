@@ -117,7 +117,12 @@ void seasonFinder(void)
             return;
         default:
             remainingAttempts--;
-            printf("Try again. You have %d attempt(s) remaining. ", remainingAttempts);
+            if (remainingAttempts == 0) {
+                printf("No attempts left. Program terminated.\n");
+            }
+            else {
+                printf("Try again. You have %d attempt(s) remaining. ", remainingAttempts);
+            }
             break;
         }
     }
@@ -128,7 +133,7 @@ void vowelCounter(void)
     int ch;
     int countA = 0, countE = 0, countI = 0, countO = 0, countU = 0;
 
-    printf("Please enter your full name (with English letters only):\n");
+    printf("Enter Full Name (with English letters only):\n");
 
     for (;;) {
         ch = getchar();
