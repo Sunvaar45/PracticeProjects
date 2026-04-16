@@ -8,7 +8,7 @@
 */
 
 #define STUDENTS_FILE "students.dat"
-#define MAX_STUDENTS 100
+#define MAX_STUDENTS 101
 
 typedef struct student {
     int student_number;
