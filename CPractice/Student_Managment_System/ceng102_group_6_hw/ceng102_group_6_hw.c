@@ -8,7 +8,7 @@
 */
 
 #define STUDENTS_FILE "students.dat"
-#define MAX_STUDENTS 101
+#define MAX_STUDENTS 100
 
 typedef struct student {
     int student_number;
@@ -120,13 +120,13 @@ STUDENT create_student()
 
     do
     { // student number
-        if (!int_is_in_range(newStudent.student_number, 0, 100))
+        if (!int_is_in_range(newStudent.student_number, 1, 100))
         {
             printf("Invalid student number. Please try again.\n");
         }
-        printf("Enter student number (between 0-100): ");
+        printf("Enter student number (between 1-100): ");
         scanf("%d", &newStudent.student_number);
-    } while (!int_is_in_range(newStudent.student_number, 0, 100));
+    } while (!int_is_in_range(newStudent.student_number, 1, 100));
     getchar();
 
     // full name
