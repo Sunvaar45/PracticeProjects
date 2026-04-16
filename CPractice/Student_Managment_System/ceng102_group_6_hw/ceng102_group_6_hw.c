@@ -126,8 +126,8 @@ STUDENT create_student()
         }
         printf("Enter student number (between 1-100): ");
         scanf("%d", &newStudent.student_number);
+        while (getchar() != '\n');
     } while (!int_is_in_range(newStudent.student_number, 1, 100));
-    getchar();
 
     // full name
     int maxNameLength = sizeof(newStudent.full_name) / sizeof(newStudent.full_name[0]);
@@ -147,6 +147,7 @@ STUDENT create_student()
         }
         printf("Enter midterm grade (between 0-100): ");
         scanf("%d", &newStudent.midterm_grade);
+        while (getchar() != '\n');
     } while (!int_is_in_range(newStudent.midterm_grade, 0, 100));
 
     do
@@ -157,6 +158,7 @@ STUDENT create_student()
         }
         printf("Enter assignment grade (between 0-100): ");
         scanf("%d", &newStudent.assignment_grade);
+        while (getchar() != '\n');
     } while (!int_is_in_range(newStudent.assignment_grade, 0, 100));
 
     do
@@ -167,6 +169,7 @@ STUDENT create_student()
         }
         printf("Enter final grade (between 0-100): ");
         scanf("%d", &newStudent.final_grade);
+        while (getchar() != '\n');
     } while (!int_is_in_range(newStudent.final_grade, 0, 100));
 
     // GPA calculation
