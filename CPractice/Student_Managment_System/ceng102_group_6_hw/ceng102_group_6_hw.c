@@ -5,19 +5,17 @@
 
 /*
     to-do:
-        - create_student(): reject existing id input with warning message
 */
 
 #define STUDENTS_FILE "students.dat"
 #define MAX_STUDENTS 100
 
-typedef struct student
-{
+typedef struct student {
     int student_number;
     char full_name[50];
-    double midterm_grade;
-    double assignment_grade;
-    double final_grade;
+    int midterm_grade;
+    int assignment_grade;
+    int final_grade;
     double gpa;
 } STUDENT;
 
@@ -29,12 +27,12 @@ void print_students(STUDENT students[], int size);
 STUDENT create_student();
 void read_all_students_to_array(STUDENT students[], int size);
 int int_is_in_range(int num, int min, int max);
-int double_is_in_range(double num, double min, double max);
 
 int main()
 {
     initialize_students_file();
 
+    add_student();
     add_student();
 
     STUDENT students[MAX_STUDENTS];
@@ -51,7 +49,7 @@ void initialize_students_file()
         return;
     }
 
-    STUDENT defaultStudent = {0, "", 0.0, 0.0, 0.0, 0.0};
+    STUDENT defaultStudent = {0, "", 0, 0, 0, 0.0};
     STUDENT students[MAX_STUDENTS];
     for (int i = 0; i < MAX_STUDENTS; i++)
     {
@@ -65,6 +63,7 @@ void initialize_students_file()
 void add_student()
 {
     STUDENT student = create_student();
+    STUDENT placeholderStudent;
 
     FILE *fp = fopen(STUDENTS_FILE, "rb+");
     if (fp == NULL)
@@ -74,7 +73,20 @@ void add_student()
     }
 
     int index = student.student_number % MAX_STUDENTS;
+
+    // check if the student number already exists
     fseek(fp, index * sizeof(STUDENT), SEEK_SET);
+    fread(&placeholderStudent, sizeof(STUDENT), 1, fp);
+    if (placeholderStudent.student_number != 0)
+    {
+        printf("Student number %d already exists. Aborting...\n", student.student_number);
+        fclose(fp);
+        return;
+    }
+
+    // write the new student to the file
+    fseek(fp, index * sizeof(STUDENT), SEEK_SET);
+    printf("Adding student with number %d...\n", student.student_number);
     fwrite(&student, sizeof(STUDENT), 1, fp);
 
     fclose(fp);
@@ -90,7 +102,7 @@ void print_students(STUDENT students[], int size)
     {
         if (students[i].student_number != 0)
         {
-            printf("%-20d %-50s %-20.2lf %-20.2lf %-20.2lf %-20.2lf\n",
+            printf("%-20d %-50s %-20d %-20d %-20d %-20.2lf\n",
                    students[i].student_number,
                    students[i].full_name,
                    students[i].midterm_grade,
@@ -104,11 +116,10 @@ void print_students(STUDENT students[], int size)
 // helper functions
 STUDENT create_student()
 {
-    STUDENT newStudent = {0, "", 0.0, 0.0, 0.0, 0.0};
+    STUDENT newStudent = {0, "", 0, 0, 0, 0.0};
 
-    // student number
     do
-    {
+    { // student number
         if (!int_is_in_range(newStudent.student_number, 0, 100))
         {
             printf("Invalid student number. Please try again.\n");
@@ -116,14 +127,6 @@ STUDENT create_student()
         printf("Enter student number (between 0-100): ");
         scanf("%d", &newStudent.student_number);
     } while (!int_is_in_range(newStudent.student_number, 0, 100));
-
-    FILE *fp = fopen(STUDENTS_FILE, "rb");
-    if (fp == NULL)
-    {
-        printf("Error\n");
-        return (STUDENT){0, "", 0.0, 0.0, 0.0, 0.0};
-    }
-
     getchar();
 
     // full name
@@ -138,33 +141,33 @@ STUDENT create_student()
 
     do
     { // midterm grade
-        if (!double_is_in_range(newStudent.midterm_grade, 0.0, 100.0))
+        if (!int_is_in_range(newStudent.midterm_grade, 0, 100))
         {
             printf("Invalid midterm grade. Please try again.\n");
         }
         printf("Enter midterm grade (between 0-100): ");
-        scanf("%lf", &newStudent.midterm_grade);
-    } while (!double_is_in_range(newStudent.midterm_grade, 0.0, 100.0));
+        scanf("%d", &newStudent.midterm_grade);
+    } while (!int_is_in_range(newStudent.midterm_grade, 0, 100));
 
     do
     { // assignment grade
-        if (!double_is_in_range(newStudent.assignment_grade, 0.0, 100.0))
+        if (!int_is_in_range(newStudent.assignment_grade, 0, 100))
         {
             printf("Invalid assignment grade. Please try again.\n");
         }
         printf("Enter assignment grade (between 0-100): ");
-        scanf("%lf", &newStudent.assignment_grade);
-    } while (!double_is_in_range(newStudent.assignment_grade, 0.0, 100.0));
+        scanf("%d", &newStudent.assignment_grade);
+    } while (!int_is_in_range(newStudent.assignment_grade, 0, 100));
 
     do
     { // final grade
-        if (!double_is_in_range(newStudent.final_grade, 0.0, 100.0))
+        if (!int_is_in_range(newStudent.final_grade, 0, 100))
         {
             printf("Invalid final grade. Please try again.\n");
         }
         printf("Enter final grade (between 0-100): ");
-        scanf("%lf", &newStudent.final_grade);
-    } while (!double_is_in_range(newStudent.final_grade, 0.0, 100.0));
+        scanf("%d", &newStudent.final_grade);
+    } while (!int_is_in_range(newStudent.final_grade, 0, 100));
 
     // GPA calculation
     newStudent.gpa = (newStudent.midterm_grade * 0.4) + (newStudent.assignment_grade * 0.1) + (newStudent.final_grade * 0.5);
@@ -195,11 +198,3 @@ int int_is_in_range(int num, int min, int max)
     return 1;
 }
 
-int double_is_in_range(double num, double min, double max)
-{
-    if (num < min || num > max)
-    {
-        return 0;
-    }
-    return 1;
-}
