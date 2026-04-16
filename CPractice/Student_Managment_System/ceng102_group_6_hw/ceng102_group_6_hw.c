@@ -116,7 +116,7 @@ void print_students(STUDENT students[], int size)
 // helper functions
 STUDENT create_student()
 {
-    STUDENT newStudent = {0, "", 0, 0, 0, 0.0};
+    STUDENT newStudent = {1, "", 0, 0, 0, 0.0};
 
     do
     { // student number
