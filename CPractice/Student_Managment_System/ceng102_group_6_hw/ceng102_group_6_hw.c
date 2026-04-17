@@ -29,6 +29,8 @@ void search_student_by_number(int student_number);
 
 STUDENT create_student();
 void read_all_students_to_array(STUDENT students[], int size);
+void print_student(STUDENT student);
+void print_student_header();
 int int_is_in_range(int num, int min, int max);
 
 int main()
@@ -138,19 +140,19 @@ void print_students(STUDENT students[], int size)
 {
     read_all_students_to_array(students, size);
 
-    printf("%-20s %-50s %-20s %-20s %-20s %-20s\n",
-           "Student Number", "Full Name", "Midterm Grade", "Assignment Grade", "Final Grade", "GPA");
+    print_student_header();
     for (int i = 0; i < size; i++)
     {
         if (students[i].student_number != 0)
         {
-            printf("%-20d %-50s %-20d %-20d %-20d %-20.2lf\n",
-                   students[i].student_number,
-                   students[i].full_name,
-                   students[i].midterm_grade,
-                   students[i].assignment_grade,
-                   students[i].final_grade,
-                   students[i].gpa);
+            // printf("%-20d %-50s %-20d %-20d %-20d %-20.2lf\n",
+            //        students[i].student_number,
+            //        students[i].full_name,
+            //        students[i].midterm_grade,
+            //        students[i].assignment_grade,
+            //        students[i].final_grade,
+            //        students[i].gpa);
+            print_student(students[i]);
         }
     }
 }
@@ -173,7 +175,8 @@ void search_student_by_number(int search_number)
     // check if the student number matches the search number
     if (student.student_number == search_number)
     {
-        print_students(&student, 1);
+        print_student_header();
+        print_student(student);
     }
     else
     {
@@ -255,6 +258,23 @@ void read_all_students_to_array(STUDENT students[], int size)
     fread(students, sizeof(STUDENT), size, fp);
 
     fclose(fp);
+}
+
+void print_student_header()
+{
+    printf("%-20s %-50s %-20s %-20s %-20s %-20s\n",
+           "Student Number", "Full Name", "Midterm Grade", "Assignment Grade", "Final Grade", "GPA");
+}
+
+void print_student(STUDENT student)
+{
+    printf("%-20d %-50s %-20d %-20d %-20d %-20.2lf\n",
+           student.student_number,
+           student.full_name,
+           student.midterm_grade,
+           student.assignment_grade,
+           student.final_grade,
+           student.gpa);
 }
 
 int int_is_in_range(int num, int min, int max)
