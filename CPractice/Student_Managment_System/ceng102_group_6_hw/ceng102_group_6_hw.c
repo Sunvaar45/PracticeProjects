@@ -23,12 +23,13 @@ typedef struct student {
 // prototypes
 void initialize_students_file();
 void add_student();
+STUDENT create_student();
 void print_students(STUDENT students[], int size);
 void search_student_by_number(int student_number);
 void edit_student_by_number(FILE *fp, int student_number);
 void delete_student_by_number(FILE *fp, int student_number);
+void sort_students_by_gpa_desc();
 
-STUDENT create_student();
 void read_all_students_to_array(STUDENT students[], int size);
 void print_student_data(STUDENT student);
 void print_student_header();
@@ -69,6 +70,9 @@ int main()
             search_student_by_number(search_number);
             break;
         case 4:
+            sort_students_by_gpa_desc();
+            break;
+        case 5:
             printf("Exiting...\n");
             return 0;
         default:
@@ -135,6 +139,71 @@ void add_student()
 
     puts("");
     fclose(fp);
+}
+
+STUDENT create_student()
+{
+    STUDENT abortStudent = {0, "", 0, 0, 0, 0.0};
+    STUDENT newStudent;
+
+    // student number
+    printf("Enter student number (between 1-100): ");
+    scanf("%d", &newStudent.student_number);
+    while (getchar() != '\n')
+        ;
+    if (!int_is_in_range(newStudent.student_number, 1, 100))
+    {
+        printf("Invalid student number. Aborting...\n");
+        return abortStudent;
+    }
+
+    // full name
+    int maxNameLength = sizeof(newStudent.full_name) / sizeof(newStudent.full_name[0]);
+    printf("Enter full name (Max %d characters): ", maxNameLength);
+    fgets(newStudent.full_name, sizeof(newStudent.full_name), stdin);
+    int nameLength = strlen(newStudent.full_name);
+    if (nameLength > 0 && newStudent.full_name[nameLength - 1] == '\n')
+    {
+        newStudent.full_name[nameLength - 1] = '\0';
+    }
+
+    // midterm grade
+    printf("Enter midterm grade (between 0-100): ");
+    scanf("%d", &newStudent.midterm_grade);
+    while (getchar() != '\n')
+        ;
+    if (!int_is_in_range(newStudent.midterm_grade, 0, 100))
+    {
+        printf("Invalid midterm grade. Aborting...\n");
+        return abortStudent;
+    }
+
+    // assignment grade
+    printf("Enter assignment grade (between 0-100): ");
+    scanf("%d", &newStudent.assignment_grade);
+    while (getchar() != '\n')
+        ;
+    if (!int_is_in_range(newStudent.assignment_grade, 0, 100))
+    {
+        printf("Invalid assignment grade. Aborting...\n");
+        return abortStudent;
+    }
+
+    // final grade
+    printf("Enter final grade (between 0-100): ");
+    scanf("%d", &newStudent.final_grade);
+    while (getchar() != '\n')
+        ;
+    if (!int_is_in_range(newStudent.final_grade, 0, 100))
+    {
+        printf("Invalid final grade. Aborting...\n");
+        return abortStudent;
+    }
+
+    // GPA calculation
+    newStudent.gpa = (newStudent.midterm_grade * 0.4) + (newStudent.assignment_grade * 0.1) + (newStudent.final_grade * 0.5);
+
+    return newStudent;
 }
 
 void print_students(STUDENT students[], int size)
@@ -270,68 +339,12 @@ void delete_student_by_number(FILE *fp, int search_number)
     printf("Student with number %d has been deleted.\n", search_number);
 }
 
-// helper functions
-STUDENT create_student()
+void sort_students_by_gpa_desc()
 {
-    STUDENT abortStudent = {0, "", 0, 0, 0, 0.0};
-    STUDENT newStudent;
-
-    // student number
-    printf("Enter student number (between 1-100): ");
-    scanf("%d", &newStudent.student_number);
-    while (getchar() != '\n');
-    if (!int_is_in_range(newStudent.student_number, 1, 100))
-    {
-        printf("Invalid student number. Aborting...\n");
-        return abortStudent;
-    }
-
-    // full name
-    int maxNameLength = sizeof(newStudent.full_name) / sizeof(newStudent.full_name[0]);
-    printf("Enter full name (Max %d characters): ", maxNameLength);
-    fgets(newStudent.full_name, sizeof(newStudent.full_name), stdin);
-    int nameLength = strlen(newStudent.full_name);
-    if (nameLength > 0 && newStudent.full_name[nameLength - 1] == '\n')
-    {
-        newStudent.full_name[nameLength - 1] = '\0';
-    }    
-
-    // midterm grade
-    printf("Enter midterm grade (between 0-100): ");
-    scanf("%d", &newStudent.midterm_grade);
-    while (getchar() != '\n');
-    if (!int_is_in_range(newStudent.midterm_grade, 0, 100))
-    {
-        printf("Invalid midterm grade. Aborting...\n");
-        return abortStudent;
-    }
-
-    // assignment grade
-    printf("Enter assignment grade (between 0-100): ");
-    scanf("%d", &newStudent.assignment_grade);
-    while (getchar() != '\n');
-    if (!int_is_in_range(newStudent.assignment_grade, 0, 100))
-    {
-        printf("Invalid assignment grade. Aborting...\n");
-        return abortStudent;
-    }
-
-    // final grade
-    printf("Enter final grade (between 0-100): ");
-    scanf("%d", &newStudent.final_grade);
-    while (getchar() != '\n');
-    if (!int_is_in_range(newStudent.final_grade, 0, 100))
-    {
-        printf("Invalid final grade. Aborting...\n");
-        return abortStudent;
-    }
-
-    // GPA calculation
-    newStudent.gpa = (newStudent.midterm_grade * 0.4) + (newStudent.assignment_grade * 0.1) + (newStudent.final_grade * 0.5);
-
-    return newStudent;
+    // to be implemented
 }
 
+// helper functions
 void read_all_students_to_array(STUDENT students[], int size)
 {
     FILE *fp = fopen(STUDENTS_FILE, "rb");
@@ -377,7 +390,8 @@ void print_main_menu()
     printf("Add Student (1)\n");
     printf("Print Students (2)\n");
     printf("Search Student (3)\n");
-    printf("Exit (4)\n");
+    printf("Sort Students by descending GPA (4)\n");
+    printf("Exit (5)\n");
 }
 
 void print_edit_delete_menu()
