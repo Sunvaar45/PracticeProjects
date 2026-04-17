@@ -150,16 +150,15 @@ STUDENT create_student()
 {
     STUDENT newStudent = {1, "", 0, 0, 0, 0.0};
 
-    do
-    { // student number
-        if (!int_is_in_range(newStudent.student_number, 1, 100))
-        {
-            printf("Invalid student number. Please try again.\n");
-        }
-        printf("Enter student number (between 1-100): ");
-        scanf("%d", &newStudent.student_number);
-        while (getchar() != '\n');
-    } while (!int_is_in_range(newStudent.student_number, 1, 100));
+    // student number
+    printf("Enter student number (between 1-100): ");
+    scanf("%d", &newStudent.student_number);
+    while (getchar() != '\n');
+    if (!int_is_in_range(newStudent.student_number, 1, 100))
+    {
+        printf("Invalid student number. Aborting...\n");
+        return;
+    }
 
     // full name
     int maxNameLength = sizeof(newStudent.full_name) / sizeof(newStudent.full_name[0]);
@@ -169,40 +168,37 @@ STUDENT create_student()
     if (nameLength > 0 && newStudent.full_name[nameLength - 1] == '\n')
     {
         newStudent.full_name[nameLength - 1] = '\0';
+    }    
+
+    // midterm grade
+    printf("Enter midterm grade (between 0-100): ");
+    scanf("%d", &newStudent.midterm_grade);
+    while (getchar() != '\n');
+    if (!int_is_in_range(newStudent.midterm_grade, 0, 100))
+    {
+        printf("Invalid midterm grade. Aborting...\n");
+        return;
     }
 
-    do
-    { // midterm grade
-        if (!int_is_in_range(newStudent.midterm_grade, 0, 100))
-        {
-            printf("Invalid midterm grade. Please try again.\n");
-        }
-        printf("Enter midterm grade (between 0-100): ");
-        scanf("%d", &newStudent.midterm_grade);
-        while (getchar() != '\n');
-    } while (!int_is_in_range(newStudent.midterm_grade, 0, 100));
+    // assignment grade
+    printf("Enter assignment grade (between 0-100): ");
+    scanf("%d", &newStudent.assignment_grade);
+    while (getchar() != '\n');
+    if (!int_is_in_range(newStudent.assignment_grade, 0, 100))
+    {
+        printf("Invalid assignment grade. Aborting...\n");
+        return;
+    }
 
-    do
-    { // assignment grade
-        if (!int_is_in_range(newStudent.assignment_grade, 0, 100))
-        {
-            printf("Invalid assignment grade. Please try again.\n");
-        }
-        printf("Enter assignment grade (between 0-100): ");
-        scanf("%d", &newStudent.assignment_grade);
-        while (getchar() != '\n');
-    } while (!int_is_in_range(newStudent.assignment_grade, 0, 100));
-
-    do
-    { // final grade
-        if (!int_is_in_range(newStudent.final_grade, 0, 100))
-        {
-            printf("Invalid final grade. Please try again.\n");
-        }
-        printf("Enter final grade (between 0-100): ");
-        scanf("%d", &newStudent.final_grade);
-        while (getchar() != '\n');
-    } while (!int_is_in_range(newStudent.final_grade, 0, 100));
+    // final grade
+    printf("Enter final grade (between 0-100): ");
+    scanf("%d", &newStudent.final_grade);
+    while (getchar() != '\n');
+    if (!int_is_in_range(newStudent.final_grade, 0, 100))
+    {
+        printf("Invalid final grade. Aborting...\n");
+        return;
+    }
 
     // GPA calculation
     newStudent.gpa = (newStudent.midterm_grade * 0.4) + (newStudent.assignment_grade * 0.1) + (newStudent.final_grade * 0.5);
