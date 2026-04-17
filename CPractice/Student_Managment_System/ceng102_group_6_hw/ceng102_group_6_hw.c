@@ -29,7 +29,7 @@ void search_student_by_number(int student_number);
 
 STUDENT create_student();
 void read_all_students_to_array(STUDENT students[], int size);
-void print_student(STUDENT student);
+void print_student_data(STUDENT student);
 void print_student_header();
 int int_is_in_range(int num, int min, int max);
 
@@ -145,14 +145,7 @@ void print_students(STUDENT students[], int size)
     {
         if (students[i].student_number != 0)
         {
-            // printf("%-20d %-50s %-20d %-20d %-20d %-20.2lf\n",
-            //        students[i].student_number,
-            //        students[i].full_name,
-            //        students[i].midterm_grade,
-            //        students[i].assignment_grade,
-            //        students[i].final_grade,
-            //        students[i].gpa);
-            print_student(students[i]);
+            print_student_data(students[i]);
         }
     }
 }
@@ -176,7 +169,7 @@ void search_student_by_number(int search_number)
     if (student.student_number == search_number)
     {
         print_student_header();
-        print_student(student);
+        print_student_data(student);
     }
     else
     {
@@ -266,7 +259,7 @@ void print_student_header()
            "Student Number", "Full Name", "Midterm Grade", "Assignment Grade", "Final Grade", "GPA");
 }
 
-void print_student(STUDENT student)
+void print_student_data(STUDENT student)
 {
     printf("%-20d %-50s %-20d %-20d %-20d %-20.2lf\n",
            student.student_number,
