@@ -102,7 +102,11 @@ void initialize_students_file()
 void add_student()
 {
     STUDENT student = create_student();
-    STUDENT placeholderStudent;
+    if (student.student_number == 0)
+    {
+        puts("");
+        return;
+    }
 
     FILE *fp = fopen(STUDENTS_FILE, "rb+");
     if (fp == NULL)
@@ -114,6 +118,7 @@ void add_student()
     int index = student.student_number;
 
     // check if the student number already exists
+    STUDENT placeholderStudent;
     fseek(fp, index * sizeof(STUDENT), SEEK_SET);
     fread(&placeholderStudent, sizeof(STUDENT), 1, fp);
     if (placeholderStudent.student_number != 0)
@@ -258,7 +263,11 @@ void edit_student_by_number(FILE *fp, int search_number)
 void delete_student_by_number(FILE *fp, int search_number)
 {
     // to be implemented
-    
+    STUDENT emptyStudent = {0, "", 0, 0, 0, 0.0};
+    int searchIndex = search_number % MAX_STUDENTS;
+    fseek(fp, searchIndex * sizeof(STUDENT), SEEK_SET);
+    fwrite(&emptyStudent, sizeof(STUDENT), 1, fp);
+    printf("Student with number %d has been deleted.\n", search_number);
 }
 
 // helper functions
