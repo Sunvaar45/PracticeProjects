@@ -8,7 +8,8 @@
 */
 
 #define STUDENTS_FILE "students.dat"
-#define MAX_STUDENTS 100
+#define MAX_STUDENTS 101
+#define FILE_ERROR_MSG "File could not be opened. Aborting...\n"
 
 typedef struct student {
     int student_number;
@@ -24,6 +25,7 @@ void initialize_students_file();
 void print_menu();
 void add_student();
 void print_students(STUDENT students[], int size);
+void search_student_by_number(int student_number);
 
 STUDENT create_student();
 void read_all_students_to_array(STUDENT students[], int size);
@@ -54,8 +56,15 @@ int main()
             break;
         }
         case 3:
+            printf("Enter student number to search: ");
+            int search_number;
+            scanf("%d", &search_number);
+            while (getchar() != '\n');
+            search_student_by_number(search_number);
+            break;
+        case 4:
             printf("Exiting...\n");
-            return;
+            return 0;
         default:
             printf("Invalid choice. Please try again.\n");
             break;
@@ -70,7 +79,7 @@ void initialize_students_file()
     FILE *fp = fopen(STUDENTS_FILE, "wb");
     if (fp == NULL)
     {
-        printf("Error\n");
+        printf(FILE_ERROR_MSG);
         return;
     }
 
@@ -89,7 +98,8 @@ void print_menu()
 {
     printf("Add Student (1)\n");
     printf("Print Students (2)\n");
-    printf("Exit (3)\n");
+    printf("Search Student (3)\n");
+    printf("Exit (4)\n");
 }
 
 void add_student()
@@ -100,11 +110,11 @@ void add_student()
     FILE *fp = fopen(STUDENTS_FILE, "rb+");
     if (fp == NULL)
     {
-        printf("Error\n");
+        printf(FILE_ERROR_MSG);
         return;
     }
 
-    int index = student.student_number % MAX_STUDENTS;
+    int index = student.student_number;
 
     // check if the student number already exists
     fseek(fp, index * sizeof(STUDENT), SEEK_SET);
@@ -145,10 +155,37 @@ void print_students(STUDENT students[], int size)
     }
 }
 
+void search_student_by_number(int search_number)
+{
+    FILE *fp = fopen(STUDENTS_FILE, "rb");
+    if (fp == NULL)
+    {
+        printf(FILE_ERROR_MSG);
+        return;
+    }
+
+    // find student by number
+    STUDENT student;
+    int searchIndex = search_number % MAX_STUDENTS;
+    fseek(fp, searchIndex * sizeof(STUDENT), SEEK_SET);
+    fread(&student, sizeof(STUDENT), 1, fp);
+
+    // check if the student number matches the search number
+    if (student.student_number == search_number)
+    {
+        print_students(&student, 1);
+    }
+    else
+    {
+        printf("Student with number %d not found. Aborting...\n", search_number);
+    }
+}
+
 // helper functions
 STUDENT create_student()
 {
-    STUDENT newStudent = {1, "", 0, 0, 0, 0.0};
+    STUDENT abortStudent = {0, "", 0, 0, 0, 0.0};
+    STUDENT newStudent;
 
     // student number
     printf("Enter student number (between 1-100): ");
@@ -157,7 +194,7 @@ STUDENT create_student()
     if (!int_is_in_range(newStudent.student_number, 1, 100))
     {
         printf("Invalid student number. Aborting...\n");
-        return;
+        return abortStudent;
     }
 
     // full name
@@ -177,7 +214,7 @@ STUDENT create_student()
     if (!int_is_in_range(newStudent.midterm_grade, 0, 100))
     {
         printf("Invalid midterm grade. Aborting...\n");
-        return;
+        return abortStudent;
     }
 
     // assignment grade
@@ -187,7 +224,7 @@ STUDENT create_student()
     if (!int_is_in_range(newStudent.assignment_grade, 0, 100))
     {
         printf("Invalid assignment grade. Aborting...\n");
-        return;
+        return abortStudent;
     }
 
     // final grade
@@ -197,7 +234,7 @@ STUDENT create_student()
     if (!int_is_in_range(newStudent.final_grade, 0, 100))
     {
         printf("Invalid final grade. Aborting...\n");
-        return;
+        return abortStudent;
     }
 
     // GPA calculation
@@ -211,7 +248,7 @@ void read_all_students_to_array(STUDENT students[], int size)
     FILE *fp = fopen(STUDENTS_FILE, "rb");
     if (fp == NULL)
     {
-        printf("Error\n");
+        printf(FILE_ERROR_MSG);
         return;
     }
 
@@ -228,4 +265,3 @@ int int_is_in_range(int num, int min, int max)
     }
     return 1;
 }
-
