@@ -25,6 +25,8 @@ void initialize_students_file();
 void add_student();
 void print_students(STUDENT students[], int size);
 void search_student_by_number(int student_number);
+void edit_student_by_number(FILE *fp, int student_number);
+void delete_student_by_number(FILE *fp, int student_number);
 
 STUDENT create_student();
 void read_all_students_to_array(STUDENT students[], int size);
@@ -65,29 +67,6 @@ int main()
             while (getchar() != '\n');
 
             search_student_by_number(search_number);
-            print_edit_delete_menu();
-
-            int editDeleteChoice;
-            printf("Enter your choice: ");
-            scanf("%d", &editDeleteChoice);
-            while (getchar() != '\n');
-
-            switch (editDeleteChoice)
-            {
-            case 1:
-                // Edit student
-                break;
-            case 2:
-                // Delete student
-                break;
-            case 3:
-                // Return to main menu
-                break;
-            
-            default:
-                break;
-            }
-
             break;
         case 4:
             printf("Exiting...\n");
@@ -96,7 +75,6 @@ int main()
             printf("Invalid choice. Please try again.\n");
             break;
         }
-        puts("");
     }
 }
 
@@ -150,6 +128,7 @@ void add_student()
     printf("Adding student with number %d...\n", student.student_number);
     fwrite(&student, sizeof(STUDENT), 1, fp);
 
+    puts("");
     fclose(fp);
 }
 
@@ -165,11 +144,12 @@ void print_students(STUDENT students[], int size)
             print_student_data(students[i]);
         }
     }
+    puts("");
 }
 
 void search_student_by_number(int search_number)
 {
-    FILE *fp = fopen(STUDENTS_FILE, "rb");
+    FILE *fp = fopen(STUDENTS_FILE, "rb+");
     if (fp == NULL)
     {
         printf(FILE_ERROR_MSG);
@@ -187,12 +167,98 @@ void search_student_by_number(int search_number)
     {
         print_student_header();
         print_student_data(student);
+        puts("");
+        print_edit_delete_menu();
+
+        int editDeleteChoice;
+        printf("Enter your choice: ");
+        scanf("%d", &editDeleteChoice);
+        while (getchar() != '\n');
+
+        switch (editDeleteChoice)
+        {
+        case 1:
+            edit_student_by_number(fp, search_number);
+            break;
+        case 2:
+            delete_student_by_number(fp, search_number);
+            break;
+        case 3:
+            // Return to main menu
+            break;
+        default:
+            break;
+        }
     }
     else
     {
         printf("Student with number %d not found. Aborting...\n", search_number);
     }
+
     puts("");
+    fclose(fp);
+}
+
+void edit_student_by_number(FILE *fp, int search_number)
+{
+    STUDENT student;
+
+    // student number
+    student.student_number = search_number;
+
+    // fullname
+    int maxNameLength = sizeof(student.full_name) / sizeof(student.full_name[0]);
+    printf("Enter full name (Max %d characters): ", maxNameLength);
+    fgets(student.full_name, sizeof(student.full_name), stdin);
+    int nameLength = strlen(student.full_name);
+    if (nameLength > 0 && student.full_name[nameLength - 1] == '\n')
+    {
+        student.full_name[nameLength - 1] = '\0';
+    }
+
+    // midterm grade
+    printf("Enter midterm grade (between 0-100): ");
+    scanf("%d", &student.midterm_grade);
+    while (getchar() != '\n');
+    if (!int_is_in_range(student.midterm_grade, 0, 100))
+    {
+        printf("Invalid midterm grade. Aborting...\n");
+        return;
+    }
+
+    // assignment grade
+    printf("Enter assignment grade (between 0-100): ");
+    scanf("%d", &student.assignment_grade);
+    while (getchar() != '\n');
+    if (!int_is_in_range(student.assignment_grade, 0, 100))
+    {
+        printf("Invalid assignment grade. Aborting...\n");
+        return;
+    }
+
+    // final grade
+    printf("Enter final grade (between 0-100): ");
+    scanf("%d", &student.final_grade);
+    while (getchar() != '\n');
+    if (!int_is_in_range(student.final_grade, 0, 100))
+    {
+        printf("Invalid final grade. Aborting...\n");
+        return;
+    }
+
+    // gpa calculation
+    student.gpa = (student.midterm_grade * 0.4) + (student.assignment_grade * 0.1) + (student.final_grade * 0.5);
+
+    int searchIndex = search_number % MAX_STUDENTS;
+    fseek(fp, searchIndex * sizeof(STUDENT), SEEK_SET);
+    fwrite(&student, sizeof(STUDENT), 1, fp);
+    printf("Student with number %d has been updated.\n", student.student_number);
+}
+
+void delete_student_by_number(FILE *fp, int search_number)
+{
+    // to be implemented
+    
 }
 
 // helper functions
