@@ -22,7 +22,6 @@ typedef struct student {
 
 // prototypes
 void initialize_students_file();
-void print_menu();
 void add_student();
 void print_students(STUDENT students[], int size);
 void search_student_by_number(int student_number);
@@ -32,6 +31,8 @@ void read_all_students_to_array(STUDENT students[], int size);
 void print_student_data(STUDENT student);
 void print_student_header();
 int int_is_in_range(int num, int min, int max);
+void print_main_menu();
+void print_edit_delete_menu();
 
 int main()
 {
@@ -39,7 +40,7 @@ int main()
 
     while (1)
     {
-        print_menu();
+        print_main_menu();
 
         int choice;
         printf("Enter your choice: ");
@@ -62,7 +63,31 @@ int main()
             int search_number;
             scanf("%d", &search_number);
             while (getchar() != '\n');
+
             search_student_by_number(search_number);
+            print_edit_delete_menu();
+
+            int editDeleteChoice;
+            printf("Enter your choice: ");
+            scanf("%d", &editDeleteChoice);
+            while (getchar() != '\n');
+
+            switch (editDeleteChoice)
+            {
+            case 1:
+                // Edit student
+                break;
+            case 2:
+                // Delete student
+                break;
+            case 3:
+                // Return to main menu
+                break;
+            
+            default:
+                break;
+            }
+
             break;
         case 4:
             printf("Exiting...\n");
@@ -94,14 +119,6 @@ void initialize_students_file()
     fwrite(students, sizeof(STUDENT), MAX_STUDENTS, fp);
 
     fclose(fp);
-}
-
-void print_menu()
-{
-    printf("Add Student (1)\n");
-    printf("Print Students (2)\n");
-    printf("Search Student (3)\n");
-    printf("Exit (4)\n");
 }
 
 void add_student()
@@ -175,6 +192,7 @@ void search_student_by_number(int search_number)
     {
         printf("Student with number %d not found. Aborting...\n", search_number);
     }
+    puts("");
 }
 
 // helper functions
@@ -277,4 +295,19 @@ int int_is_in_range(int num, int min, int max)
         return 0;
     }
     return 1;
+}
+
+void print_main_menu()
+{
+    printf("Add Student (1)\n");
+    printf("Print Students (2)\n");
+    printf("Search Student (3)\n");
+    printf("Exit (4)\n");
+}
+
+void print_edit_delete_menu()
+{
+    printf("Edit Student (1)\n");
+    printf("Delete Student (2)\n");
+    printf("Return to Main Menu (3)\n");
 }
