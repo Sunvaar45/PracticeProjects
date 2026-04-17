@@ -21,6 +21,7 @@ typedef struct student {
 
 // prototypes
 void initialize_students_file();
+void print_menu();
 void add_student();
 void print_students(STUDENT students[], int size);
 
@@ -32,11 +33,35 @@ int main()
 {
     initialize_students_file();
 
-    add_student();
-    add_student();
+    while (1)
+    {
+        print_menu();
 
-    STUDENT students[MAX_STUDENTS];
-    print_students(students, MAX_STUDENTS);
+        int choice;
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        while (getchar() != '\n');
+
+        switch (choice)
+        {
+        case 1:
+            add_student();
+            break;
+        case 2:
+        {
+            STUDENT students[MAX_STUDENTS];
+            print_students(students, MAX_STUDENTS);
+            break;
+        }
+        case 3:
+            printf("Exiting...\n");
+            return;
+        default:
+            printf("Invalid choice. Please try again.\n");
+            break;
+        }
+        puts("");
+    }
 }
 
 // main functions
@@ -58,6 +83,13 @@ void initialize_students_file()
     fwrite(students, sizeof(STUDENT), MAX_STUDENTS, fp);
 
     fclose(fp);
+}
+
+void print_menu()
+{
+    printf("Add Student (1)\n");
+    printf("Print Students (2)\n");
+    printf("Exit (3)\n");
 }
 
 void add_student()
