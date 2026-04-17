@@ -1,11 +1,11 @@
+// Group 6
+// 250401107 - İsmail Kalay
+// 250401106 - Hamza Aşıkoğlu
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-
-/*
-    to-do:
-*/
 
 #define STUDENTS_FILE "students.dat"
 #define MAX_STUDENTS 101
@@ -39,7 +39,17 @@ void print_edit_delete_menu();
 
 int main()
 {
-    initialize_students_file();
+    // check if students file exists, if not create it
+    FILE *fp = fopen(STUDENTS_FILE, "rb");
+    if (fp == NULL)
+    {
+        printf("Students file not found. Initializing new file...\n");
+        initialize_students_file();
+    }
+    else
+    {
+        fclose(fp);
+    }
 
     while (1)
     {
@@ -121,7 +131,7 @@ void add_student()
         return;
     }
 
-    int index = student.student_number;
+    int index = student.student_number % MAX_STUDENTS;
 
     // check if the student number already exists
     STUDENT placeholderStudent;
