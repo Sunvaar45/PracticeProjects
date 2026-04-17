@@ -58,6 +58,7 @@ int main()
         case 2:
         {
             STUDENT students[MAX_STUDENTS];
+            read_all_students_to_array(students, MAX_STUDENTS);
             print_students(students, MAX_STUDENTS);
             break;
         }
@@ -77,6 +78,7 @@ int main()
             return 0;
         default:
             printf("Invalid choice. Please try again.\n");
+            puts("");
             break;
         }
     }
@@ -208,8 +210,6 @@ STUDENT create_student()
 
 void print_students(STUDENT students[], int size)
 {
-    read_all_students_to_array(students, size);
-
     print_student_header();
     for (int i = 0; i < size; i++)
     {
@@ -341,7 +341,44 @@ void delete_student_by_number(FILE *fp, int search_number)
 
 void sort_students_by_gpa_desc()
 {
-    // to be implemented
+    STUDENT students[MAX_STUDENTS];
+    read_all_students_to_array(students, MAX_STUDENTS);
+
+    // simple bubble sort
+    for (int i = 0; i < MAX_STUDENTS - 1; i++)
+    {
+        for (int j = 0; j < MAX_STUDENTS - 1; j++)
+        {
+            if (students[j].gpa < students[j + 1].gpa)
+            {
+                STUDENT temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+
+    print_students(students, MAX_STUDENTS);
+
+    int saveChoice;
+    printf("Would you like to save the sorted list to a file? (1=Yes/0=No): ");
+    scanf("%d", &saveChoice);
+    while (getchar() != '\n');
+
+    if (saveChoice == 1)
+    {
+        FILE *fp = fopen("sorted_students.dat", "wb");
+        if (fp == NULL)
+        {
+            printf(FILE_ERROR_MSG);
+            return;
+        }
+
+        fwrite(students, sizeof(STUDENT), MAX_STUDENTS, fp);
+        fclose(fp);
+        printf("Sorted list saved to sorted_students.dat\n");
+    }
+    puts("");
 }
 
 // helper functions
