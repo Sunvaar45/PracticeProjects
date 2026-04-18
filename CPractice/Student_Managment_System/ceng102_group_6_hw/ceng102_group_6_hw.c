@@ -254,7 +254,7 @@ void search_student_by_number(int search_number)
         puts("");
         print_edit_delete_menu();
 
-        int editDeleteChoice;
+        int editDeleteChoice = 0;
         printf("Enter your choice: ");
         scanf("%d", &editDeleteChoice);
         while (getchar() != '\n');
