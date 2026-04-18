@@ -55,7 +55,7 @@ int main()
     {
         print_main_menu();
 
-        int choice;
+        int choice = 0;
         printf("Enter your choice: ");
         scanf("%d", &choice);
         while (getchar() != '\n');
