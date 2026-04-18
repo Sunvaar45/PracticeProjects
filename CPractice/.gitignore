@@ -1,19 +1,31 @@
-# Windows Çalıştırılabilir Dosyaları
+# Windows Executables
 *.exe
 *.dll
 *.iso
 
-# Nesne Dosyaları (Derleme ara dosyaları)
+# Linux/macOS Executables
+*.out
+*.app
+
+# Object Files (Intermediate build files)
 *.o
 *.obj
 
-# Önceki ekran görüntünde gördüğüm derleme klasörleri
+# Build Directories
 bin/
 obj/
 
-# VS Code Yerel Ayarları (Opsiyonel: Takım çalışması yapmıyorsan bunları da yollama)
+# Data and Documentation (Ignore assignment files and student databases)
+*.dat
+*.pdf
+
+# VS Code Settings (Optional: Ignore local IDE configurations)
 .vscode/
 
-# Sistem dosyaları
+# System Files
 Thumbs.db
 .DS_Store
+
+# Debug artifacts
+*.pdb
+*.ilk
