@@ -1,0 +1,31 @@
+Database Name: AttendanceDB
+
+Instructors
+- InstructorID (PK, int)
+- FirstName (varchar(20))
+- LastName (varchar(20))
+
+Students
+- StudentID (PK, int)
+- FirstName (varchar(20))
+- LastName (varchar(20))
+- StudentNumber (varchar(20))
+
+Classes
+- ClassID (PK, int)
+- ClassName (varchar(20))
+- InstructorID (FK, int) 1:N
+
+ClassStudents (Junction) N:N
+- ClassID (FK, int)
+- StudentID (FK, int) 
+
+Sessions
+- SessionID (PK, int)
+- ClassID (FK, int)
+- SessionDate (date veya datetime2)
+
+Attendances (Junction Table)
+- SessionID (FK, int)
+- StudentID (FK, int)
+- IsPresent (bit)

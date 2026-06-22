@@ -6,7 +6,7 @@
 | int | -2^31 to 2^31 - 1 | 4 byte | |
 | bigint | -2^63 to 2^63 - 1 | 8 byte | |
 | bit | 0, 1 or NULL | 1 bit | boolean cases |
-| decimal(p, s) | p = total digits, s = decimals | 5 to 17 bytes | w<hen exact precision is required |
+| decimal(p, s) | p = total digits, s = decimals | 5 to 17 bytes | when exact precision is required |
 | real | Approximate (7 digit precision) | 4 bytes | when exact precision isn't required |
 | float | Approximate (15 digit precision) | 8 bytes | when exact precision isn't required |
 | money | -922,337,203,685,477.5808 to 922,337,203,685,477.5807 | 8 bytes | currency, can use currency prefixes |
