@@ -1,0 +1,6 @@
+- SIS için DB tasarımının ilk iterasyonu bitti
+    - User, student, instructor tabloları ve ilişkilerini yaptım
+    - Department, Program, Course tabloları ve ilişkileri yaptım
+    - Slot, Pattern mantığı entegre ettim
+
+- Yarın mock veriler gireceğim

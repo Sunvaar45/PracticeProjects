@@ -1,0 +1,105 @@
+Database Name: SIS (Student Information System)
+
+Legend:
+*AuditColumns: track history without permanent information loss on main entity tables 
+    - CreaUser (int)
+    - CreaDate (datetime2)
+    - ModUser (int)
+    - ModDate (datetime2)
+    - IsActive (bit)
+    - Tombstone (datetime2) 
+
+*Main Entity Tables: Users, Instructors, Departments, Programs, Students, Courses
+*Junction Tables: Handles N:N relationships
+
+Users (Main Entity)
+- UserID (PK, int)
+- FirstName (nvarchar(50))
+- LastName (nvarchar(50))
+- Gender (tinyint)
+- PhoneNumber (char(11))
+- Mail (nvarchar(50))
+- Address (nvarchar(100))
+- TcNo (char(11))
+- *AuditColumns
+
+Instructors (Main Entity)
+- InstructorID (PK, int)
+- UserID (FK, int, UNIQUE) -> links to Users.UserID // link single instructor to single user 1:1
+- DepartmentID (FK, int) -> links to Departments.DepartmentID // link multiple instructors to single department 1:N
+- MailSchool (nvarchar(50))
+- *AuditColumns
+
+Students (Main Entity)
+- StudentID (PK, int)
+- UserID (FK, int, UNIQUE) -> links to Users.UserID // link single student to single user 1:1
+- ProgramID (FK, int) -> links to Programs.ProgramID // link multiple students to single program 1:N
+- StudentNumber (varchar(50))
+- *AuditColumns
+
+Departments (Main Entity)
+- DepartmentID (PK, int)
+- DepartmentName (nvarchar(100))
+- *AuditColumns
+
+Programs (Main Entity)
+- ProgramID (PK, int)
+- DepartmentID (FK, int) -> links to Departments.DepartmentID // link multiple programs to single department 1:N
+- ProgramName (nvarchar(100))
+- *AuditColumns
+
+Courses (Main Entity)
+- CourseID (PK, int)
+- CourseName (nvarchar(50))
+- PatternID (FK, int)
+- *AuditColumns
+
+ProgramCoureses (Junction) // link multiple courses to multiple programs N:N
+- ID (PK, int)
+- ProgramID (FK, int)
+- CourseID (FK, int)
+- *AuditColumns
+
+CourseInstructors (Junction) // N:N
+- ID (PK, int)
+- CourseID (FK, Int)
+- InstructorID (FK, int)
+- *AuditColumns
+
+CourseStudents (Junction) // N:N
+- ID (PK, int)
+- CourseID (FK, int)
+- StudentID (FK, int) 
+- *AuditColumns
+
+Sessions (Main Entity)
+- SessionID (PK, int)
+- CourseID (FK, int)
+- SlotID (FK, int)
+- IsOpenForAttendance (bit)
+- *AuditColumns
+
+SessionAttendance (Junction Table)
+- ID (PK, int)
+- SessionID (FK, int)
+- StudentID (FK, int)
+- IsPresent (bit)
+- *AuditColumns
+
+Slots
+- SlotID (PK, int)
+- DayOfWeek (varchar(3))
+- HourOfDay (tinyint)
+
+Patterns
+- PatternID (PK, int)
+- PatternCode (varchar100) -> Mon1,Mon2,Mon3...
+- Type (varchar(10)) -> 2+1 | 3+0
+- SlotSum (tinyint)
+- *AuditColumns
+
+PatternSlots (Junction) // N:N
+- ID (PK, int)
+- PatternID (FK, int)
+- SlotID (FK, int)
+- *AuditColumns
