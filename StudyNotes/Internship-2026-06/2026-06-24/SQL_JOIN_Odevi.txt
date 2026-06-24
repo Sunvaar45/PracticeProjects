@@ -1,0 +1,319 @@
+
+========================================================================
+BÖLÜM 1 — TEMEL JOIN (2 TABLO)
+========================================================================
+
+GÖREV 1 — Öğrenci-Kullanıcı Birleştirme
+------------------------------------------------------------------------
+Öğrenci kayıtları "Students" tablosunda, ancak isim ve soyisim gibi
+kişisel bilgiler "Users" tablosunda tutuluyor. Students.UserID alanını
+Users.UserID ile birleştirerek tüm öğrencilerin öğrenci numarasını,
+adını ve soyadını listele.
+
+Bu görevle bir tablodaki yabancı anahtarın (foreign key) başka bir
+tablonun birincil anahtarına (primary key) nasıl bağlandığını kavrayacaksın.
+
+
+GÖREV 2 — Ders-Pattern Birleştirme
+------------------------------------------------------------------------
+Her dersin bir PatternID değeri var; bu, dersin haftalık ders programı
+kalıbına işaret ediyor. Courses.PatternID ile Patterns.PatternID
+alanlarını birleştirerek her dersin adını ve ait olduğu pattern kodunu
+yan yana getir.
+
+Tek bir basit ilişki üzerinden JOIN mantığını pekiştireceksin.
+
+
+========================================================================
+BÖLÜM 2 — ÇOKLU JOIN (3 TABLO)
+========================================================================
+
+GÖREV 3 — Eğitmen-Bölüm Birleştirme
+------------------------------------------------------------------------
+Eğitmenin kişisel bilgisi "Users" tablosunda, bağlı olduğu bölüm bilgisi
+"Departments" tablosunda, ikisini birbirine bağlayan kayıt ise
+"Instructors" tablosunda. Instructors tablosunu hem Users'a hem de
+Departments'a bağlayarak her eğitmenin ad-soyadını ve bölüm adını listele.
+
+Birden fazla JOIN'i zincirleme kullanmayı öğreneceksin.
+
+
+GÖREV 4 — Öğrenci-Ders Kayıtları (Ara Tablo)
+------------------------------------------------------------------------
+Bir öğrenci birden çok derse, bir ders de birden çok öğrenciye kayıtlı
+olabilir. Bu çoka-çok ilişki "CourseStudents" ara tablosuyla çözülmüş.
+CourseStudents tablosunu hem Students'a (oradan Users'a) hem de Courses'a
+bağlayarak "hangi öğrenci hangi derse kayıtlı" sorusunu yanıtla.
+Sonuçta öğrenci adı ve ders adı görünmeli.
+
+Bu görev ara tablo (junction table) kavramını anlaman için kritik.
+
+
+GÖREV 5 — Ders Veren Eğitmenler
+------------------------------------------------------------------------
+"CourseInstructors" ara tablosu eğitmenlerle dersleri eşleştiriyor. Bu
+tabloyu Instructors -> Users ve Courses ile birleştirerek her dersi
+hangi eğitmenin verdiğini ad-soyad olarak listele.
+
+4. görevdeki ara tablo mantığını farklı bir varlık üzerinde tekrar
+ederek pekiştireceksin.
+
+
+GÖREV 6 — Program-Ders İlişkisi
+------------------------------------------------------------------------
+"ProgramCourses" tablosu hangi programın hangi dersleri içerdiğini tutar.
+Bu tabloyu Programs ve Courses ile birleştirerek program adı ve ders adı
+çiftlerini listele.
+
+Bir programın müfredatını sorguyla çıkarmayı öğreneceksin.
+
+
+========================================================================
+BÖLÜM 3 — İLERİ JOIN (4+ TABLO VE FİLTRELEME)
+========================================================================
+
+GÖREV 7 — Ders Programı (Slot) Sorgusu
+------------------------------------------------------------------------
+Bir dersin haftanın hangi gün ve saatinde işlendiği "Slots" tablosunda
+(DayOfWeek, HourOfDay), bunların hangi pattern'e ait olduğu ise
+"PatternSlots" ara tablosunda. Önce dersin pattern'ini bul
+(Courses -> Patterns), ardından PatternSlots -> Slots zinciriyle o
+pattern'e ait tüm gün/saat dilimlerini listele.
+
+Dört tabloluk anlamlı bir zincir kurmayı öğreneceksin.
+
+
+GÖREV 8 — Yoklama Detayı
+------------------------------------------------------------------------
+Yoklama kayıtları "SessionAttendances" tablosunda; her kayıt bir oturuma
+(Sessions) ve bir öğrenciye (Students) bağlı. Belirli bir oturumda
+yoklamaya katılan (IsPresent = 1) öğrencilerin adlarını getir.
+SessionAttendances -> Sessions -> Courses ve
+SessionAttendances -> Students -> Users şeklinde iki kol birden kuracaksın.
+
+Gerçek bir iş senaryosunu modelleyen ilk ileri görevin.
+
+
+GÖREV 9 — Devamsızlık Raporu
+------------------------------------------------------------------------
+8. görevin tersine, seçtiğin bir öğrencinin IsPresent = 0 olan tüm
+oturumlarını; ders adı ve oturum tarihiyle birlikte listele.
+
+Filtreleme (WHERE) ile JOIN'i birlikte kullanmayı ve belirli bir
+öğrenciyi parametreyle süzmeyi öğreneceksin.
+
+ders adı | slot ve kayıt tarihi | giren ogr sayısı | girmeyen ogr sayısı 
+
+
+GÖREV 10 — Ders Başına Öğrenci Sayısı
+------------------------------------------------------------------------
+CourseStudents tablosu üzerinden her ders için kaç öğrencinin kayıtlı
+olduğunu hesapla. Burada GROUP BY ve COUNT fonksiyonunu JOIN ile birlikte
+kullanman gerekiyor. Sonuçta ders adı ve öğrenci sayısı görünmeli.
+
+Sadece satır getirmekle kalmayıp özet bilgi üretmeyi öğreneceksin.
+
+
+GÖREV 11 — Eğitmen İş Yükü
+------------------------------------------------------------------------
+Her eğitmenin kaç farklı derste görev aldığını CourseInstructors
+üzerinden GROUP BY ve COUNT(DISTINCT CourseID) ile çıkar. Eğitmen adını
+da Users tablosundan getir.
+
+Gruplamayı JOIN'lerle harmanlama becerini derinleştireceksin.
+
+
+GÖREV 12 — Karma Yoklama Yüzdesi (EN ZOR / BİTİRME GÖREVİ)
+------------------------------------------------------------------------
+Seçtiğin bir programdaki öğrencilerin, o programa ait derslerdeki katılım
+yüzdesini hesapla.
+Programs -> ProgramCourses -> Courses -> Sessions -> SessionAttendances
+zinciriyle her öğrencinin toplam oturum sayısını ve katıldığı oturum
+sayısını oranla.
+
+İpucu: katılım sayısını
+SUM(CASE WHEN IsPresent = 1 THEN 1 ELSE 0 END)
+ile hesaplayabilirsin.
+
+Birden çok JOIN, gruplama, koşullu sayma ve oran hesabını bir arada
+kullandığın bitirme niteliğinde bir görev.
+
+
+========================================================================
+EK GÖREVLER
+========================================================================
+
+EK 1 — INNER JOIN ile LEFT JOIN Farkı
+------------------------------------------------------------------------
+Hiçbir derse kayıtlı OLMAYAN öğrencileri bul. Bu görevi yalnızca
+LEFT JOIN ve WHERE ... IS NULL kullanarak çözebilirsin. INNER JOIN ile
+neden çözülemeyeceğini de bir cümleyle açıkla.
+
+
+EK 2 — Aynı Tabloya İkinci JOIN (Alias Kullanımı)
+------------------------------------------------------------------------
+Her dersin adını ve o dersi sistemde KİMİN oluşturduğunu (CreaUser)
+listele. CreaUser alanı da aslında Users tablosuna referans verir;
+bu yüzden Users tablosunu takma ad (alias) ile ikinci kez JOIN etmen
+gerekecek.
+
+
+========================================================================
+BÖLÜM 4 — FİLTRELİ VERİ ÇEKME SENARYOLARI
+========================================================================
+Bu bölümdeki görevlerde JOIN'lerin yanında WHERE koşullarını da
+yoğun kullanacaksın. Amaç, gerçek bir uygulamada karşına çıkacak
+"şu şarta uyan kayıtları getir" tarzı senaryolara alışman.
+
+GÖREV 13 — Belirli Bölümdeki Eğitmenler
+------------------------------------------------------------------------
+Adını sen belirleyeceğin bir bölüme (örn. "Bilgisayar Mühendisliği")
+bağlı eğitmenleri listele. Departments tablosunda bölüm adına göre
+filtreleyip Instructors -> Users zinciriyle eğitmen adlarını getir.
+Bölüm adını doğrudan WHERE'de sabit yazmak yerine, sorgunun başında
+bir değişken/parametre tanımlayıp onu kullanmayı dene.
+
+
+GÖREV 14 — Tarih Aralığına Göre Oturumlar
+------------------------------------------------------------------------
+Belirli iki tarih arasında oluşturulmuş (CreaDate) oturumları, ait
+oldukları ders adıyla birlikte listele. WHERE içinde
+CreaDate BETWEEN @baslangic AND @bitis
+mantığını kullan. Tarih karşılaştırmalarında saat bileşeninin sonuçları
+nasıl etkilediğine dikkat et.
+
+
+GÖREV 15 — Çoklu Koşul ve Metin Araması
+------------------------------------------------------------------------
+Adı belirli bir harf/kelime ile başlayan (LIKE 'A%') VE aktif olan
+öğrencileri getir. WHERE içinde birden fazla koşulu AND / OR ile nasıl
+birleştirdiğini ve LIKE operatörünün nasıl çalıştığını göster.
+Ayrıca aynı sorguyu OR ile yazıp sonuç farkını gözlemle.
+
+
+GÖREV 16 — Alt Sorgu (Subquery) ile Filtreleme
+------------------------------------------------------------------------
+Hiç oturumu olmayan dersleri bul. Bunu Sessions tablosunda bulunmayan
+CourseID'leri arayan bir alt sorgu
+(WHERE CourseID NOT IN (SELECT ... )) ile çöz. Aynı sonucu Görev'deki
+LEFT JOIN yöntemiyle de yazıp iki yaklaşımı karşılaştır.
+
+
+GÖREV 17 — Gruplanmış Veride Filtreleme (HAVING)
+------------------------------------------------------------------------
+Beşten fazla öğrencisi olan dersleri listele. Burada WHERE değil HAVING
+kullanman gerekiyor; çünkü COUNT gibi bir toplama (aggregate) sonucuna
+göre filtreliyorsun. WHERE ile HAVING arasındaki farkı bir cümleyle açıkla.
+
+
+========================================================================
+BÖLÜM 5 — FİLTREYE GÖRE VERİ EKLEME (INSERT) SENARYOLARI
+========================================================================
+Bu bölümde tabloya yeni kayıt ekleyeceksin. Dikkat: önce eklediğin
+verinin tutarlı olması için ilgili yabancı anahtarların gerçekten var
+olup olmadığını kontrol etmen gerekiyor.
+
+GÖREV 18 — Tek Kayıt Ekleme
+------------------------------------------------------------------------
+Yeni bir öğrenciyi sisteme ekle. Önce Users tablosuna kişisel bilgileri
+(ad, soyad vb.) ekle, ardından oluşan UserID'yi kullanarak Students
+tablosuna öğrenci kaydını ekle. Eklerken IsActive = 1, Tombstone = 0 ve
+CreaUser, CreaDate alanlarını doğru doldur. İki tabloya bağlı veri
+eklerken sıralamanın neden önemli olduğunu açıkla.
+
+
+GÖREV 19 — Koşullu Ekleme (Varsa Ekleme)
+------------------------------------------------------------------------
+Bir öğrenciyi bir derse kaydet (CourseStudents'a ekle), ancak aynı
+öğrenci o derse zaten kayıtlıysa tekrar EKLEME. Bunu
+IF NOT EXISTS (SELECT ... ) mantığıyla ya da NOT IN alt sorgusuyla çöz.
+Mükerrer (duplicate) kayıt oluşmasını engellemenin neden önemli
+olduğunu yaz.
+
+
+GÖREV 20 — Sorgudan Beslenen Toplu Ekleme (INSERT ... SELECT)
+------------------------------------------------------------------------
+Belirli bir programa ait tüm dersleri, henüz o derslere kaydı olmayan
+bir öğrenciye toplu olarak ekle. Yani INSERT edeceğin satırları sabit
+yazmak yerine bir SELECT sorgusundan üret
+(INSERT INTO CourseStudents (...) SELECT ... FROM ProgramCourses ...).
+Bu, tek tek eklemek yerine filtreye dayalı toplu ekleme yöntemini öğretir.
+
+
+========================================================================
+BÖLÜM 6 — FİLTREYE GÖRE VERİ GÜNCELLEME (UPDATE) SENARYOLARI
+========================================================================
+Bu bölümde mevcut kayıtları güncelleyeceksin. EN ÖNEMLİ KURAL: Her
+UPDATE'ten önce aynı WHERE koşuluyla bir SELECT çalıştırıp hangi
+satırların etkileneceğini gör. WHERE'i unutursan TÜM tabloyu
+güncellersin; bu yüzden bu alışkanlık hayati.
+
+GÖREV 21 — Tek Koşullu Güncelleme
+------------------------------------------------------------------------
+Seçtiğin bir öğrencinin telefon numarasını (Users tablosunda) güncelle.
+WHERE koşuluyla yalnızca o öğrenciyi hedefle. Güncellerken ModUser ve
+ModDate alanlarını da güncel değerlerle doldurmayı unutma; bu alanların
+neden var olduğunu açıkla.
+
+
+GÖREV 22 — Soft-Delete (Mantıksal Silme)
+------------------------------------------------------------------------
+Bir dersi sistemden "sil", ancak kaydı fiziksel olarak DELETE etme;
+bunun yerine IsActive = 0 ve Tombstone = 1 yaparak mantıksal olarak
+pasifleştir. ModUser/ModDate alanlarını da güncelle. Bu yöntemin gerçek
+DELETE'e göre avantajını (kaydın geri getirilebilmesi, geçmişin
+korunması) birkaç cümleyle anlat.
+
+
+GÖREV 23 — JOIN'li Güncelleme (Başka Tabloya Göre Güncelleme)
+------------------------------------------------------------------------
+Belirli bir bölüme bağlı tüm eğitmenlerin kayıtlarını pasif yap. Burada
+güncelleyeceğin tablo Instructors olsa da, hangi satırların
+güncelleneceğine Departments tablosundaki bölüm adına göre karar
+vereceksin. UPDATE ... FROM ... JOIN ... yapısını kullanarak bir tabloyu
+başka bir tablodaki şarta göre güncellemeyi öğren.
+
+
+GÖREV 24 — Toplu Koşullu Güncelleme
+------------------------------------------------------------------------
+Belirli bir tarihten önce oluşturulmuş ve hâlâ aktif görünen tüm oturum
+kayıtlarını tek seferde pasif yap. WHERE içinde hem tarih hem de
+IsActive koşulunu birlikte kullan. Çalıştırmadan önce mutlaka aynı
+koşullu SELECT ile kaç satırı etkileyeceğini doğrula.
+
+
+========================================================================
+GENEL KURALLAR (HER GÖREVDE UYGULANACAK)
+========================================================================
+
+1) SOFT-DELETE FİLTRESİ
+   Bütün tablolarda IsActive ve Tombstone alanları var. Her sorgunda
+   sadece aktif kayıtları getirmek için
+   IsActive = 1 AND Tombstone = 0
+   koşulunu eklemeyi unutma. Gerçek sistemlerde silinen kayıtlar fiziksel
+   olarak değil, mantıksal olarak işaretlenir; bunu kavraman önemli.
+
+2) OKUNABİLİRLİK
+   Tablolara kısa takma adlar (alias) ver. Kolon isimlerinin hangi
+   tablodan geldiğini açıkça belirt (örn. s.StudentNumber).
+
+3) SONUÇ KONTROLÜ
+   Her sorgunun döndürdüğü satır sayısını ve birkaç örnek satırı
+   gözden geçir; sonuçların mantıklı olduğundan emin ol.
+
+4) UPDATE/DELETE ÖNCESİ SELECT
+   Bir UPDATE çalıştırmadan önce MUTLAKA aynı WHERE koşuluyla bir SELECT
+   yazıp hangi satırların etkileneceğini gör. WHERE koşulu olmayan bir
+   UPDATE tüm tabloyu değiştirir; bu yüzden bu alışkanlık çok önemli.
+
+5) AUDIT ALANLARI
+   Kayıt eklerken CreaUser ve CreaDate; kayıt güncellerken ModUser ve
+   ModDate alanlarını doğru doldur. Bu alanlar kaydı kimin ne zaman
+   oluşturduğunu/değiştirdiğini takip etmemizi sağlar.
+
+6) TESLİM
+   Her görev için sorgunu ve aldığın sonucun küçük bir ekran görüntüsünü
+   ya da örnek satırlarını birlikte teslim et. INSERT/UPDATE görevlerinde
+   işlem öncesi ve sonrası durumu da göster.
+
+

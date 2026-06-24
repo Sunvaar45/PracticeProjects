@@ -1,0 +1,3 @@
+- SIS Veri tabanına mock veriler girdim
+- Bu mock verileri görevler altında çeken 12 query yazdım
+- Yarın daha fazla query yazacağım
