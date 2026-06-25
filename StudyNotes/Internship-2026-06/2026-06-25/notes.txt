@@ -1,0 +1,5 @@
+- görev20 yapamadım
+
+- soft delete ve pasifleştirme işlemleri aynı mı.
+    - pasifleştirirken IsActive = 0,
+    soft delete te Tombstone = GETDATE() AND IsActive = 0 yapıyorum doğru mu
