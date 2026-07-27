@@ -1,4 +1,0 @@
-- MSSQL Data Tiplerinin aralığını, kapladıkları alanları ve kullanım alanlarını araştırdım.
-- CRUD işlemlerini araştırdım
-- Çoklu tablo ilişkilerini araştırdım. PK, FK, 1:N, N:N terimlerini öğrendim
-- Kurs yoklama sistemi için DB tasarlamaya başladım

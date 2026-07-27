@@ -1,3 +1,0 @@
-- Veri tabanında verilen görev querylerini bitirdim
-- VSCode da veri tabanına bağlandım, projeyi github da bir private repo ile versiyon kontrole koydum
-- Yarın prosedürleri araştıracağım
