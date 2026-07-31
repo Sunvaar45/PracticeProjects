@@ -27,7 +27,8 @@ namespace btk_api.Controllers
                 new Product { Id = 2, Name = "Product 2" },
                 new Product { Id = 3, Name = "Product 3" }
             };
-            _logger.LogInformation("Retrieved all products.");
+            _logger.LogInformation("This is an information log for demonstration purposes.");
+            _logger.LogWarning("This is a warning log for demonstration purposes.");
 
             return Ok(products);
         }
