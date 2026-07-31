@@ -19,7 +19,7 @@ namespace bookDemo.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetBookById(int id)
+        public IActionResult GetBookById([FromRoute] int id)
         {
             var book = ApplicationContext
                 .Books
