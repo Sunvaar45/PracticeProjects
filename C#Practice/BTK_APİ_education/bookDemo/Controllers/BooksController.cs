@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using bookDemo.Data;
 using bookDemo.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bookDemo.Controllers
@@ -105,5 +106,22 @@ namespace bookDemo.Controllers
             ApplicationContext.Books.Remove(entity);
             return NoContent(); // 204
         }   
+
+        [HttpPatch("{id:int}")]
+        public IActionResult PatchBook([FromRoute] int id, [FromBody] JsonPatchDocument<Book> bookPatch)
+        {
+            // check entity
+            var entity = ApplicationContext
+                .Books
+                .Find(b => b.Id.Equals(id));
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
+        
+            bookPatch.ApplyTo(entity);
+            return NoContent(); // 204
+        }
     }
 }
