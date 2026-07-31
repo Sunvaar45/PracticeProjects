@@ -3,7 +3,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers()
-    .AddNewtonsoftJson();
+    .AddNewtonsoftJson(options =>
+    {
+        if (builder.Environment.IsDevelopment())
+        {
+            options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+        }
+    });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
