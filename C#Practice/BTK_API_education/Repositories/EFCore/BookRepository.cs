@@ -11,6 +11,32 @@ namespace Repositories.EFCore
     {
         public BookRepository(RepositoryContext context) : base(context)
         {
+
+        }
+
+        public void CreateBook(Book book)
+        {
+            Create(book);
+        }
+
+        public void DeleteBook(Book book)
+        {
+            Delete(book);
+        }
+
+        public IQueryable<Book> GetAllBooks(bool trackChanges)
+        {
+            return FindAll(trackChanges);
+        }
+
+        public IQueryable<Book> GetBookById(int id, bool trackChanges)
+        {
+            return FindByCondition(b => b.Id.Equals(id), trackChanges);
+        }
+
+        public void UpdateBook(Book book)
+        {
+            Update(book);
         }
     }
 }
