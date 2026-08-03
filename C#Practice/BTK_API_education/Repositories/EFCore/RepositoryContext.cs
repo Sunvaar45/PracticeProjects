@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
-using Repositories.Contracts.EFCore.Config;
+using Repositories.EFCore.Config;
 
-namespace Repositories.Contracts.EFCore
+namespace Repositories.EFCore
 {
     public class RepositoryContext : DbContext
     {
