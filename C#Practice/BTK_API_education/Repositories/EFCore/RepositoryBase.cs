@@ -3,36 +3,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
 
 namespace Repositories.EFCore
 {
-    public class RepositoryBase<T> : IRepositoryBase<T>
+    public abstract class RepositoryBase<T> : IRepositoryBase<T>
         where T : class
     {
+        protected readonly RepositoryContext _context;
+
+        public RepositoryBase(RepositoryContext context)
+        {
+            _context = context;
+        }
+
         public void Create(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Add(entity);
         }
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Remove(entity);
         }
 
         public IQueryable<T> FindAll(bool trackChanges)
         {
-            throw new NotImplementedException();
+            if (trackChanges)
+            {
+                return _context.Set<T>();
+            }
+            else
+            {
+                return _context.Set<T>().AsNoTracking();
+            }
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
         {
-            throw new NotImplementedException();
+            if (trackChanges)
+            {
+                return _context.Set<T>().Where(expression);
+            }
+            else
+            {
+                return _context.Set<T>().Where(expression).AsNoTracking();
+            }
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
         }
     }
 }
