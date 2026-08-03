@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Entities.Models;
-using Repositories.Contracts.EFCore;
+using Repositories.EFCore;
 
 namespace WebApi.Controllers
 {

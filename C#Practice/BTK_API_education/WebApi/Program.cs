@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Repositories.Contracts.EFCore;
+using Repositories.EFCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
