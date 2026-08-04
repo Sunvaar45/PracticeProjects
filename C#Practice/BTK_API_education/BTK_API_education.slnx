@@ -2,6 +2,7 @@
   <Project Path="bookDemo/bookDemo.csproj" />
   <Project Path="btk_api/btk_api.csproj" />
   <Project Path="Entities/Entities.csproj" />
+  <Project Path="Presentation/Presentation.csproj" />
   <Project Path="Repositories/Repositories.csproj" />
   <Project Path="Services/Services.csproj" />
   <Project Path="WebApi/WebApi.csproj" />
