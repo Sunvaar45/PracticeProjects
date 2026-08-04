@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Entities.Models;
 using Repositories.EFCore;
 using Repositories.Contracts;
+using Services.Contracts;
 
 namespace WebApi.Controllers
 {
@@ -14,9 +15,9 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
-        private readonly IRepositoryManager _manager;
+        private readonly IServiceManager _manager;
 
-        public BooksController(IRepositoryManager manager)
+        public BooksController(IServiceManager manager)
         {
             _manager = manager;
         }
@@ -26,7 +27,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var books = _manager.Book.GetAllBooks(false);
+                var books = _manager.BookService.GetAllBooks(false);
                 return Ok(books);
             }
             catch (Exception ex)
@@ -40,7 +41,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var book = _manager.Book.GetBookById(id, false);
+                var book = _manager.BookService.GetBookById(id, false);
 
                 if (book == null)
                 {
@@ -65,8 +66,7 @@ namespace WebApi.Controllers
                     return BadRequest("Book cannot be null.");
                 }
 
-                _manager.Book.CreateBook(book);
-                _manager.Save();
+                _manager.BookService.CreateBook(book);
 
                 return StatusCode(201, book); // 201 Created
             }
@@ -81,25 +81,14 @@ namespace WebApi.Controllers
         {
             try
             {
-                // check book?
-                var entity = _manager.Book.GetBookById(id, true);
-
-                if (entity == null)
+                if (book == null)
                 {
-                    return NotFound(); // 404
+                    return BadRequest("Book cannot be null.");
                 }
 
-                // check id?
-                if (id != book.Id)
-                {
-                    return BadRequest("Book ID mismatch.");
-                }
+                _manager.BookService.UpdateBook(id, book, true);
 
-                entity.Title = book.Title;
-                entity.Price = book.Price;
-                _manager.Save();
-
-                return Ok(book);
+                return NoContent(); // 204
             }
             catch (Exception ex)
             {
@@ -112,19 +101,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var entity = _manager.Book.GetBookById(id, false);
-
-                if (entity == null)
-                {
-                    return NotFound(new
-                    {
-                        statusCode = 404,
-                        Message = $"Book with ID {id} not found."
-                    }); // 404
-                }
-
-                _manager.Book.DeleteBook(entity);
-                _manager.Save();
+                _manager.BookService.DeleteBook(id, false);
 
                 return NoContent(); // 204   
             }
@@ -140,7 +117,7 @@ namespace WebApi.Controllers
             try
             {
                 // check entity
-                var entity = _manager.Book.GetBookById(id, true);
+                var entity = _manager.BookService.GetBookById(id, true);
 
                 if (entity == null)
                 {
@@ -148,8 +125,7 @@ namespace WebApi.Controllers
                 }
 
                 bookPatch.ApplyTo(entity);
-                _manager.Book.UpdateBook(entity);
-                _manager.Save();
+                _manager.BookService.UpdateBook(id, entity, true);
 
                 return NoContent(); // 204
             }
