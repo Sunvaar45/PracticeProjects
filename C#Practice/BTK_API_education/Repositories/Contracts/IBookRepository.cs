@@ -10,7 +10,7 @@ namespace Repositories.Contracts
     {
         IQueryable<Book> GetAllBooks(bool trackChanges);
 
-        IQueryable<Book> GetBookById(int id, bool trackChanges);
+        Book GetBookById(int id, bool trackChanges);
 
         void CreateBook(Book book);
 
