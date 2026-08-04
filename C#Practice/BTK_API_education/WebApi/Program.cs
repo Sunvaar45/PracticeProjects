@@ -16,6 +16,7 @@ builder.Services.AddControllers()
 builder.Services.AddOpenApi();
 
 builder.Services.ConfigureSqlContext(builder.Configuration);
+builder.Services.ConfigureRepositoryManager();
 
 var app = builder.Build();
 

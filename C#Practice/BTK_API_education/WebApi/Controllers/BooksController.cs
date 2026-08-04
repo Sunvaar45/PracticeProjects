@@ -97,8 +97,8 @@ namespace WebApi.Controllers
 
                 entity.Title = book.Title;
                 entity.Price = book.Price;
-
                 _manager.Save();
+
                 return Ok(book);
             }
             catch (Exception ex)
@@ -148,8 +148,9 @@ namespace WebApi.Controllers
                 }
 
                 bookPatch.ApplyTo(entity);
+                _manager.Book.UpdateBook(entity);
                 _manager.Save();
-                
+
                 return NoContent(); // 204
             }
             catch (Exception ex)
