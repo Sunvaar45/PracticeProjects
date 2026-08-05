@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Entities.Exceptions;
 using Entities.Models;
 using Repositories.Contracts;
 using Services.Contracts;
@@ -32,8 +33,7 @@ namespace Services
             var entity = _manager.Book.GetBookById(id, trackChanges);
             if (entity == null)
             {
-                _logger.LogInfo($"Book with id: {id} doesn't exist in the database.");
-                throw new ArgumentNullException(nameof(entity));
+                throw new BookNotFoundException(id);
             }
 
             _manager.Book.DeleteBook(entity);
@@ -47,7 +47,12 @@ namespace Services
 
         public Book GetBookById(int id, bool trackChanges)
         {
-            return _manager.Book.GetBookById(id, trackChanges);
+            var book = _manager.Book.GetBookById(id, trackChanges);
+            if (book == null)
+            {
+                throw new BookNotFoundException(id);
+            }
+            return book;
         }
 
         public void UpdateBook(int id, Book book, bool trackChanges)
@@ -56,15 +61,10 @@ namespace Services
             var entity = _manager.Book.GetBookById(id, trackChanges);
             if (entity == null)
             {
-                _logger.LogInfo($"Book with id: {id} doesn't exist in the database.");
-                throw new ArgumentNullException(nameof(entity));
+                throw new BookNotFoundException(id);
             }
 
             // check params
-            if (book == null)
-            {
-                throw new ArgumentNullException(nameof(book));
-            }
 
             // update entity
             entity.Title = book.Title;
