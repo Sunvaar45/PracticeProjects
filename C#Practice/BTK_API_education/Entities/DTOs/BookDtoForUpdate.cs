@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Entities.DTOs
 {
-    public record BookDtoForUpdate
+    public record BookDtoForUpdate(int Id, string Title, decimal Price)
     {
-        public int Id { get; init; }
-        public string Title { get; init; } = string.Empty;
-        public decimal Price { get; init; }
+        // public int Id { get; init; }
+        // public string Title { get; init; } = string.Empty;
+        // public decimal Price { get; init; }
     }
 }

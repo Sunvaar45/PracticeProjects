@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Entities.DTOs;
 using Entities.Models;
 
 namespace Services.Contracts
@@ -14,7 +15,7 @@ namespace Services.Contracts
 
         Book CreateBook(Book book);
 
-        void UpdateBook(int id, Book book, bool trackChanges);
+        void UpdateBook(int id, BookDtoForUpdate bookDtoForUpdate, bool trackChanges);
 
         void DeleteBook(int id, bool trackChanges);
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Entities.DTOs;
 using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
@@ -50,14 +51,14 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult UpdateBook([FromRoute] int id, [FromBody] Book book)
+        public IActionResult UpdateBook([FromRoute] int id, [FromBody] BookDtoForUpdate bookDtoForUpdate)
         {
-            if (book == null)
+            if (bookDtoForUpdate == null)
             {
                 return BadRequest("Book cannot be null.");
             }
 
-            _manager.BookService.UpdateBook(id, book, true);
+            _manager.BookService.UpdateBook(id, bookDtoForUpdate, true);
 
             return NoContent(); // 204
         }
@@ -77,7 +78,9 @@ namespace Presentation.Controllers
             var entity = _manager.BookService.GetBookById(id, true);
 
             bookPatch.ApplyTo(entity);
-            _manager.BookService.UpdateBook(id, entity, true);
+            _manager.BookService.UpdateBook(id, 
+                new BookDtoForUpdate(entity.Id, entity.Title, entity.Price), 
+                true);
 
             return NoContent(); // 204
         }
