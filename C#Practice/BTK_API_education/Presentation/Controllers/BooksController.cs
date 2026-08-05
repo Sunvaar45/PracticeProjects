@@ -23,114 +23,75 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult GetBooks()
         {
-            try
-            {
-                var books = _manager.BookService.GetAllBooks(false);
-                return Ok(books);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            var books = _manager.BookService.GetAllBooks(false);
+            return Ok(books);
         }
 
         [HttpGet("{id:int}")]
         public IActionResult GetBookById([FromRoute] int id)
         {
-            try
-            {
-                var book = _manager.BookService.GetBookById(id, false);
 
-                if (book == null)
-                {
-                    return NotFound(); // 40
-                }
+            throw new Exception("!!!test exception");
+            var book = _manager.BookService.GetBookById(id, false);
 
-                return Ok(book);
-            }
-            catch (Exception ex)
+            if (book == null)
             {
-                return BadRequest(ex.Message);
+                return NotFound(); // 40
             }
+
+            return Ok(book);
         }
 
         [HttpPost]
         public IActionResult CreateBook([FromBody] Book book)
         {
-            try
+            if (book == null)
             {
-                if (book == null)
-                {
-                    return BadRequest("Book cannot be null.");
-                }
-
-                _manager.BookService.CreateBook(book);
-
-                return StatusCode(201, book); // 201 Created
+                return BadRequest("Book cannot be null.");
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            _manager.BookService.CreateBook(book);
+
+            return StatusCode(201, book); // 201 Created
         }
 
         [HttpPut("{id:int}")]
         public IActionResult UpdateBook([FromRoute] int id, [FromBody] Book book)
         {
-            try
+            if (book == null)
             {
-                if (book == null)
-                {
-                    return BadRequest("Book cannot be null.");
-                }
-
-                _manager.BookService.UpdateBook(id, book, true);
-
-                return NoContent(); // 204
+                return BadRequest("Book cannot be null.");
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            _manager.BookService.UpdateBook(id, book, true);
+
+            return NoContent(); // 204
         }
 
         [HttpDelete("{id:int}")]
         public IActionResult DeleteBookById([FromRoute] int id)
         {
-            try
-            {
-                _manager.BookService.DeleteBook(id, false);
+            _manager.BookService.DeleteBook(id, false);
 
-                return NoContent(); // 204   
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return NoContent(); // 204   
         }
 
         [HttpPatch("{id:int}")]
         public IActionResult PatchBook([FromRoute] int id, [FromBody] JsonPatchDocument<Book> bookPatch)
         {
-            try
+            // check entity
+            var entity = _manager.BookService.GetBookById(id, true);
+
+            if (entity == null)
             {
-                // check entity
-                var entity = _manager.BookService.GetBookById(id, true);
-
-                if (entity == null)
-                {
-                    return NotFound();
-                }
-
-                bookPatch.ApplyTo(entity);
-                _manager.BookService.UpdateBook(id, entity, true);
-
-                return NoContent(); // 204
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            bookPatch.ApplyTo(entity);
+            _manager.BookService.UpdateBook(id, entity, true);
+
+            return NoContent(); // 204
         }
     }
 }

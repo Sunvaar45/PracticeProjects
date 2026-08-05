@@ -1,3 +1,21 @@
 2026-08-05 11:11:50.8556 Info Registered target NLog.Targets.FileTarget(Name=logfile)
 2026-08-05 11:11:50.8670 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.1.4.5569. Product version: 6.1.4+a342b92bf5382f108133296098348691f2f29fb1. GlobalAssemblyCache: False
 2026-08-05 11:11:50.8939 Info Configuration initialized: TargetNames=logfile, ConfigItems=12, AutoReload=true, FilePath=D:\GithubRepo\PracticeProjects\C#Practice\BTK_API_education\WebApi\nlog.config
+2026-08-05 14:02:36.4470 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2026-08-05 14:02:36.4624 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.1.4.5569. Product version: 6.1.4+a342b92bf5382f108133296098348691f2f29fb1. GlobalAssemblyCache: False
+2026-08-05 14:02:36.4877 Info Configuration initialized: TargetNames=logfile, ConfigItems=12, AutoReload=true, FilePath=D:\GithubRepo\PracticeProjects\C#Practice\BTK_API_education\WebApi\nlog.config
+2026-08-05 14:04:29.9551 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2026-08-05 14:04:29.9691 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.1.4.5569. Product version: 6.1.4+a342b92bf5382f108133296098348691f2f29fb1. GlobalAssemblyCache: False
+2026-08-05 14:04:29.9929 Info Configuration initialized: TargetNames=logfile, ConfigItems=12, AutoReload=true, FilePath=D:\GithubRepo\PracticeProjects\C#Practice\BTK_API_education\WebApi\nlog.config
+2026-08-05 14:07:58.4188 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2026-08-05 14:07:58.4333 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.1.4.5569. Product version: 6.1.4+a342b92bf5382f108133296098348691f2f29fb1. GlobalAssemblyCache: False
+2026-08-05 14:07:58.4551 Info Configuration initialized: TargetNames=logfile, ConfigItems=12, AutoReload=true, FilePath=D:\GithubRepo\PracticeProjects\C#Practice\BTK_API_education\WebApi\nlog.config
+2026-08-05 14:10:33.3437 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2026-08-05 14:10:33.3633 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.1.4.5569. Product version: 6.1.4+a342b92bf5382f108133296098348691f2f29fb1. GlobalAssemblyCache: False
+2026-08-05 14:10:33.3899 Info Configuration initialized: TargetNames=logfile, ConfigItems=12, AutoReload=true, FilePath=D:\GithubRepo\PracticeProjects\C#Practice\BTK_API_education\WebApi\nlog.config
+2026-08-05 14:10:50.2704 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2026-08-05 14:10:50.3102 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.1.4.5569. Product version: 6.1.4+a342b92bf5382f108133296098348691f2f29fb1. GlobalAssemblyCache: False
+2026-08-05 14:10:50.3314 Info Configuration initialized: TargetNames=logfile, ConfigItems=12, AutoReload=true, FilePath=D:\GithubRepo\PracticeProjects\C#Practice\BTK_API_education\WebApi\nlog.config
+2026-08-05 14:18:02.8400 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2026-08-05 14:18:02.8551 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.1.4.5569. Product version: 6.1.4+a342b92bf5382f108133296098348691f2f29fb1. GlobalAssemblyCache: False
+2026-08-05 14:18:02.8772 Info Configuration initialized: TargetNames=logfile, ConfigItems=12, AutoReload=true, FilePath=D:\GithubRepo\PracticeProjects\C#Practice\BTK_API_education\WebApi\nlog.config
