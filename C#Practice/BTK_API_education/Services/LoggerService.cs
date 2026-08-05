@@ -2,30 +2,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
 using Services.Contracts;
 
 namespace Services
 {
     public class LoggerService : ILoggerService
     {
+        private static ILogger logger = LogManager.GetCurrentClassLogger();
+
         public void LogDebug(string message)
         {
-            throw new NotImplementedException();
+            logger.Debug(message);
         }
 
         public void LogError(string message)
         {
-            throw new NotImplementedException();
+            logger.Error(message);
         }
 
         public void LogInfo(string message)
         {
-            throw new NotImplementedException();
+            logger.Info(message);
         }
 
         public void LogWarning(string message)
         {
-            throw new NotImplementedException();
+            logger.Warn(message);
         }
     }
 }
