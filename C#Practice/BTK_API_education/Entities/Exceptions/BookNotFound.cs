@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Entities.Exceptions
 {
-    public sealed class BookNotFound : NotFound
+    public sealed class BookNotFound : NotFoundException
     {
         public BookNotFound(int id) : base($"Book with ID {id} not found.")
         {
-
+            
         }
     }
 }
