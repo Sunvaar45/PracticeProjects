@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 using Services.Contracts;
 using WebApi.Extensions;
@@ -25,6 +26,13 @@ builder.Services.AddControllers(config =>
             options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
     });
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+    
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

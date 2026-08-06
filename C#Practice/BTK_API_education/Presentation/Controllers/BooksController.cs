@@ -45,6 +45,11 @@ namespace Presentation.Controllers
                 return BadRequest("Book cannot be null.");
             }
 
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
             var bookDto = _manager.BookService.CreateBook(bookDtoForInsertion);
 
             return StatusCode(201, bookDto); // 201 Created
