@@ -38,16 +38,16 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateBook([FromBody] Book book)
+        public IActionResult CreateBook([FromBody] BookDtoForInsertion bookDtoForInsertion)
         {
-            if (book == null)
+            if (bookDtoForInsertion == null)
             {
                 return BadRequest("Book cannot be null.");
             }
 
-            _manager.BookService.CreateBook(book);
+            var bookDto = _manager.BookService.CreateBook(bookDtoForInsertion);
 
-            return StatusCode(201, book); // 201 Created
+            return StatusCode(201, bookDto); // 201 Created
         }
 
         [HttpPut("{id:int}")]
@@ -72,14 +72,20 @@ namespace Presentation.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public IActionResult PatchBook([FromRoute] int id, [FromBody] JsonPatchDocument<Book> bookPatch)
+        public IActionResult PatchBook([FromRoute] int id, [FromBody] JsonPatchDocument<BookDto> bookPatch)
         {
             // check entity
-            var entity = _manager.BookService.GetBookById(id, true);
+            var bookDto = _manager.BookService.GetBookById(id, true);
 
-            bookPatch.ApplyTo(entity);
+            bookPatch.ApplyTo(bookDto);
+
             _manager.BookService.UpdateBook(id, 
-                new BookDtoForUpdate(entity.Id, entity.Title, entity.Price), 
+                new BookDtoForUpdate()
+                {
+                    Id = bookDto.Id,
+                    Title = bookDto.Title,
+                    Price = bookDto.Price
+                }, 
                 true);
 
             return NoContent(); // 204
