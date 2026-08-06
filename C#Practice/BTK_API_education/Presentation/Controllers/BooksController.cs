@@ -92,8 +92,8 @@ namespace Presentation.Controllers
 
             var result = _manager.BookService.GetOneBookForPatch(id, false);
 
+            // apply patch and validate
             bookPatch.ApplyTo(result.bookDtoForUpdate, ModelState);
-
             TryValidateModel(result.bookDtoForUpdate);
             if (!ModelState.IsValid)
             {
