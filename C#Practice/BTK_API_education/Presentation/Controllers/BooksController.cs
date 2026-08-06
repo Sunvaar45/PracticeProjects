@@ -63,7 +63,12 @@ namespace Presentation.Controllers
                 return BadRequest("Book cannot be null.");
             }
 
-            _manager.BookService.UpdateBook(id, bookDtoForUpdate, true);
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
+            _manager.BookService.UpdateBook(id, bookDtoForUpdate, false);
 
             return NoContent(); // 204
         }
