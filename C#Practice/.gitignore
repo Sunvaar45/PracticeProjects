@@ -420,3 +420,4 @@ FodyWeavers.xsd
 # Log Folders for NLog
 logs/
 internal_logs/
+internallog.txt

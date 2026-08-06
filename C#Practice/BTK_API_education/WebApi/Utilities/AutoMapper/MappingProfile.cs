@@ -10,7 +10,7 @@ namespace WebApi.Utilities.AutoMapper
 {
     public class MappingProfile : Profile
     {
-        protected MappingProfile()
+        public MappingProfile()
         {
             CreateMap<BookDtoForUpdate, Book>();
         }
