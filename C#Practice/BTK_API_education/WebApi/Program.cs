@@ -8,7 +8,14 @@ LogManager.Setup().LoadConfigurationFromFile(String.Concat(Directory.GetCurrentD
 
 // Add services to the container.
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(config =>
+{
+    // Content negotiation
+    config.RespectBrowserAcceptHeader = true; // false by default
+    config.ReturnHttpNotAcceptable = true;
+
+})
+    .AddXmlDataContractSerializerFormatters()
     .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly)
     .AddNewtonsoftJson(options =>
     {
