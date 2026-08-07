@@ -78,6 +78,8 @@ namespace Services
         public async Task SaveChangesForPatchAsync(BookDtoForUpdate bookDtoForUpdate, Book book)
         {
             _mapper.Map(bookDtoForUpdate, book);
+
+            _manager.Book.UpdateBook(book);
             await _manager.SaveAsync();
         }
 
