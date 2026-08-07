@@ -29,12 +29,13 @@ namespace Presentation.ActionFilters
             {
                 ModelName = modelName,
                 Controller = routeData.Values["controller"],
-                Action = routeData.Values["action"]
+                Action = routeData.Values["action"],
             };
 
-            if (routeData.Values.Count >= 3)
+            var idKey = routeData.Values.Keys.FirstOrDefault(k => k.EndsWith("id", StringComparison.OrdinalIgnoreCase));
+            if (idKey != null)
             {
-                logDetails.Id = routeData.Values["id"];
+                logDetails.Id = routeData.Values[idKey];
             }
 
             return logDetails.ToString();
