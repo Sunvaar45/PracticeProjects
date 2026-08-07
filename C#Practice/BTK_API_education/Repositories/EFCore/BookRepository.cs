@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Entities.Models;
 using Repositories.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositories.EFCore
 {
@@ -24,14 +25,17 @@ namespace Repositories.EFCore
             Delete(book);
         }
 
-        public IQueryable<Book> GetAllBooks(bool trackChanges)
+        public async Task<IEnumerable<Book>> GetAllBooksAsync(bool trackChanges)
         {
-            return FindAll(trackChanges);
+            return await FindAll(trackChanges)
+                .OrderBy(b => b.Title)
+                .ToListAsync();
         }
 
-        public Book GetBookById(int id, bool trackChanges)
+        public async Task<Book> GetBookByIdAsync(int id, bool trackChanges)
         {
-            return FindByCondition(b => b.Id.Equals(id), trackChanges).SingleOrDefault();
+            return await FindByCondition(b => b.Id.Equals(id), trackChanges)
+                .SingleOrDefaultAsync();
         }
 
         public void UpdateBook(Book book)
