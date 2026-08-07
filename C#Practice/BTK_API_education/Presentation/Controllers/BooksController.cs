@@ -47,21 +47,11 @@ namespace Presentation.Controllers
             return StatusCode(201, bookDto); // 201 Created
         }
 
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateBookAsync([FromRoute] int id, [FromBody] BookDtoForUpdate bookDtoForUpdate)
         {
-            if (bookDtoForUpdate == null)
-            {
-                return BadRequest("Book cannot be null.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
-
             await _manager.BookService.UpdateBookAsync(id, bookDtoForUpdate, false);
-
             return NoContent(); // 204
         }
 
