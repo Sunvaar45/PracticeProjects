@@ -27,7 +27,6 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBooksAsync()
         {
-
             var books = await _manager.BookService.GetAllBooksAsync(false);
             return Ok(books);
         }
@@ -44,7 +43,6 @@ namespace Presentation.Controllers
         public async Task<IActionResult> CreateBookAsync([FromBody] BookDtoForInsertion bookDtoForInsertion)
         {
             var bookDto = await _manager.BookService.CreateBookAsync(bookDtoForInsertion);
-
             return StatusCode(201, bookDto); // 201 Created
         }
 
@@ -60,7 +58,6 @@ namespace Presentation.Controllers
         public async Task<IActionResult> DeleteBookByIdAsync([FromRoute] int id)
         {
             await _manager.BookService.DeleteBookAsync(id, false);
-
             return NoContent(); // 204   
         }
 
