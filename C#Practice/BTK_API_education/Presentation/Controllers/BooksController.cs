@@ -7,6 +7,7 @@ using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Services.Contracts;
 
 namespace Presentation.Controllers
@@ -37,19 +38,10 @@ namespace Presentation.Controllers
             return Ok(book);
         }
 
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPost]
         public async Task<IActionResult> CreateBookAsync([FromBody] BookDtoForInsertion bookDtoForInsertion)
         {
-            if (bookDtoForInsertion == null)
-            {
-                return BadRequest("Book cannot be null.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
-
             var bookDto = await _manager.BookService.CreateBookAsync(bookDtoForInsertion);
 
             return StatusCode(201, bookDto); // 201 Created

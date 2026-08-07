@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NLog;
+using Presentation.ActionFilters;
 using Services.Contracts;
 using WebApi.Extensions;
 
@@ -26,6 +27,8 @@ builder.Services.AddControllers(config =>
             options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
     });
+
+builder.Services.AddScoped<ValidationFilterAttribute>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
