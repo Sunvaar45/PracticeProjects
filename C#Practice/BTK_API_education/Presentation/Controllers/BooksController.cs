@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Entities.DTOs;
 using Entities.Exceptions;
@@ -28,8 +29,11 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBooksAsync([FromQuery] BookParameters bookParameters)
         {
-            var books = await _manager.BookService.GetAllBooksAsync(bookParameters, false);
-            return Ok(books);
+            var pagedResult = await _manager.BookService.GetAllBooksAsync(bookParameters, false);
+
+            Response.Headers["X-Pagination"] = JsonSerializer.Serialize(pagedResult.metaData);
+
+            return Ok(pagedResult.bookDtos);
         }
 
         [HttpGet("{id:int}")]
