@@ -9,7 +9,7 @@ namespace Repositories.Contracts
 {
     public interface IBookRepository : IRepositoryBase<Book>
     {
-        Task<IEnumerable<Book>> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges);
+        Task<PagedList<Book>> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges);
 
         Task<Book> GetBookByIdAsync(int id, bool trackChanges);
 
