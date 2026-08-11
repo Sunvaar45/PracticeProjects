@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Entities.DTOs;
 using Entities.Models;
+using Entities.RequestFeatures;
 
 namespace Services.Contracts
 {
     public interface IBookService
     {
-        Task<IEnumerable<BookDto>> GetAllBooksAsync(bool trackChanges);
+        Task<IEnumerable<BookDto>> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges);
 
         Task<BookDto> GetBookByIdAsync(int id, bool trackChanges);
 
