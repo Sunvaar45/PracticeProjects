@@ -20,13 +20,13 @@ namespace Presentation.ActionFilters
             if (param == null)
             {
                 context.Result = new BadRequestObjectResult($"Object is null. Controller: {controller}, Action: {action}");
-                return;
+                return; // 400
             }
 
             if (!context.ModelState.IsValid)
             {
                 context.Result = new UnprocessableEntityObjectResult(context.ModelState);
-                return;
+                return; // 422
             }
         }
     }
