@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Entities.Constants;
 
 namespace Entities.DTOs
 {
@@ -14,7 +15,7 @@ namespace Entities.DTOs
         public string Title { get; init; } = string.Empty;
 
         [Required(ErrorMessage = "Title is required.")]
-        [Range(10, 1000)]
+        [Range(BookConstants.MinPrice, BookConstants.MaxPrice, ErrorMessage = "Price must be between 10 and 1000.")]
         public decimal Price { get; init; }
     }
 }
