@@ -28,7 +28,8 @@ namespace Entities.RequestFeatures
                     _pageSize = value;
                 }
             }
-
         }
+
+        public string SearchTerm { get; set; } = string.Empty;
     }
 }

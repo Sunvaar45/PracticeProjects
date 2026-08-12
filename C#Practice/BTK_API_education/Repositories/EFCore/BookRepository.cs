@@ -30,6 +30,7 @@ namespace Repositories.EFCore
         {
             var books = await FindAll(trackChanges)
                 .FilterBooksByPrice(bookParameters.MinPrice, bookParameters.MaxPrice)
+                .Search(bookParameters.SearchTerm)
                 .OrderBy(b => b.Title)
                 .ToListAsync();
 
