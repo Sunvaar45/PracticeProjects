@@ -11,5 +11,10 @@ namespace Entities.RequestFeatures
         public uint MinPrice { get; set; } = BookConstants.MinPrice;
         public uint MaxPrice { get; set; } = BookConstants.MaxPrice;
         public bool ValidPriceRange => MaxPrice > MinPrice;
+
+        public BookParameters()
+        {
+            OrderBy = "title";
+        }
     }
 }
