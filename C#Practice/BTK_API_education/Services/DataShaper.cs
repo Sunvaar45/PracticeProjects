@@ -18,12 +18,16 @@ namespace Services
 
         public IEnumerable<ExpandoObject> ShapeData(IEnumerable<T> entities, string? fieldsString)
         {
-            throw new NotImplementedException();
+            var requiredProperties = GetRequiredProperties(fieldsString);
+
+            return FetchDataForList(entities, requiredProperties);
         }
 
         public ExpandoObject ShapeData(T entity, string? fieldsString)
         {
-            throw new NotImplementedException();
+            var requiredProperties = GetRequiredProperties(fieldsString);
+            
+            return FetchDataForEntity(entity, requiredProperties);
         }
 
         private IEnumerable<PropertyInfo> GetRequiredProperties(string? fieldsString)
@@ -66,7 +70,7 @@ namespace Services
             return shapedObject;
         }
 
-        private IEnumerable<ExpandoObject> FetchData(IEnumerable<T> entities, 
+        private IEnumerable<ExpandoObject> FetchDataForList(IEnumerable<T> entities, 
             IEnumerable<PropertyInfo> requiredProperties)
         {
             var shapedData = new List<ExpandoObject>();
