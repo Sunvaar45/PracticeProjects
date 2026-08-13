@@ -66,6 +66,18 @@ namespace Services
             return shapedObject;
         }
 
-        
+        private IEnumerable<ExpandoObject> FetchData(IEnumerable<T> entities, 
+            IEnumerable<PropertyInfo> requiredProperties)
+        {
+            var shapedData = new List<ExpandoObject>();
+
+            foreach (var entity in entities)
+            {
+                var shapedObject = FetchDataForEntity(entity, requiredProperties);
+                shapedData.Add(shapedObject);
+            }
+
+            return shapedData;
+        }
     }
 }
