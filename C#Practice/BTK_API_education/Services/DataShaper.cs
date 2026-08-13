@@ -52,5 +52,20 @@ namespace Services
 
             return requiredProperties;
         }
+    
+        private ExpandoObject FetchDataForEntity(T entity, IEnumerable<PropertyInfo> requiredProperties)
+        {
+            var shapedObject = new ExpandoObject();
+
+            foreach (var property in requiredProperties)
+            {
+                var propertyValue = property.GetValue(entity);
+                shapedObject.TryAdd(property.Name, propertyValue); // title = "dune" , id = 1
+            }
+
+            return shapedObject;
+        }
+
+        
     }
 }
