@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Entities.DTOs;
 using Repositories.Contracts;
 using Services.Contracts;
 
@@ -13,9 +14,10 @@ namespace Services
         private readonly Lazy<IBookService> _bookService;
         public ServiceManager(IRepositoryManager repositoryManager, 
             ILoggerService logger, 
-            IMapper mapper)
+            IMapper mapper,
+            IDataShaper<BookDto> dataShaper)
         {
-            _bookService = new Lazy<IBookService>(() => new BookService(repositoryManager, logger, mapper));
+            _bookService = new Lazy<IBookService>(() => new BookService(repositoryManager, logger, mapper, dataShaper));
         }
 
         public IBookService BookService => _bookService.Value;
