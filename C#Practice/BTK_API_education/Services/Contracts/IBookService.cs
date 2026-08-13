@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entities.DTOs;
@@ -10,7 +11,7 @@ namespace Services.Contracts
 {
     public interface IBookService
     {
-        Task<(IEnumerable<BookDto> bookDtos, MetaData metaData)> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges);
+        Task<(IEnumerable<ExpandoObject> bookDtos, MetaData metaData)> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges);
 
         Task<BookDto> GetBookByIdAsync(int id, bool trackChanges);
 

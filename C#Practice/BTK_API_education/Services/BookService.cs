@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -17,12 +18,14 @@ namespace Services
         private readonly IRepositoryManager _manager;
         private readonly ILoggerService _logger;
         private readonly IMapper _mapper;
+        private readonly IDataShaper<BookDto> _dataShaper;
 
-        public BookService(IRepositoryManager manager, ILoggerService logger, IMapper mapper)
+        public BookService(IRepositoryManager manager, ILoggerService logger, IMapper mapper, IDataShaper<BookDto> dataShaper)
         {
             _manager = manager;
             _logger = logger;
             _mapper = mapper;
+            _dataShaper = dataShaper;
         }
 
         public async Task<BookDto> CreateBookAsync(BookDtoForInsertion bookDtoForInsertion)
@@ -44,7 +47,7 @@ namespace Services
             await _manager.SaveAsync();
         }
 
-        public async Task<(IEnumerable<BookDto> bookDtos, MetaData metaData)> 
+        public async Task<(IEnumerable<ExpandoObject> bookDtos, MetaData metaData)> 
             GetAllBooksAsync(BookParameters bookParameters,
             bool trackChanges)
         {
@@ -54,8 +57,12 @@ namespace Services
             }
 
             var booksWithMetaData = await _manager.Book.GetAllBooksAsync(bookParameters, trackChanges);
+
             var bookDtos = _mapper.Map<IEnumerable<BookDto>>(booksWithMetaData);
-            return (bookDtos, booksWithMetaData.MetaData);
+
+            var shapedData = _dataShaper.ShapeData(bookDtos, bookParameters.Fields);
+
+            return (shapedData, booksWithMetaData.MetaData);
         }
 
         public async Task<BookDto> GetBookByIdAsync(int id, bool trackChanges)
