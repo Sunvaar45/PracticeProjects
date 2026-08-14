@@ -38,7 +38,7 @@ namespace WebApi.Extensions
         public static void ConfigureActionFilters(this IServiceCollection services)
         {
             services.AddScoped<ValidationFilterAttribute>();
-            services.AddScoped<LogFilterAttribute>();
+            services.AddSingleton<LogFilterAttribute>();
         }
 
         public static void ConfigureCors(this IServiceCollection services)
