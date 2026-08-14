@@ -41,6 +41,7 @@ namespace WebApi.Extensions
         {
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped<LogFilterAttribute>();
+            services.AddScoped<ValidateMediaTypeAttribute>();
         }
 
         public static void ConfigureCors(this IServiceCollection services)
