@@ -87,5 +87,10 @@ namespace WebApi.Extensions
                 }
             });
         }
+
+        public static void ConfigureBookLinks(this IServiceCollection services)
+        {
+            services.AddScoped<IBookLinks, BookLinks>();
+        }
     }
 }
