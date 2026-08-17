@@ -21,13 +21,14 @@ builder.Services.AddControllers(config =>
     .AddCustomCsvFormatter()
     .AddXmlDataContractSerializerFormatters()
     .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly)
-    .AddNewtonsoftJson(options =>
-    {
-        if (builder.Environment.IsDevelopment())
-        {
-            options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
-        }
-    });
+    // .AddNewtonsoftJson(options =>
+    // {
+    //     if (builder.Environment.IsDevelopment())
+    //     {
+    //         options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+    //     }
+    // });
+    .AddNewtonsoftJson();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {

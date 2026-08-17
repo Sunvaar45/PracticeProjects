@@ -66,13 +66,16 @@ namespace WebApi.Extensions
         {
             services.Configure<MvcOptions>(config =>
             {
-                var systemTextJsonOutputFormatter = config
+                // var systemTextJsonOutputFormatter = config
+                //     .OutputFormatters
+                //     .OfType<SystemTextJsonOutputFormatter>()?.FirstOrDefault();
+                var newtonsoftJsonOutputFormatter = config
                     .OutputFormatters
-                    .OfType<SystemTextJsonOutputFormatter>()?.FirstOrDefault();
+                    .OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
 
-                if (systemTextJsonOutputFormatter != null)
+                if (newtonsoftJsonOutputFormatter != null)
                 {
-                    systemTextJsonOutputFormatter.SupportedMediaTypes
+                    newtonsoftJsonOutputFormatter.SupportedMediaTypes
                         .Add("application/vnd.myapp.hateoas+json");
                 }
 
