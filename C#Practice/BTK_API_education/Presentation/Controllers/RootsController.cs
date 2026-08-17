@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Routing;
 namespace Presentation.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api")]
     public class RootsController : ControllerBase
     {
         private readonly LinkGenerator _linkGenerator;
