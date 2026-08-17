@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entities.DTOs;
+using Entities.LinkModels;
 using Entities.Models;
 using Entities.RequestFeatures;
 
@@ -11,7 +12,7 @@ namespace Services.Contracts
 {
     public interface IBookService
     {
-        Task<(IEnumerable<ExpandoObject> bookDtos, MetaData metaData)> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges);
+        Task<(LinkResponse linkResponse, MetaData metaData)> GetAllBooksAsync(LinkParameters linkParameters, bool trackChanges);
 
         Task<BookDto> GetBookByIdAsync(int id, bool trackChanges);
 
