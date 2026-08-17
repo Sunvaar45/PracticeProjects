@@ -77,6 +77,9 @@ namespace WebApi.Extensions
                 {
                     newtonsoftJsonOutputFormatter.SupportedMediaTypes
                         .Add("application/vnd.myapp.hateoas+json");
+
+                    newtonsoftJsonOutputFormatter.SupportedMediaTypes
+                        .Add("application/vnd.myapp.apiroot+json");
                 }
 
                 var xmlOutputFormatter = config
@@ -87,6 +90,9 @@ namespace WebApi.Extensions
                 {
                     xmlOutputFormatter.SupportedMediaTypes
                         .Add("application/vnd.myapp.hateoas+xml");
+                        
+                    xmlOutputFormatter.SupportedMediaTypes
+                        .Add("application/vnd.myapp.apiroot+xml");
                 }
             });
         }
