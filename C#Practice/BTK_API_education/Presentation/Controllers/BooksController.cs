@@ -30,6 +30,7 @@ namespace Presentation.Controllers
         [HttpHead]
         [HttpGet(Name = "GetBooksAsync")]
         [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetBooksAsync([FromQuery] BookParameters bookParameters)
         {
             var linkParameters = new LinkParameters()

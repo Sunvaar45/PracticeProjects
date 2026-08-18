@@ -50,6 +50,7 @@ builder.Services.ConfigureDataShaper();
 builder.Services.AddCustomMediaTypes();
 builder.Services.ConfigureBookLinks();
 builder.Services.ConfigureVersioning();
+builder.Services.ConfigureResponseCaching();
 
 var app = builder.Build();
 
@@ -76,6 +77,7 @@ if (app.Environment.IsProduction())
 app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
+app.UseResponseCaching();
 
 app.UseAuthorization();
 
