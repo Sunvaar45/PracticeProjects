@@ -18,6 +18,7 @@ namespace Presentation.Controllers
     [ServiceFilter(typeof(LogFilterAttribute))] 
     [ApiController]
     [Route("api/books")]
+    [ResponseCache(CacheProfileName = "Default60")]
     public class BooksController : ControllerBase
     {
         private readonly IServiceManager _manager;
@@ -30,7 +31,6 @@ namespace Presentation.Controllers
         [HttpHead]
         [HttpGet(Name = "GetBooksAsync")]
         [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
-        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetBooksAsync([FromQuery] BookParameters bookParameters)
         {
             var linkParameters = new LinkParameters()
