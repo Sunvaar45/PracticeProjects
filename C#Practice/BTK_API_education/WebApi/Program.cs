@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using Presentation.ActionFilters;
@@ -44,6 +45,9 @@ builder.Services.ConfigureBookLinks();
 builder.Services.ConfigureVersioning();
 builder.Services.ConfigureResponseCaching();
 builder.Services.ConfigureHttpCacheHeaders();
+builder.Services.AddMemoryCache(); // rate limiting can use this cache to store the number of requests made by a client in a given time window
+builder.Services.ConfigureRateLimitingOptions();
+builder.Services.AddHttpContextAccessor(); // rate limiting can use this to access the HttpContext and get information about the client making the request
 
 var app = builder.Build();
 
@@ -69,6 +73,7 @@ if (app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
+app.UseIpRateLimiting(); // rate limiting middleware
 app.UseCors("CorsPolicy");
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
