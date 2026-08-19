@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entities.DTOs;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -128,7 +129,13 @@ namespace WebApi.Extensions
 
         public static void ConfigureHttpCacheHeaders(this IServiceCollection services)
         {
-            services.AddHttpCacheHeaders();
+            services.AddHttpCacheHeaders(
+                expirationOptions =>
+                {
+                    expirationOptions.MaxAge = 60;
+                    expirationOptions.CacheLocation = CacheLocation.Private;
+                }
+            );
         }
     }
 }
