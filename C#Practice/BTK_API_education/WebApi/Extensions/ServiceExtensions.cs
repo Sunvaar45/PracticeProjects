@@ -133,7 +133,12 @@ namespace WebApi.Extensions
                 expirationOptions =>
                 {
                     expirationOptions.MaxAge = 60;
-                    expirationOptions.CacheLocation = CacheLocation.Private;
+                    expirationOptions.CacheLocation = CacheLocation.Public;
+                },
+                validationOptions =>
+                {
+                    // forces the client to revalidate the cache with the server before using a cached response
+                    validationOptions.MustRevalidate = true;
                 }
             );
         }

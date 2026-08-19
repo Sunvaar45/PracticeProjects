@@ -19,7 +19,7 @@ namespace Presentation.Controllers
     [ServiceFilter(typeof(LogFilterAttribute))] 
     [ApiController]
     [Route("api/books")]
-    [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 80)]
+    // [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 80)]
     public class BooksController : ControllerBase
     {
         private readonly IServiceManager _manager;
