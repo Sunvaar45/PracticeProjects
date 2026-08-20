@@ -12,10 +12,17 @@ namespace WebApi.Utilities.AutoMapper
     {
         public MappingProfile()
         {
-            CreateMap<BookDtoForUpdate, Book>().ReverseMap();
-            CreateMap<Book, BookDto>();
-            CreateMap<BookDtoForInsertion, Book>();
-            CreateMap<UserDtoForRegistration, User>();
+            CreateMap<BookDtoForUpdate, Book>(MemberList.Source)
+                .ReverseMap();
+
+            CreateMap<Book, BookDto>(MemberList.Destination);
+
+            CreateMap<BookDtoForInsertion, Book>(MemberList.Destination)
+                .ForMember(destination => destination.Id, options => options.Ignore());
+
+            CreateMap<UserDtoForRegistration, User>(MemberList.Source)
+                .ForSourceMember(source => source.Password, options => options.DoNotValidate())
+                .ForSourceMember(source => source.Roles, options => options.DoNotValidate());
         }
     }
 }

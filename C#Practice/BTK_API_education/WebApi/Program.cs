@@ -67,6 +67,9 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/openapi/v1.json", "WebApi v1");
     });
+
+    // Validate AutoMapper configuration at application startup to catch any mapping issues early in the development process
+    app.ValidateAutoMapper();
 }
 
 if (app.Environment.IsProduction())
