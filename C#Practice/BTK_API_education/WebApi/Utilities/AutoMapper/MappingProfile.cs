@@ -12,7 +12,7 @@ namespace WebApi.Utilities.AutoMapper
     {
         public MappingProfile()
         {
-            CreateMap<BookDtoForUpdate, Book>(MemberList.Source)
+            CreateMap<BookDtoForUpdate, Book>(MemberList.Destination)
                 .ReverseMap();
 
             CreateMap<Book, BookDto>(MemberList.Destination);
