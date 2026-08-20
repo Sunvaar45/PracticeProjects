@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -20,7 +21,9 @@ namespace Repositories.EFCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new BookConfig());
+            // modelBuilder.ApplyConfiguration(new BookConfig());
+            // modelBuilder.ApplyConfiguration(new RoleConfig());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }
