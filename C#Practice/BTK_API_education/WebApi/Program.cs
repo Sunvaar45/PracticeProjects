@@ -49,6 +49,9 @@ builder.Services.AddMemoryCache(); // rate limiting can use this cache to store 
 builder.Services.ConfigureRateLimitingOptions();
 builder.Services.AddHttpContextAccessor(); // rate limiting can use this to access the HttpContext and get information about the client making the request
 
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -78,6 +81,7 @@ app.UseCors("CorsPolicy");
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
