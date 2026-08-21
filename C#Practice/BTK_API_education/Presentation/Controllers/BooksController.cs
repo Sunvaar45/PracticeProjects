@@ -8,6 +8,7 @@ using Entities.Exceptions;
 using Entities.Models;
 using Entities.RequestFeatures;
 using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,7 @@ namespace Presentation.Controllers
             _manager = manager;
         }
 
+        [Authorize]
         [HttpHead]
         [HttpGet(Name = "GetBooksAsync")]
         [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
