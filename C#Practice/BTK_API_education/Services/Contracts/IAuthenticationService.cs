@@ -10,5 +10,7 @@ namespace Services.Contracts
     public interface IAuthenticationService
     {
         Task<IdentityResult> RegisterUserAsync(UserDtoForRegistration userDtoForRegistration);
+
+        Task<bool> ValidateUserAsync(UserDtoForAuthentication userDtoForAuthentication);
     }
 }

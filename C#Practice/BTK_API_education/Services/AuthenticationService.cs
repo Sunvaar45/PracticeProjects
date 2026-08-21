@@ -17,6 +17,8 @@ namespace Services
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
+        
+        private User? _user; 
 
         public AuthenticationService(ILoggerService logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration)
         {
@@ -36,6 +38,22 @@ namespace Services
             {
                 await _userManager.AddToRolesAsync(user, userDtoForRegistration.Roles);
             }
+            
+            return result;
+        }
+
+        public async Task<bool> ValidateUserAsync(UserDtoForAuthentication userDtoForAuthentication)
+        {
+            bool result;
+            _user = await _userManager.FindByNameAsync(userDtoForAuthentication.UserName);
+        
+            if (_user != null && await _userManager.CheckPasswordAsync(_user, userDtoForAuthentication.Password))
+                result = true;
+            else
+                result = false;
+        
+            if (!result)
+                _logger.LogWarning($"{nameof(ValidateUserAsync)}: Authentication failed. Wrong user name or password.");
             
             return result;
         }
