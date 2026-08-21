@@ -48,9 +48,8 @@ builder.Services.ConfigureHttpCacheHeaders();
 builder.Services.AddMemoryCache(); // rate limiting can use this cache to store the number of requests made by a client in a given time window
 builder.Services.ConfigureRateLimitingOptions();
 builder.Services.AddHttpContextAccessor(); // rate limiting can use this to access the HttpContext and get information about the client making the request
-
-builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
+builder.Services.ConfigureJwt(builder.Configuration);
 
 var app = builder.Build();
 
