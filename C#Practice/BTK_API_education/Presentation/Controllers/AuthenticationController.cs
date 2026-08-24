@@ -39,5 +39,21 @@ namespace Presentation.Controllers
 
             return StatusCode(201);
         }
+
+        [HttpPost("login")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> AuthenticateUserAsync([FromBody] UserDtoForAuthentication userDtoForAuthentication)
+        {
+            if (!await _serviceManager.AuthenticationService.ValidateUserAsync(userDtoForAuthentication))
+            {
+                return Unauthorized(); // 401
+            }
+
+            return Ok(
+                new {
+                    Token = await _serviceManager.AuthenticationService.CreateTokenAsync() 
+                }
+            );
+        }
     }
 }
