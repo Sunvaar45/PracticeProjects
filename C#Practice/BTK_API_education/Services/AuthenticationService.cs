@@ -34,11 +34,10 @@ namespace Services
 
         public async Task<string> CreateTokenAsync()
         {
-            var signingCredentials = GetSigningCredentials();
-            
+            var jwtSettings = _configuration.GetSection("JwtSettings");
+            var signingCredentials = GetSigningCredentials(jwtSettings);   
             var claims = await GetClaimsAsync();
-
-            var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
+            var tokenOptions = GenerateTokenOptions(jwtSettings, signingCredentials, claims);
 
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
@@ -73,9 +72,8 @@ namespace Services
             return result;
         }
 
-        private SigningCredentials GetSigningCredentials()
+        private SigningCredentials GetSigningCredentials(IConfigurationSection jwtSettings)
         {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
             var key = Encoding.UTF8.GetBytes(jwtSettings["secretKey"]);
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
@@ -96,6 +94,18 @@ namespace Services
             }
 
             return claims;
+        }
+
+        private JwtSecurityToken GenerateTokenOptions(IConfigurationSection jwtSettings, SigningCredentials signingCredentials, List<Claim> claims)
+        {
+            var tokenOptions = new JwtSecurityToken(
+                issuer: jwtSettings["validIssuer"],
+                audience: jwtSettings["validAudience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["expiryInMinutes"])),
+                signingCredentials: signingCredentials
+            );
+            return tokenOptions;
         }
     }
 }
