@@ -51,11 +51,6 @@ namespace Presentation.Controllers
 
             var tokenDto = await _serviceManager.AuthenticationService.CreateTokenAsync(populateExpiry: true);
             return Ok(tokenDto);
-            // return Ok(
-            //     new {
-            //         Token = await _serviceManager.AuthenticationService.CreateTokenAsync() 
-            //     }
-            // );
         }
     }
 }

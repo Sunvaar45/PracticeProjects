@@ -38,6 +38,7 @@ namespace Services
             var signingCredentials = GetSigningCredentials();   
             var claims = await GetClaimsAsync();
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
+            var accessToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
             var refreshToken = GenerateRefreshToken();
             _user.RefreshToken = refreshToken;
@@ -49,9 +50,6 @@ namespace Services
             }
             await _userManager.UpdateAsync(_user);
 
-            // return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-
-            var accessToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
             return new TokenDto
             {
                 AccessToken = accessToken,
