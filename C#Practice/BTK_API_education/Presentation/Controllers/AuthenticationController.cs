@@ -49,11 +49,13 @@ namespace Presentation.Controllers
                 return Unauthorized(); // 401
             }
 
-            return Ok(
-                new {
-                    Token = await _serviceManager.AuthenticationService.CreateTokenAsync() 
-                }
-            );
+            var tokenDto = await _serviceManager.AuthenticationService.CreateTokenAsync(populateExpiry: true);
+            return Ok(tokenDto);
+            // return Ok(
+            //     new {
+            //         Token = await _serviceManager.AuthenticationService.CreateTokenAsync() 
+            //     }
+            // );
         }
     }
 }
