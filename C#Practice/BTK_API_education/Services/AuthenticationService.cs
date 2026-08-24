@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using Entities.DTOs;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Services.Contracts;
 
 namespace Services
@@ -26,6 +28,17 @@ namespace Services
             _mapper = mapper;
             _userManager = userManager;
             _configuration = configuration;
+        }
+
+        public async Task<string> CreateTokenAsync()
+        {
+            var signingCredentials = GetSigningCredentials();
+            
+            var claims = await GetClaimsAsync();
+
+            var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
+
+            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
 
         public async Task<IdentityResult> RegisterUserAsync(UserDtoForRegistration userDtoForRegistration)

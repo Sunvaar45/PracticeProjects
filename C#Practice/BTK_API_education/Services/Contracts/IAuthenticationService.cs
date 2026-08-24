@@ -12,5 +12,7 @@ namespace Services.Contracts
         Task<IdentityResult> RegisterUserAsync(UserDtoForRegistration userDtoForRegistration);
 
         Task<bool> ValidateUserAsync(UserDtoForAuthentication userDtoForAuthentication);
+
+        Task<string> CreateTokenAsync();
     }
 }
