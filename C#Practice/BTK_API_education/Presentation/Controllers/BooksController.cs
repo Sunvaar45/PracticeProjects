@@ -30,7 +30,7 @@ namespace Presentation.Controllers
             _manager = manager;
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize]
         [HttpHead]
         [HttpGet(Name = "GetBooksAsync")]
         [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
@@ -53,7 +53,7 @@ namespace Presentation.Controllers
             return Ok(linkCollection.linkResponse.ShapedEntities);
         }
 
-        [Authorize(Roles = "Editor")]
+        [Authorize]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetBookByIdAsync([FromRoute] int id)
         {
@@ -61,7 +61,7 @@ namespace Presentation.Controllers
             return Ok(book);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Editor, Admin")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPost(Name = "CreateBookAsync")]
         public async Task<IActionResult> CreateBookAsync([FromBody] BookDtoForInsertion bookDtoForInsertion)
@@ -70,6 +70,7 @@ namespace Presentation.Controllers
             return StatusCode(201, bookDto); // 201 Created
         }
 
+        [Authorize(Roles = "Editor, Admin")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateBookAsync([FromRoute] int id, [FromBody] BookDtoForUpdate bookDtoForUpdate)
@@ -78,6 +79,7 @@ namespace Presentation.Controllers
             return NoContent(); // 204
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteBookByIdAsync([FromRoute] int id)
         {
@@ -85,6 +87,7 @@ namespace Presentation.Controllers
             return NoContent(); // 204   
         }
 
+        [Authorize(Roles = "Editor, Admin")]
         [HttpPatch("{id:int}")]
         public async Task<IActionResult> PatchBookAsync([FromRoute] int id, 
             [FromBody] JsonPatchDocument<BookDtoForUpdate> bookPatch)
@@ -109,6 +112,7 @@ namespace Presentation.Controllers
             return NoContent(); // 204
         }
 
+        [Authorize]
         [HttpOptions]
         public IActionResult GetBooksOptions()
         {
