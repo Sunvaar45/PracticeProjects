@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -32,12 +33,11 @@ namespace Services
             _configuration = configuration;
         }
 
-        public async Task<string> CreateTokenAsync()
+        public async Task<TokenDto> CreateTokenAsync(bool populateExp)
         {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
-            var signingCredentials = GetSigningCredentials(jwtSettings);   
+            var signingCredentials = GetSigningCredentials();   
             var claims = await GetClaimsAsync();
-            var tokenOptions = GenerateTokenOptions(jwtSettings, signingCredentials, claims);
+            var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
 
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
@@ -71,12 +71,13 @@ namespace Services
             
             return result;
         }
-
-        private SigningCredentials GetSigningCredentials(IConfigurationSection jwtSettings)
+        
+        private SigningCredentials GetSigningCredentials()
         {
-            var key = Encoding.UTF8.GetBytes(jwtSettings["secretKey"]);
-            var secret = new SymmetricSecurityKey(key);
-            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+            var jwtSettings = _configuration.GetSection("JwtSettings");
+            var secretKey = Encoding.UTF8.GetBytes(jwtSettings["secretKey"]);
+            var signingKey = new SymmetricSecurityKey(secretKey);
+            return new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
         }
 
         private async Task<List<Claim>> GetClaimsAsync()
@@ -96,8 +97,10 @@ namespace Services
             return claims;
         }
 
-        private JwtSecurityToken GenerateTokenOptions(IConfigurationSection jwtSettings, SigningCredentials signingCredentials, List<Claim> claims)
+        private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
+            var jwtSettings = _configuration.GetSection("JwtSettings");
+
             var tokenOptions = new JwtSecurityToken(
                 issuer: jwtSettings["validIssuer"],
                 audience: jwtSettings["validAudience"],
