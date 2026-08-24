@@ -33,11 +33,21 @@ namespace Services
             _configuration = configuration;
         }
 
-        public async Task<TokenDto> CreateTokenAsync(bool populateExp)
+        public async Task<TokenDto> CreateTokenAsync(bool populateExpiry)
         {
             var signingCredentials = GetSigningCredentials();   
             var claims = await GetClaimsAsync();
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
+
+            var refreshToken = GenerateRefreshToken();
+            _user.RefreshToken = refreshToken;
+
+            var jwtSettings = _configuration.GetSection("JwtSettings");
+            if (populateExpiry)
+            {
+                _user.RefreshTokenExpiryTime = DateTime.Now.AddDays(Convert.ToDouble(jwtSettings["refreshTokenExpiryInDays"]));
+            }
+            await _userManager.UpdateAsync(_user);
 
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }

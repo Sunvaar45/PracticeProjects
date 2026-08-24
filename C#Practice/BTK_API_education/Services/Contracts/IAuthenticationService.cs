@@ -13,6 +13,6 @@ namespace Services.Contracts
 
         Task<bool> ValidateUserAsync(UserDtoForAuthentication userDtoForAuthentication);
 
-        Task<TokenDto> CreateTokenAsync(bool populateExp);
+        Task<TokenDto> CreateTokenAsync(bool populateExpiry);
     }
 }
