@@ -49,7 +49,14 @@ namespace Services
             }
             await _userManager.UpdateAsync(_user);
 
-            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            // return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            var accessToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            return new TokenDto
+            {
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
+            };
         }
 
         public async Task<IdentityResult> RegisterUserAsync(UserDtoForRegistration userDtoForRegistration)

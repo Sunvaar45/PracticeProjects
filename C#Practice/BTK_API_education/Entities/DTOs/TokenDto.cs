@@ -7,7 +7,7 @@ namespace Entities.DTOs
 {
     public record TokenDto
     {
-        public string accessToken { get; init; }
-        public string refreshToken { get; init; }
+        public string AccessToken { get; init; }
+        public string RefreshToken { get; init; }
     }
 }
