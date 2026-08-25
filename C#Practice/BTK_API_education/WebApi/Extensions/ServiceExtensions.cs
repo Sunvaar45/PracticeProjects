@@ -210,5 +210,27 @@ namespace WebApi.Extensions
                 };
             });
         }
+
+        // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/customize-openapi?view=aspnetcore-10.0#use-document-transformers
+        public static void ConfigureOpenApi(this IServiceCollection services)
+        {
+            services.AddOpenApi("v1", options =>
+            {
+                options.AddDocumentTransformer((document, context, cancellationToken) =>
+                {
+                    document.Info = new() { Title = "WebApi", Version = "v1" };
+                    return Task.CompletedTask;
+                });
+            });
+
+            services.AddOpenApi("v2", options =>
+            {
+                options.AddDocumentTransformer((document, context, cancellationToken) =>
+                {
+                    document.Info = new() { Title = "WebApi", Version = "v2" };
+                    return Task.CompletedTask;
+                });
+            });
+        }
     }
 }
