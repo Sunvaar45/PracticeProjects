@@ -14,5 +14,7 @@ namespace Services.Contracts
         Task<bool> ValidateUserAsync(UserDtoForAuthentication userDtoForAuthentication);
 
         Task<TokenDto> CreateTokenAsync(bool populateExpiry);
+
+        Task<TokenDto> RefreshTokenAsync(TokenDto tokenDto);
     }
 }

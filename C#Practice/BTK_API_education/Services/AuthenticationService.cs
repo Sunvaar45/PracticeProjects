@@ -86,7 +86,23 @@ namespace Services
             
             return result;
         }
-        
+
+        public async Task<TokenDto> RefreshTokenAsync(TokenDto tokenDto)
+        {
+            var principal = GetPrincipalFromExpiredToken(tokenDto.AccessToken);
+            var user = await _userManager.FindByNameAsync(principal.Identity.Name);
+
+            if (user == null ||
+                user.RefreshToken != tokenDto.RefreshToken ||
+                user.RefreshTokenExpiryTime <= DateTime.Now)
+            {
+                throw new RefreshTokenBadRequestException();
+            }
+
+            _user = user;
+            return await CreateTokenAsync(populateExpiry: false);
+        }
+
         private SigningCredentials GetSigningCredentials()
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
