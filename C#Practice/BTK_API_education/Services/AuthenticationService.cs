@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Entities.DTOs;
+using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
