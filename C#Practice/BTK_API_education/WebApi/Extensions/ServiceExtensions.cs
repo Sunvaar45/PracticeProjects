@@ -219,7 +219,19 @@ namespace WebApi.Extensions
             {
                 options.AddDocumentTransformer((document, context, cancellationToken) =>
                 {
-                    document.Info = new() { Title = "WebApi", Version = "v1" };
+                    document.Info = new() 
+                    { 
+                        Title = "WebApi", 
+                        Version = "v1",
+                        Description = "This is a sample Web API for managing books and authors.",
+                        TermsOfService = new Uri("https://example.com/terms"),
+                        Contact = new OpenApiContact
+                        {
+                            Name = "example contact",
+                            Email = "example@example.com",
+                            Url = new Uri("https://example.com/contact")
+                        }
+                    };
 
                     AddJwtSecurity(document);
 
