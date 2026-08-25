@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using Presentation.ActionFilters;
 using Presentation.Controllers;
 using Repositories.Contracts;
@@ -219,6 +220,9 @@ namespace WebApi.Extensions
                 options.AddDocumentTransformer((document, context, cancellationToken) =>
                 {
                     document.Info = new() { Title = "WebApi", Version = "v1" };
+
+                    AddJwtSecurity(document);
+
                     return Task.CompletedTask;
                 });
             });
@@ -228,8 +232,35 @@ namespace WebApi.Extensions
                 options.AddDocumentTransformer((document, context, cancellationToken) =>
                 {
                     document.Info = new() { Title = "WebApi", Version = "v2" };
+
+                    AddJwtSecurity(document);
+
                     return Task.CompletedTask;
                 });
+            });
+        }
+
+        private static void AddJwtSecurity(OpenApiDocument document)
+        {
+            // 1. Initialize containers if they are null
+            document.Components ??= new();
+            document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+
+            // 2. Define the Padlock (Security Scheme)
+            document.Components.SecuritySchemes["Bearer"] = new OpenApiSecurityScheme()
+            {
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                Description = "Enter bearer token",
+            };
+
+            // 3. Lock the API (Security Requirement)
+            document.Security ??= [];
+            document.Security.Add(new OpenApiSecurityRequirement
+            {
+                // Use the new Reference class and pass in the document so it binds correctly
+                [new OpenApiSecuritySchemeReference("Bearer", document)] = []
             });
         }
     }
