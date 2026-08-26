@@ -18,10 +18,10 @@ builder.Services.AddControllers(config =>
     config.RespectBrowserAcceptHeader = true; // false by default
     config.ReturnHttpNotAcceptable = true;
 })
-    .AddCustomCsvFormatter()
+    .AddNewtonsoftJson()
     .AddXmlDataContractSerializerFormatters()
-    .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly)
-    .AddNewtonsoftJson();
+    .AddCustomCsvFormatter()
+    .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
