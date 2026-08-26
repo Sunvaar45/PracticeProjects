@@ -12,7 +12,7 @@ namespace Services.Contracts
 {
     public interface ICategoryService
     {
-        Task<List<Category>> GetAllCategoriesAsync(bool trackChanges);
+        Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChanges);
 
         Task<Category> GetCategoryByIdAsync(int categoryId, bool trackChanges);
 
