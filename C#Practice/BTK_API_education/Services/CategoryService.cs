@@ -12,16 +12,10 @@ namespace Services
     public class CategoryService : ICategoryService
     {
         private readonly IRepositoryManager _manager;
-        private readonly ILoggerService _logger;
-        private readonly IMapper _mapper;
-        private readonly IBookLinks _bookLinks;
 
-        public CategoryService(IRepositoryManager manager, ILoggerService logger, IMapper mapper, IBookLinks bookLinks)
+        public CategoryService(IRepositoryManager manager)
         {
             _manager = manager;
-            _logger = logger;
-            _mapper = mapper;
-            _bookLinks = bookLinks;
         }
 
         public async Task<Category> CreateCategoryAsync(Category category)
