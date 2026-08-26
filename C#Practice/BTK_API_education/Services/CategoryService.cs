@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Entities.Exceptions;
 using Entities.Models;
 using Repositories.Contracts;
 using Services.Contracts;
@@ -35,7 +36,12 @@ namespace Services
 
         public async Task<Category> GetCategoryByIdAsync(int categoryId, bool trackChanges)
         {
-            return await _manager.Category.GetCategoryByIdAsync(categoryId, trackChanges);
+            var category = await _manager.Category.GetCategoryByIdAsync(categoryId, trackChanges);
+
+            if (category is null)
+                throw new CategoryNotFoundException(categoryId);
+            
+            return category;
         }
 
         public async Task UpdateCategoryAsync(int categoryId, Category category, bool trackChanges)
