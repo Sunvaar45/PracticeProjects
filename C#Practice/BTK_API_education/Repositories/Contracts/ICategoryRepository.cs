@@ -9,5 +9,7 @@ namespace Repositories.Contracts
     public interface ICategoryRepository : IRepositoryBase<Category>
     {
         Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChanges);
+
+        Task<Category> GetCategoryByIdAsync(int categoryId, bool trackChanges);
     }
 }

@@ -20,5 +20,11 @@ namespace Repositories.EFCore
                 .OrderBy(c => c.CategoryName)
                 .ToListAsync();
         }
+
+        public async Task<Category> GetCategoryByIdAsync(int categoryId, bool trackChanges)
+        {
+            return await FindByCondition(c => c.CategoryId.Equals(categoryId), trackChanges)
+                .SingleOrDefaultAsync();
+        }
     }
 }
