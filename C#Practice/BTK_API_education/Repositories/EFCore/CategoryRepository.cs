@@ -14,6 +14,16 @@ namespace Repositories.EFCore
         {
         }
 
+        public void CreateCategory(Category category)
+        {
+            Create(category);
+        }
+
+        public void DeleteCategory(Category category)
+        {
+            Delete(category);
+        }
+
         public async Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChanges)
         {
             return await FindAll(trackChanges)
@@ -25,6 +35,11 @@ namespace Repositories.EFCore
         {
             return await FindByCondition(c => c.CategoryId.Equals(categoryId), trackChanges)
                 .SingleOrDefaultAsync();
+        }
+
+        public void UpdateCategory(Category category)
+        {
+            Update(category);
         }
     }
 }
