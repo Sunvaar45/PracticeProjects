@@ -12,5 +12,11 @@ namespace Entities.Models
         public string Title { get; set; } = string.Empty;
 
         public decimal Price { get; set; }
+
+        // Ref : Foreign key property
+        public int CategoryId { get; set; }
+
+        // Ref : Navigation property
+        public Category? Category { get; set; }
     }
 }
