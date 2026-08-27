@@ -80,6 +80,11 @@ namespace Services
             return _mapper.Map<BookDto>(book);
         }
 
+        public async Task<IEnumerable<Book>> GetBooksWithDetailsAsync(bool trackChanges)
+        {
+            return await _manager.Book.GetBooksWithDetailsAsync(trackChanges);
+        }
+
         public async Task<(BookDtoForUpdate bookDtoForUpdate, Book book)> GetOneBookForPatchAsync(int id, bool trackChanges)
         {
             var book = await GetBookByIdAndCheckIfItExistsAsync(id, trackChanges);
