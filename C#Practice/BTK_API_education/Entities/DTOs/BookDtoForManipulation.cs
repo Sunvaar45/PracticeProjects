@@ -17,5 +17,8 @@ namespace Entities.DTOs
         [Required(ErrorMessage = "Title is required.")]
         [Range(BookConstants.MinPrice, BookConstants.MaxPrice, ErrorMessage = "Price must be between 10 and 1000.")]
         public decimal Price { get; init; }
+
+        [Required(ErrorMessage = "CategoryId is required.")]
+        public int CategoryId { get; init; }
     }
 }
