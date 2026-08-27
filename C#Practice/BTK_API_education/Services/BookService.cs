@@ -31,6 +31,13 @@ namespace Services
 
         public async Task<BookDto> CreateBookAsync(BookDtoForInsertion bookDtoForInsertion)
         {
+            var category = await _manager.Category.GetCategoryByIdAsync(bookDtoForInsertion.CategoryId, false);
+
+            if (category == null)
+            {
+                throw new CategoryNotFoundException(bookDtoForInsertion.CategoryId);
+            }
+
             var book = _mapper.Map<Book>(bookDtoForInsertion);
 
             _manager.Book.CreateBook(book);
