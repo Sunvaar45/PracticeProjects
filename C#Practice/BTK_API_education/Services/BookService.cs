@@ -110,6 +110,7 @@ namespace Services
         {
             // check entity
             var book = await GetBookByIdAndCheckIfItExistsAsync(id, trackChanges);
+            var category = await _categoryService.GetCategoryByIdAsync(bookDtoForUpdate.CategoryId, false);
 
             // mapping
             // book.Title = bookDtoForUpdate.Title;
