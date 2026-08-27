@@ -26,7 +26,7 @@ namespace Services
             IBookLinks bookLinks)
         {
             _bookService = new Lazy<IBookService>(() => 
-            new BookService(repositoryManager, logger, mapper, bookLinks));
+            new BookService(repositoryManager, logger, mapper, bookLinks, _categoryService.Value));
             
             _authenticationService = new Lazy<IAuthenticationService>(() => 
             new AuthenticationService(logger, mapper, userManager, configuration)); 
