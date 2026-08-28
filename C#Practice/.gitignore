@@ -421,3 +421,6 @@ FodyWeavers.xsd
 logs/
 internal_logs/
 internallog.txt
+
+# Ignore Media files in WebApi project
+**/WebApi/Media/*
