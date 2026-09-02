@@ -39,34 +39,38 @@ function ProductList() {
     }
   ];
 
+  const productsArray = products.map((product, index) => (
+    <ProductItem
+      key={index}      
+      imageUrl={product.imageUrl}
+      title={product.title}
+      description={product.description}
+      price={product.price}
+    />
+  ))
+
   return (
     <>
       <h2>Product List</h2>
-      <ProductItem
-        imageUrl = { products[0].imageUrl }
-        title = { products[0].title }
-        description = { products[0].description }
-        price = { products[0].price }
-      />
-      <ProductItem
-        imageUrl = { products[1].imageUrl }
-        title = { products[1].title }
-        description = { products[1].description }
-        price = { products[1].price }
-      />
-      <ProductItem
-        imageUrl = { products[2].imageUrl }
-        title = { products[2].title }
-        description = { products[2].description }
-        price = { products[2].price }
-      />
+
+      {
+        // products.map((product, index) => (
+        //   <ProductItem
+        //     key = { index }
+        //     imageUrl = { product.imageUrl }
+        //     title = { product.title }
+        //     description = { product.description }
+        //     price = { product.price }
+        //   />
+        // ))
+        productsArray
+      }
     </>
   );
 }
 
 function ProductItem(props) {
   console.log(props);
-
   return (
     <div>
       <img src={ props.imageUrl } alt="Product" />
