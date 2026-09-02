@@ -58,10 +58,12 @@ function ProductList() {
   // const products = [];
  
   const productsArray = products.map((product, index) => (
-    <ProductItem
-      key={index}
-      productObject={ product }
-    />
+    <div className="col">
+      <ProductItem
+        key={index}
+        productObject={ product }
+      />
+    </div>
   ))
 
   return (
@@ -69,7 +71,7 @@ function ProductList() {
       <h2 id="title">Product List</h2>
       {
         products.length > 0 ? (
-          <div id="product-list" className="row row-cols-2 row-cols-md-3 row-cols-cl-4 g-4">
+          <div id="product-list" className="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-4">
             {productsArray}
           </div>
         ) : (
@@ -84,11 +86,13 @@ function ProductItem({ productObject }) {
   if (!productObject.isActive) return null;
 
   return (
-    <div id="product-item">
-      <img src={ productObject.imageUrl } alt="Product" />
-      <h2>{ productObject.title }</h2>
-      <p>{ productObject.description }</p>
-      <span className= { `f20 ${productObject.price < 30 ? "discount" : "price"}` } >{ productObject.price }</span>
+    <div id="product-item" className="card shadow-sm">
+      <img className="card-img-top p-2 p-md-3 border-bottom" src={ productObject.imageUrl } alt="Product" />
+      <div className="card-body">
+        <h2>{ productObject.title }</h2>
+        <p>{ productObject.description }</p>
+        <span className= { `f20 ${productObject.price < 30 ? "discount" : "price"}` } >{ productObject.price }</span>
+      </div>
     </div>
   );
 }
