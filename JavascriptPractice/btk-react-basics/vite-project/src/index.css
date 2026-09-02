@@ -1,3 +1,11 @@
 .title {
     color: cadetblue;
 }
+
+.price {
+    color: green;
+}
+
+.discount {
+    color: darkgoldenrod;
+}
