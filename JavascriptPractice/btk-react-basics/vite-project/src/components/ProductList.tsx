@@ -3,9 +3,8 @@ import ProductItem from './ProductItem';
 
 export default function ProductList() {
   const productsArray = products.map((product, index) => (
-    <div className="col">
+    <div className="col" key={index}>
       <ProductItem
-        key={index}
         productObject={product} />
     </div>
   ));
