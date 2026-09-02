@@ -1,4 +1,5 @@
-import { ProductItem } from './main';
+import { products } from '../data';
+import ProductItem from './ProductItem';
 
 export default function ProductList() {
   const productsArray = products.map((product, index) => (
