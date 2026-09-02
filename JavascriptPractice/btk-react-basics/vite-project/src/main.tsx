@@ -24,24 +24,27 @@ function ProductList() {
       "imageUrl": "/img/CyberDragon.png",
       "title": "Product Title 1",
       "description": "Lorem ipsum dolor sit amet.",
-      "price": "$19.99"
+      "price": "$19.99",
+      "isActive": true
     },
     {
       "imageUrl": "/img/CyberDragon.png",
       "title": "Product Title 2",
       "description": "Lorem ipsum dolor sit amet.",
-      "price": "$29.99"
+      "price": "$29.99",
+      "isActive": false
     },
     {
       "imageUrl": "/img/CyberDragon.png",
       "title": "Product Title 3",
       "description": "Lorem ipsum dolor sit amet.",
-      "price": "$39.99"
+      "price": "$39.99",
+      "isActive": true
     }
   ];
 
   // const products = [];
-
+ 
   const productsArray = products.map((product, index) => (
     <ProductItem
       key={index}
@@ -66,6 +69,8 @@ function ProductList() {
 }
 
 function ProductItem({ productObject }) {
+  if (!productObject.isActive) return null;
+
   return (
     <div className="product-item">
       <img src={ productObject.imageUrl } alt="Product" />
