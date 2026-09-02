@@ -1,0 +1,23 @@
+import { ProductItem } from './main';
+
+export default function ProductList() {
+  const productsArray = products.map((product, index) => (
+    <div className="col">
+      <ProductItem
+        key={index}
+        productObject={product} />
+    </div>
+  ));
+
+  return (
+    <>
+      {products.length > 0 ? (
+        <div id="product-list" className="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-4">
+          {productsArray}
+        </div>
+      ) : (
+        <p>No products available.</p>
+      )}
+    </>
+  );
+}
