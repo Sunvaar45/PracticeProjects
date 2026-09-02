@@ -66,10 +66,10 @@ function ProductList() {
 
   return (
     <>
-      <h2 className="title">Product List</h2>
+      <h2 id="title">Product List</h2>
       {
         products.length > 0 ? (
-          <div className="product-list">
+          <div id="product-list" className="row row-cols-2 row-cols-md-3 row-cols-cl-4 g-4">
             {productsArray}
           </div>
         ) : (
@@ -84,7 +84,7 @@ function ProductItem({ productObject }) {
   if (!productObject.isActive) return null;
 
   return (
-    <div className="product-item">
+    <div id="product-item">
       <img src={ productObject.imageUrl } alt="Product" />
       <h2>{ productObject.title }</h2>
       <p>{ productObject.description }</p>
