@@ -9,9 +9,9 @@ function App() {
   return (
     <>
       <Header />
-      <div className="container">
+      <div className="container mt-4">
         <ProductList />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );
@@ -44,7 +44,7 @@ function ProductList() {
       "title": "Product Title 2",
       "description": "Lorem ipsum dolor sit amet.",
       "price": 29.99,
-      "isActive": false
+      "isActive": true
     },
     {
       "imageUrl": "/img/CyberDragon.png",
@@ -52,7 +52,28 @@ function ProductList() {
       "description": "Lorem ipsum dolor sit amet.",
       "price": 39.99,
       "isActive": true
-    }
+    },
+    {
+      "imageUrl": "/img/CyberDragon.png",
+      "title": "Product Title 3",
+      "description": "Lorem ipsum dolor sit amet.",
+      "price": 39.99,
+      "isActive": true
+    },
+    {
+      "imageUrl": "/img/CyberDragon.png",
+      "title": "Product Title 3",
+      "description": "Lorem ipsum dolor sit amet.",
+      "price": 39.99,
+      "isActive": true
+    },
+    {
+      "imageUrl": "/img/CyberDragon.png",
+      "title": "Product Title 3",
+      "description": "Lorem ipsum dolor sit amet.",
+      "price": 39.99,
+      "isActive": true
+    },
   ];
 
   // const products = [];
@@ -68,7 +89,6 @@ function ProductList() {
 
   return (
     <>
-      <h2 id="title">Product List</h2>
       {
         products.length > 0 ? (
           <div id="product-list" className="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-4">
@@ -89,9 +109,9 @@ function ProductItem({ productObject }) {
     <div id="product-item" className="card shadow-sm">
       <img className="card-img-top p-2 p-md-3 border-bottom" src={ productObject.imageUrl } alt="Product" />
       <div className="card-body">
-        <h2>{ productObject.title }</h2>
-        <p>{ productObject.description }</p>
-        <span className= { `f20 ${productObject.price < 30 ? "discount" : "price"}` } >{ productObject.price }</span>
+        <h2 className="card-title">{ productObject.title }</h2>
+        <p className="card-text">{ productObject.description }</p>
+        <span className={`${productObject.price < 30 ? "badge text-bg-success" : "badge text-bg-primary"}` } >{ productObject.price }</span>
       </div>
     </div>
   );
