@@ -40,6 +40,8 @@ function ProductList() {
     }
   ];
 
+  // const products = [];
+
   const productsArray = products.map((product, index) => (
     <ProductItem
       key={index}
@@ -50,14 +52,22 @@ function ProductList() {
   return (
     <>
       <h2>Product List</h2>
-      { productsArray }
+      {
+        products.length > 0 ? (
+          <div className="product-list">
+            {productsArray}
+          </div>
+        ) : (
+          <p>No products available.</p>
+        )
+      }
     </>
   );
 }
 
 function ProductItem({ productObject }) {
   return (
-    <div>
+    <div className="product-item">
       <img src={ productObject.imageUrl } alt="Product" />
       <h2>{ productObject.title }</h2>
       <p>{ productObject.description }</p>
