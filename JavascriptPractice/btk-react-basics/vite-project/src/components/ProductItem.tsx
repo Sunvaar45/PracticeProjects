@@ -1,4 +1,14 @@
-export default function ProductItem({ productObject }) {
+interface ProductProps {
+  productObject: {
+    imageUrl: string;
+    title: string;
+    description: string;
+    price: number;
+    isActive: boolean;
+  };
+}
+
+export default function ProductItem({ productObject }: ProductProps) {
   if (!productObject.isActive) return null;
 
   return (
