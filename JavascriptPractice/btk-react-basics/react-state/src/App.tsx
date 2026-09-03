@@ -3,6 +3,8 @@ import { sculptureList } from './data.ts';
 
 function App() {
   const [index, setIndex] = useState(0);
+  const [showDetails, setShowDetails] = useState(false);
+
   const sculpture = sculptureList[index];
 
   function handlePreviousClick() {
@@ -17,6 +19,10 @@ function App() {
     setIndex((index + 1) % sculptureList.length);
   }
 
+  function handleShowDetailsClick() {
+    setShowDetails(!showDetails);
+  }
+
   return (
     <>
       <button onClick={handlePreviousClick}>Previous</button>
@@ -25,13 +31,19 @@ function App() {
       <h2>
         <i> {sculpture.name} </i> by {sculpture.artist}
       </h2>
+      
       <h3>
         (
           { index + 1 } of { sculptureList.length }
         )
       </h3>
+      
       <img src={ sculpture.url } alt={ sculpture.alt }></img>
-      <p>{ sculpture.description }</p>
+      
+      <button onClick={handleShowDetailsClick}>
+        { showDetails ? 'Hide' : 'Show' } Details
+      </button>
+      {showDetails && <p>{ sculpture.description }</p>}
     </>
   )
 }
