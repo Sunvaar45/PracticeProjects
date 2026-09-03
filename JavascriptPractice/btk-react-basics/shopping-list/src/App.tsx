@@ -1,10 +1,11 @@
-function App() {
+import { ItemList } from "./components/ItemList";
 
+function App() {
   return (
     <div className="App">
       <Header />
       <Form />
-      <List />
+      <ItemList />
       <Summary />
     </div>
   )
@@ -27,27 +28,6 @@ function Form() {
       </select>
       <button type="submit">Add</button>
     </form>
-  )
-}
-
-function List() {
-  return (
-    <div className="list">
-      <ul>
-        <Item />
-        <Item />
-        <Item />
-      </ul>
-    </div>
-  )
-}
-
-function Item() {
-  return (
-    <li>
-      <span>Fruit</span>
-      <button>X</button>
-    </li>
   )
 }
 
