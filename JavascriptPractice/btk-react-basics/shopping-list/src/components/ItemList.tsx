@@ -1,7 +1,11 @@
+import type { IItem } from "../types";
 import { Item } from "./Item";
-import { items } from "../data";
 
-export function ItemList() {
+interface ItemListProps {
+  items: IItem[];
+}
+
+export function ItemList({ items }: ItemListProps) {
   const itemsArray = items.map((item, index) => (
     <Item
       key={index}
