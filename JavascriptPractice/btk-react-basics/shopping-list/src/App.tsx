@@ -22,9 +22,10 @@ function Form() {
     <form className="form">
       <input type="text" placeholder="Add an item" />
       <select>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        {
+          Array.from({ length: 10 }, (_value, index) => index + 1)
+            .map(num => <option key={ num } value={ num }>{ num }</option>)
+        }
       </select>
       <button type="submit">Add</button>
     </form>
