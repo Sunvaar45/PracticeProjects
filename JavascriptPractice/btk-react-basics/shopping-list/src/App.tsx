@@ -19,11 +19,17 @@ function Header() {
 }
 
 function Form() {
-  const [title, setTitle] = useState("aaa");
+  const [title, setTitle] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
   function handleFormSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    // console.log(event);
+
+    const item = {id: Date.now(), title, quantity, completed: false};
+    console.log(item);
+
+    setTitle("");
+    setQuantity(1);
   }
 
   return (
@@ -34,7 +40,12 @@ function Form() {
           console.log(event.target.value);
         }}
       />
-      <select>
+      <select value={ quantity } 
+        onChange={(event) => {
+          setQuantity(Number(event.target.value));
+          console.log(event.target.value);
+        }}
+      >
         {
           Array.from({ length: 10 }, (_value, index) => index + 1)
             .map(num => <option key={ num } value={ num }>{ num }</option>)
