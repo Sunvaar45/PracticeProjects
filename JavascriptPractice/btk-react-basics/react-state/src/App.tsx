@@ -1,23 +1,26 @@
+import { useState } from 'react';
 import { sculptureList } from './data.ts';
 
 function App() {
-  let index = 0;
-  let sculpture = sculptureList[index]; 
-
-  console.log(sculpture);
-
-  function handleNextClick() {
-    alert('next');
-  }
+  const [index, setIndex] = useState(0);
+  const sculpture = sculptureList[index];
 
   function handlePreviousClick() {
-    alert('previous');
+    if (index - 1 < 0) {
+      setIndex(sculptureList.length - 1);
+    } else {
+      setIndex(index - 1);
+    }
+  }
+
+  function handleNextClick() {
+    setIndex((index + 1) % sculptureList.length);
   }
 
   return (
     <>
+      <button onClick={handlePreviousClick}>Previous</button>
       <button onClick={ handleNextClick }>Next</button>
-      <button onClick={ handlePreviousClick }>Previous</button>
 
       <h2>
         <i> {sculpture.name} </i> by {sculpture.artist}
