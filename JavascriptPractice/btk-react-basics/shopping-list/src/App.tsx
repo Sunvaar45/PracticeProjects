@@ -18,6 +18,10 @@ function App() {
     setItems(items => items.filter(item => item.id !== id));
   }
 
+  function handleDeleteAllItems() {
+    setItems([]);
+  }
+
   function handleToggleItem(id: number) {
     setItems(items => items.map(
       item => item.id === id ? {...item, completed: !item.completed} : item
@@ -29,6 +33,7 @@ function App() {
       <Header />
       <Form 
         onAddItem={ handleAddItem }
+        onDeleteAllItems={ handleDeleteAllItems }
       />
       <ItemList 
         items={ items } 

@@ -3,9 +3,10 @@ import type { IItem } from "../types";
 
 interface FormProps {
     onAddItem: (item: IItem) => void;
+    onDeleteAllItems: () => void;
 }
 
-export function Form({ onAddItem }: FormProps) {
+export function Form({ onAddItem, onDeleteAllItems }: FormProps) {
   const [title, setTitle] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -41,6 +42,10 @@ export function Form({ onAddItem }: FormProps) {
           .map(num => <option key={num} value={num}>{num}</option>)}
       </select>
       <button type="submit">Add</button>
+      
+      <button type="button" 
+        onClick={ onDeleteAllItems }
+      >Clear</button>
     </form>
   );
 }
