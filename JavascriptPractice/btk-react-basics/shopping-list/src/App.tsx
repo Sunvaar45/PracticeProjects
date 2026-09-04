@@ -7,6 +7,8 @@ import { Summary } from "./components/Summary";
 
 function App() {
   const [items, setItems] = useState<IItem[]>(itemsData);
+  const itemsCount = items.length;
+  const completedItemsCount = items.filter(item => item.completed).length;
 
   function handleAddItem(item: IItem) {
     setItems((items) => [...items, item]);
@@ -25,12 +27,18 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Form onAddItem={ handleAddItem } />
-      <ItemList items={ items } 
+      <Form 
+        onAddItem={ handleAddItem }
+      />
+      <ItemList 
+        items={ items } 
         onDeleteItem={ handleDeleteItem }
         onToggleItem={ handleToggleItem } 
       />
-      <Summary />
+      <Summary  
+        itemsCount={ itemsCount }
+        completedItemsCount={ completedItemsCount }
+      />
     </div>
   )
 }
