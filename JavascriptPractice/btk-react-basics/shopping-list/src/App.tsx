@@ -4,6 +4,7 @@ import type { IItem } from "./types";
 import { Form } from "./components/Form";
 import { itemsData } from "./data";
 import { Summary } from "./components/Summary";
+import { Header } from "./components/Header";
 
 function App() {
   const [items, setItems] = useState<IItem[]>(itemsData);
@@ -48,12 +49,6 @@ function App() {
         completedItemsCount={ completedItemsCount }
       />
     </div>
-  )
-}
-
-function Header() {
-  return (
-    <h1>Shopping List</h1>
   )
 }
 
