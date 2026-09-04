@@ -3,6 +3,7 @@ import { ItemList } from "./components/ItemList";
 import type { IItem } from "./types";
 import { Form } from "./components/Form";
 import { itemsData } from "./data";
+import { Summary } from "./components/Summary";
 
 function App() {
   const [items, setItems] = useState<IItem[]>(itemsData);
@@ -38,14 +39,6 @@ function Header() {
   return (
     <h1>Shopping List</h1>
   )
-}
-
-function Summary() {
-  return (
-    <footer className="summary">
-      <p>Total items: 3</p>
-    </footer>
-  );
 }
 
 export default App;
