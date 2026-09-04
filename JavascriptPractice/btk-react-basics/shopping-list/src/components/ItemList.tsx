@@ -19,15 +19,12 @@ export function ItemList({ items, onDeleteItem, onToggleItem }: ItemListProps) {
 
   return <>
   {
-    items.length > 0 ? (
+    items.length > 0 && (
       <div className="list">
         <ul>
           {itemsArray}
         </ul>
       </div>
-    ) : 
-    (
-      <p>No items in the list</p> 
     )
   }
   </>;
