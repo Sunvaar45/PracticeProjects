@@ -11,6 +11,10 @@ export function Form({ onAddItem }: FormProps) {
 
   function handleFormSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (title.trim() === "") {
+      alert("Please enter a valid item title.");
+      return;
+    }
 
     const item = { id: Date.now(), title, quantity, completed: false };
     console.log(item);
