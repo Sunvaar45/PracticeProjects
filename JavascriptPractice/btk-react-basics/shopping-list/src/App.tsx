@@ -15,12 +15,19 @@ function App() {
     setItems(items => items.filter(item => item.id !== id));
   }
 
+  function handleToggleItem(id: number) {
+    setItems(items => items.map(
+      item => item.id === id ? {...item, completed: !item.completed} : item
+    ));
+  }
+
   return (
     <div className="App">
       <Header />
       <Form onAddItem={ handleAddItem } />
       <ItemList items={ items } 
         onDeleteItem={ handleDeleteItem }
+        onToggleItem={ handleToggleItem } 
       />
       <Summary />
     </div>
