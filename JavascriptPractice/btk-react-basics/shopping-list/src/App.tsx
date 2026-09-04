@@ -19,7 +19,10 @@ function App() {
   }
 
   function handleDeleteAllItems() {
-    setItems([]);
+    const confirmDelete = window.confirm("Are you sure you want to delete all items?");
+    if (confirmDelete) {
+      setItems([]);
+    }
   }
 
   function handleToggleItem(id: number) {
