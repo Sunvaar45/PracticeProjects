@@ -1,4 +1,6 @@
-export const items = [
+import type { IItem } from "./types";
+
+export const itemsData: IItem[] = [
   { id: 1, title: "Egg", quantity: 1, completed: true },
   { id: 2, title: "Bread", quantity: 1, completed: true },
   { id: 3, title: "Milk", quantity: 1, completed: false },

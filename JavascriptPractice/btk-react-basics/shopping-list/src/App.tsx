@@ -2,9 +2,10 @@ import { useState } from "react";
 import { ItemList } from "./components/ItemList";
 import type { IItem } from "./types";
 import { Form } from "./components/Form";
+import { itemsData } from "./data";
 
 function App() {
-  const [items, setItems] = useState<IItem[]>([]);
+  const [items, setItems] = useState<IItem[]>(itemsData);
 
   function handleAddItem(item: IItem) {
     setItems((items) => [...items, item]);
