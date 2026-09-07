@@ -1,13 +1,8 @@
+import type { ISelectedMovie } from "../../types";
 import { getAverage } from "../../utils";
 
 interface SelectedMovieListSummaryProps {
-  selectedMovies: {
-    Id: string;
-    Title: string;
-    Poster: string;
-    Rating: number;
-    Duration: number;
-  }[];
+  selectedMovies: ISelectedMovie[];
 }
 
 export function SelectedMovieListSummary({
