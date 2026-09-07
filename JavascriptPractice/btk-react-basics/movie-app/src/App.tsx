@@ -1,4 +1,9 @@
-import { Navbar } from "./components/Navbar";
+import {
+  Navbar,
+  NavLogo,
+  NavSearch,
+  NavSearchResults,
+} from "./components/Navbar";
 import { Main } from "./components/Main";
 import { movie_list } from "./data";
 import { useState } from "react";
@@ -8,7 +13,11 @@ function App() {
 
   return (
     <>
-      <Navbar movies={movies} />
+      <Navbar>
+        <NavLogo />
+        <NavSearch />
+        <NavSearchResults movies={movies} />
+      </Navbar>
       <Main movies={movies} />
     </>
   );

@@ -1,18 +1,14 @@
 import type { IMovie } from "../types";
 
 interface NavbarProps {
-  movies: IMovie[];
+  children: React.ReactNode;
 }
 
-export function Navbar({ movies }: NavbarProps) {
+export function Navbar({ children }: NavbarProps) {
   return (
     <nav className="bg-primary text-white p-2">
       <div className="container">
-        <div className="row align-items-center">
-          <NavLogo />
-          <NavSearch />
-          <NavSearchResults movies={movies} />
-        </div>
+        <div className="row align-items-center">{children}</div>
       </div>
     </nav>
   );
@@ -22,7 +18,7 @@ interface NavSearchResultsProps {
   movies: IMovie[];
 }
 
-function NavSearchResults({ movies }: NavSearchResultsProps) {
+export function NavSearchResults({ movies }: NavSearchResultsProps) {
   return (
     <div className="col-4 text-end">
       <strong>{movies.length}</strong> results found.
@@ -30,7 +26,7 @@ function NavSearchResults({ movies }: NavSearchResultsProps) {
   );
 }
 
-function NavSearch() {
+export function NavSearch() {
   return (
     <div className="col-4">
       <input
@@ -42,7 +38,7 @@ function NavSearch() {
   );
 }
 
-function NavLogo() {
+export function NavLogo() {
   return (
     <div className="col-4">
       <i className="bi bi-film me-2"></i>
