@@ -1,40 +1,12 @@
 import type { ISelectedMovie } from "../../types";
+import { SelectedMovie } from "./SelectedMovie";
 
 interface SelectedMovieListProps {
   selectedMovies: ISelectedMovie[];
 }
 
 export function SelectedMovieList({ selectedMovies }: SelectedMovieListProps) {
-  return (
-    <>
-      {selectedMovies.map((movie) => (
-        <div className="card mb-2" key={movie.Id}>
-          <div className="row g-0">
-            <div className="col-4">
-              <img
-                className="img-fluid rounded-start"
-                src={movie.Poster}
-                alt={movie.Title}
-              ></img>
-            </div>
-            <div className="col-8">
-              <div className="card-body">
-                <h6 className="card-title">{movie.Title}</h6>
-                <div className="d-flex justify-content-between">
-                  <p>
-                    <i className="bi bi-star-fill text-warning me-1"></i>
-                    <span>{movie.Rating}</span>
-                  </p>
-                  <p>
-                    <i className="bi bi-hourglass text-warning me-1"></i>
-                    <span>{movie.Duration} min</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </>
-  );
+  return selectedMovies.map((movie) => (
+    <SelectedMovie movie={movie} key={movie.Id} />
+  ));
 }
