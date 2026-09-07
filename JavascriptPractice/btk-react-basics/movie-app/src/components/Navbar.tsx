@@ -3,7 +3,10 @@ export function Navbar() {
     <nav className="bg-primary text-white p-2">
       <div className="container">
         <div className="row align-items-center">
-          <div className="col-4">Movie App</div>
+          <div className="col-4">
+            <i className="bi bi-film me-2"></i>
+            Movie App
+          </div>
           <div className="col-4">
             <input
               type="text"
