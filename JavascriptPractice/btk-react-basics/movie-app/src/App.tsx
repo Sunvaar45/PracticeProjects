@@ -85,7 +85,7 @@ function App() {
             <div className="movie-list">
               <button
                 onClick={() => setMovieListIsOpen(!movieListIsOpen)}
-                className="btn btn-outline-primary"
+                className="btn btn-outline-primary mb-2"
               >
                 {movieListIsOpen ? (
                   <i className="bi bi-chevron-up"></i>
@@ -126,7 +126,7 @@ function App() {
                 onClick={() =>
                   setSelectedMovieListIsOpen(!selectedMovieListIsOpen)
                 }
-                className="btn btn-outline-primary"
+                className="btn btn-sm btn-outline-primary mb-2"
               >
                 {selectedMovieListIsOpen ? (
                   <i className="bi bi-chevron-up"></i>
