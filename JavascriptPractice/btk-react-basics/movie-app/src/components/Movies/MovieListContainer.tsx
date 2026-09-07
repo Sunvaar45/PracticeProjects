@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { MovieList } from "./MovieList";
 import { ToggleMovieListButton } from "./ToggleMovieListButton";
+import type { IMovie } from "../../types";
 
-export function MovieListContainer() {
+interface MovieListContainerProps {
+  movies: IMovie[];
+}
+
+export function MovieListContainer({ movies }: MovieListContainerProps) {
   const [movieListIsOpen, setMovieListIsOpen] = useState(true);
 
   function handleToggleMovieList() {
@@ -16,7 +21,7 @@ export function MovieListContainer() {
         onToggleMovieList={handleToggleMovieList}
       />
 
-      {movieListIsOpen && <MovieList />}
+      {movieListIsOpen && <MovieList movies={movies} />}
     </div>
   );
 }

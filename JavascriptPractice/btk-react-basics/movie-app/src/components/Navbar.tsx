@@ -1,21 +1,31 @@
-export function Navbar() {
+import type { IMovie } from "../types";
+
+interface NavbarProps {
+  movies: IMovie[];
+}
+
+export function Navbar({ movies }: NavbarProps) {
   return (
     <nav className="bg-primary text-white p-2">
       <div className="container">
         <div className="row align-items-center">
           <NavLogo />
           <NavSearch />
-          <NavSearchResults />
+          <NavSearchResults movies={movies} />
         </div>
       </div>
     </nav>
   );
 }
 
-function NavSearchResults() {
+interface NavSearchResultsProps {
+  movies: IMovie[];
+}
+
+function NavSearchResults({ movies }: NavSearchResultsProps) {
   return (
     <div className="col-4 text-end">
-      <strong>5</strong> results found.
+      <strong>{movies.length}</strong> results found.
     </div>
   );
 }
