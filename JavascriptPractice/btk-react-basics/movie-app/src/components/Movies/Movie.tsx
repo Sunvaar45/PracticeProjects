@@ -1,10 +1,7 @@
+import type { IMovie } from "../../types";
+
 interface MovieProps {
-  movie: {
-    Id: string;
-    Title: string;
-    Year: string;
-    Poster: string;
-  };
+  movie: IMovie;
 }
 
 export function Movie({ movie }: MovieProps) {
