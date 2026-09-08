@@ -10,13 +10,17 @@ export function Movie({ movie }: MovieProps) {
       <div className="card">
         <img
           className="card-img-top"
-          src={movie.Poster}
-          alt={movie.Title}
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500` + movie.poster_path
+              : "/img/no-image.jpg"
+          }
+          alt={movie.title}
         ></img>
         <div className="card-body">
-          <h6 className="card-title">{movie.Title}</h6>
+          <h6 className="card-title">{movie.title}</h6>
           <div>
-            <span className="badge bg-secondary">{movie.Year}</span>
+            <span className="badge bg-secondary">{movie.release_date}</span>
           </div>
         </div>
       </div>

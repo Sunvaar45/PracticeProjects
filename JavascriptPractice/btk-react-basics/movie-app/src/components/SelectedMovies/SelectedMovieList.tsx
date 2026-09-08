@@ -7,6 +7,6 @@ interface SelectedMovieListProps {
 
 export function SelectedMovieList({ selectedMovies }: SelectedMovieListProps) {
   return selectedMovies.map((movie) => (
-    <SelectedMovie movie={movie} key={movie.Id} />
+    <SelectedMovie movie={movie} key={movie.id} />
   ));
 }

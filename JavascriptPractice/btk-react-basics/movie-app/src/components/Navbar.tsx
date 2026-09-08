@@ -15,13 +15,13 @@ export function Navbar({ children }: NavbarProps) {
 }
 
 interface NavSearchResultsProps {
-  movies: IMovie[];
+  totalResults: number;
 }
 
-export function NavSearchResults({ movies }: NavSearchResultsProps) {
+export function NavSearchResults({ totalResults }: NavSearchResultsProps) {
   return (
     <div className="col-4 text-end">
-      <strong>{movies.length}</strong> results found.
+      <strong>{totalResults}</strong> results found.
     </div>
   );
 }
