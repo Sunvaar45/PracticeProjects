@@ -16,11 +16,17 @@ const textStyle = {
   fontSize: "1rem",
 };
 
+interface StarRatingProps {
+  maxRating?: number;
+  starColor?: string;
+  starSize?: string;
+}
+
 export default function StarRating({
   maxRating = 5,
   starColor = "#ffc107",
   starSize = "32px",
-}) {
+}: StarRatingProps) {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
 
