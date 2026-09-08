@@ -22,10 +22,7 @@ export default function StarRating({
   starSize = "32px",
 }) {
   const [rating, setRating] = useState(0);
-
-  function handleRatingChange(newRating: number) {
-    setRating(newRating);
-  }
+  const [hoverRating, setHoverRating] = useState(0);
 
   return (
     <div style={containerStyle}>
@@ -35,12 +32,14 @@ export default function StarRating({
             key={index}
             starColor={starColor}
             starSize={starSize}
-            isFilled={index < rating}
-            onRatingChange={() => handleRatingChange(index + 1)}
+            isFilled={hoverRating ? index < hoverRating : index < rating}
+            onRatingChange={() => setRating(index + 1)}
+            onHoverEnter={() => setHoverRating(index + 1)}
+            onHoverLeave={() => setHoverRating(0)}
           />
         ))}
       </div>
-      <p style={textStyle}>{rating || ""}</p>
+      <p style={textStyle}>{hoverRating || rating || ""}</p>
     </div>
   );
 }
@@ -50,9 +49,18 @@ interface StarProps {
   starColor?: string;
   starSize?: string;
   onRatingChange: () => void;
+  onHoverEnter: () => void;
+  onHoverLeave: () => void;
 }
 
-function Star({ isFilled, starColor, starSize, onRatingChange }: StarProps) {
+function Star({
+  isFilled,
+  starColor,
+  starSize,
+  onRatingChange,
+  onHoverEnter,
+  onHoverLeave,
+}: StarProps) {
   const emptyStar = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -78,6 +86,12 @@ function Star({ isFilled, starColor, starSize, onRatingChange }: StarProps) {
   );
 
   return (
-    <span onClick={onRatingChange}>{isFilled ? filledStar : emptyStar}</span>
+    <span
+      onClick={onRatingChange}
+      onMouseEnter={onHoverEnter}
+      onMouseLeave={onHoverLeave}
+    >
+      {isFilled ? filledStar : emptyStar}
+    </span>
   );
 }

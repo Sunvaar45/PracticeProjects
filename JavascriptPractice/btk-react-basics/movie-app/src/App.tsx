@@ -7,9 +7,7 @@ import {
 import { Main } from "./components/Main";
 import { movie_list, selected_movie_list } from "./data";
 import { useState } from "react";
-// import { MovieListContainer } from "./components/Movies/MovieListContainer";
 import { MovieList } from "./components/Movies/MovieList";
-// import { SelectedMovieListContainer } from "./components/SelectedMovies/SelectedMovieListContainer";
 import { ListContainer } from "./components/Shared/ListContainer";
 import { SelectedMovieList } from "./components/SelectedMovies/SelectedMovieList";
 import { SelectedMovieListSummary } from "./components/SelectedMovies/SelectedMovieListSummary";
