@@ -3,6 +3,7 @@ import { useState } from "react";
 const containerStyle = {
   display: "flex",
   gap: "1rem",
+  alignItems: "center",
 };
 
 const itemContainerStyle = {
@@ -12,18 +13,31 @@ const itemContainerStyle = {
 
 const textStyle = {
   margin: 0,
+  fontSize: "1rem",
 };
 
-export function StarRating({ maxRating = 5 }) {
-  const [rating, setRating] = useState(3);
+export default function StarRating({
+  maxRating = 5,
+  starColor = "#ffc107",
+  starSize = "32px",
+}) {
+  const [rating, setRating] = useState(0);
 
-  // function handleClick
+  function handleRatingChange(newRating: number) {
+    setRating(newRating);
+  }
 
   return (
     <div style={containerStyle}>
       <div style={itemContainerStyle}>
         {Array.from({ length: maxRating }, (_value, index) => (
-          <Star key={index} isFilled={index < rating} />
+          <Star
+            key={index}
+            starColor={starColor}
+            starSize={starSize}
+            isFilled={index < rating}
+            onRatingChange={() => handleRatingChange(index + 1)}
+          />
         ))}
       </div>
       <p style={textStyle}>{rating || ""}</p>
@@ -31,7 +45,14 @@ export function StarRating({ maxRating = 5 }) {
   );
 }
 
-function Star({ isFilled = false, starColor = "#ffc107", starSize = "32px" }) {
+interface StarProps {
+  isFilled?: boolean;
+  starColor?: string;
+  starSize?: string;
+  onRatingChange: () => void;
+}
+
+function Star({ isFilled, starColor, starSize, onRatingChange }: StarProps) {
   const emptyStar = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -56,5 +77,7 @@ function Star({ isFilled = false, starColor = "#ffc107", starSize = "32px" }) {
     </svg>
   );
 
-  return isFilled ? filledStar : emptyStar;
+  return (
+    <span onClick={onRatingChange}>{isFilled ? filledStar : emptyStar}</span>
+  );
 }
