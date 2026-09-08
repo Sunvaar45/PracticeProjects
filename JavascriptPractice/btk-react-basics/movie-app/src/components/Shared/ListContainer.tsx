@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ToggleListButton } from "./ToggleListButton";
+import { ToggleButton } from "./ToggleButton";
 
 interface ListContainerProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ export function ListContainer({ children }: ListContainerProps) {
 
   return (
     <div className="movie-list">
-      <ToggleListButton isOpen={isOpen} onToggle={handleToggle} />
+      <ToggleButton isOpen={isOpen} onToggle={handleToggle} />
 
       {isOpen && children}
     </div>
