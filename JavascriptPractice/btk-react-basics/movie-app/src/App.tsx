@@ -7,9 +7,10 @@ import {
 import { Main } from "./components/Main";
 import { movie_list } from "./data";
 import { useState } from "react";
-import { MovieListContainer } from "./components/Movies/MovieListContainer";
+// import { MovieListContainer } from "./components/Movies/MovieListContainer";
 import { MovieList } from "./components/Movies/MovieList";
 import { SelectedMovieListContainer } from "./components/SelectedMovies/SelectedMovieListContainer";
+import { ListContainer } from "./components/Shared/ListContainer";
 
 function App() {
   const [movies, setMovies] = useState(movie_list);
@@ -26,9 +27,9 @@ function App() {
         <div className="row mt-2">
           {/* Movie List */}
           <div className="col-md-9">
-            <MovieListContainer>
+            <ListContainer>
               <MovieList movies={movies} />
-            </MovieListContainer>
+            </ListContainer>
           </div>
 
           {/* Selected Movie List */}
