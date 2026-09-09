@@ -6,27 +6,34 @@ import {
 } from "./components/Navbar";
 import { Main } from "./components/Main";
 // import { movie_list, selected_movie_list } from "./data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MovieList } from "./components/Movies/MovieList";
 import { ListContainer } from "./components/Shared/ListContainer";
 import { SelectedMovieList } from "./components/SelectedMovies/SelectedMovieList";
 import { SelectedMovieListSummary } from "./components/SelectedMovies/SelectedMovieListSummary";
 import type { IMovie } from "./types";
 
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+const QUERY = "batman";
+
 function App() {
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [selectedMovies, setSelectedMovies] = useState<IMovie[]>([]);
   const [totalResults, setTotalResults] = useState(0);
 
-  fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_TMDB_API_KEY}&query=batman`,
-  )
-    .then((res) => res.json())
-    .then((data) => {
+  useEffect(function () {
+    async function getMovies() {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${QUERY}`,
+      );
+      const data = await response.json();
       setMovies(data.results);
       console.log(data);
       setTotalResults(data.total_results);
-    });
+    }
+
+    getMovies();
+  }, []);
 
   return (
     <>
