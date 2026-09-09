@@ -22,7 +22,7 @@ interface StarRatingProps {
   starSize?: string;
 }
 
-export default function StarRating({
+export function StarRating({
   maxRating = 5,
   starColor = "#ffc107",
   starSize = "32px",

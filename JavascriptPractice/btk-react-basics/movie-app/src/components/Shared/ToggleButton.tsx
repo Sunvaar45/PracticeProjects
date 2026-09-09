@@ -1,9 +1,9 @@
-interface ToggleListButtonProps {
+interface ToggleButtonProps {
   isOpen: boolean;
   onToggle: () => void;
 }
 
-export function ToggleButton({ isOpen, onToggle }: ToggleListButtonProps) {
+export function ToggleButton({ isOpen, onToggle }: ToggleButtonProps) {
   return (
     <button onClick={onToggle} className="btn btn-outline-primary mb-2">
       {isOpen ? (
