@@ -16,9 +16,10 @@ import { Loading } from "./components/Shared/Loading";
 import { ErrorMessage } from "./components/Shared/ErrorMessage";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const QUERY = "asdsadas";
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState("batman");
+
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [totalResults, setTotalResults] = useState(0);
 
@@ -28,12 +29,14 @@ function App() {
   const [error, setError] = useState("");
 
   useEffect(function () {
+    console.log("Fetching movies for query:", searchQuery);
+
     async function getMovies() {
       setIsLoading(true);
 
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${QUERY}`,
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`,
         );
         if (!response.ok) {
           throw new Error("Failed to fetch movies.");
@@ -66,7 +69,10 @@ function App() {
     <>
       <Navbar>
         <NavLogo />
-        <NavSearch />
+        <NavSearch
+          searchQuery={searchQuery}
+          onSearchQueryChange={setSearchQuery}
+        />
         <NavSearchResults totalResults={totalResults} />
       </Navbar>
 

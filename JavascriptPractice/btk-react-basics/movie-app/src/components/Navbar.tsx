@@ -1,9 +1,6 @@
-import type { IMovie } from "../types";
-
 interface NavbarProps {
   children: React.ReactNode;
 }
-
 export function Navbar({ children }: NavbarProps) {
   return (
     <nav className="bg-primary text-white p-2">
@@ -26,13 +23,22 @@ export function NavSearchResults({ totalResults }: NavSearchResultsProps) {
   );
 }
 
-export function NavSearch() {
+interface NavSearchProps {
+  searchQuery: string;
+  onSearchQueryChange: (query: string) => void;
+}
+export function NavSearch({
+  searchQuery,
+  onSearchQueryChange,
+}: NavSearchProps) {
   return (
     <div className="col-4">
       <input
         type="text"
         className="form-control"
         placeholder="Search movies..."
+        value={searchQuery}
+        onChange={(event) => onSearchQueryChange(event.target.value)}
       ></input>
     </div>
   );
