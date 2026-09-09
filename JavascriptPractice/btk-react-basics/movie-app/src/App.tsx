@@ -8,12 +8,13 @@ import { Main } from "./components/Main";
 // import { movie_list, selected_movie_list } from "./data";
 import { useEffect, useState } from "react";
 import { MovieList } from "./components/Movies/MovieList";
-import { ListContainer } from "./components/Shared/ListContainer";
+import { CollapsiblePanel } from "./components/Shared/CollapsiblePanel";
 import { SelectedMovieList } from "./components/SelectedMovies/SelectedMovieList";
 import { SelectedMovieListSummary } from "./components/SelectedMovies/SelectedMovieListSummary";
 import type { IMovie } from "./types";
 import { Loading } from "./components/Shared/Loading";
 import { ErrorMessage } from "./components/Shared/ErrorMessage";
+import { MovieDetails } from "./components/Movies/MovieDetails";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -103,7 +104,7 @@ function App() {
         <div className="row mt-2">
           {/* Movie List */}
           <div className="col-md-9">
-            <ListContainer>
+            <CollapsiblePanel>
               {/* {isLoading ? <Loading /> : <MovieList movies={movies} />} */}
 
               {isLoading && <Loading />}
@@ -111,17 +112,22 @@ function App() {
                 <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
               )}
               {!isLoading && error && <ErrorMessage message={error} />}
-            </ListContainer>
+            </CollapsiblePanel>
           </div>
 
           {/* Selected Movie List */}
           <div className="col-md-3">
-            <ListContainer>
-              <>
-                <SelectedMovieListSummary selectedMovies={selectedMovies} />
-                <SelectedMovieList selectedMovies={selectedMovies} />
-              </>
-            </ListContainer>
+            <CollapsiblePanel>
+              <SelectedMovieListSummary selectedMovies={selectedMovies} />
+              <SelectedMovieList selectedMovies={selectedMovies} />
+
+              {selectedMovieId && (
+                <MovieDetails
+                  selectedMovieId={selectedMovieId}
+                  onUnselectMovie={handleUnselectMovie}
+                />
+              )}
+            </CollapsiblePanel>
           </div>
         </div>
       </Main>

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { ToggleButton } from "./ToggleButton";
 
-interface ListContainerProps {
+interface CollapsiblePanelProps {
   children: React.ReactNode;
 }
 
-export function ListContainer({ children }: ListContainerProps) {
+export function CollapsiblePanel({ children }: CollapsiblePanelProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   function handleToggle() {
@@ -13,7 +13,7 @@ export function ListContainer({ children }: ListContainerProps) {
   }
 
   return (
-    <div className="movie-list">
+    <div className="collapsible-panel">
       <ToggleButton isOpen={isOpen} onToggle={handleToggle} />
 
       {isOpen && children}
