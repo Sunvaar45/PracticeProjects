@@ -3,12 +3,18 @@ import type { IMovie } from "../../types";
 interface MovieProps {
   movie: IMovie;
   onSelectMovie: (movieId: number) => void;
+  selectedMovieId: number | null;
 }
 
-export function Movie({ movie, onSelectMovie }: MovieProps) {
+export function Movie({ movie, onSelectMovie, selectedMovieId }: MovieProps) {
   return (
     <div className="col mb-2">
-      <div className="card movie-card" onClick={() => onSelectMovie(movie.id)}>
+      <div
+        className={`card movie-card ${
+          selectedMovieId === movie.id ? "movie-card-selected" : ""
+        }`}
+        onClick={() => onSelectMovie(movie.id)}
+      >
         <img
           className="card-img-top"
           src={

@@ -25,7 +25,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-
   const [selectedMovieId, setSelectedMovieId] = useState<null | number>(null);
 
   function handleSelectMovie(movieId: number) {
@@ -109,7 +108,11 @@ function App() {
 
               {isLoading && <Loading />}
               {!isLoading && !error && (
-                <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
+                <MovieList
+                  movies={movies}
+                  onSelectMovie={handleSelectMovie}
+                  selectedMovieId={selectedMovieId}
+                />
               )}
               {!isLoading && error && <ErrorMessage message={error} />}
             </CollapsiblePanel>
