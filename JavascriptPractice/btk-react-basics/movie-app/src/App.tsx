@@ -18,52 +18,75 @@ import { ErrorMessage } from "./components/Shared/ErrorMessage";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState("batman");
-
   const [movies, setMovies] = useState<IMovie[]>([]);
-  const [totalResults, setTotalResults] = useState(0);
-
   const [selectedMovies, setSelectedMovies] = useState<IMovie[]>([]);
-
+  const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(function () {
-    console.log("Fetching movies for query:", searchQuery);
+  const [selectedMovieId, setSelectedMovieId] = useState<null | number>(null);
 
-    async function getMovies() {
-      setIsLoading(true);
+  function handleSelectMovie(movieId: number) {
+    console.log("pressed movie id", movieId);
+    setSelectedMovieId(movieId);
+  }
 
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`,
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch movies.");
+  function handleUnselectMovie() {
+    setSelectedMovieId(null);
+  }
+
+  // helpers
+  function handleEmptySearch() {
+    setMovies([]);
+    setError("");
+    setTotalResults(0);
+  }
+
+  useEffect(
+    function () {
+      async function getMovies() {
+        if (searchQuery.trim() === "") {
+          handleEmptySearch();
+          return;
         }
 
-        const data = await response.json();
-        if (data.total_results === 0) {
-          throw new Error("No movies found for the given query.");
-        }
+        setIsLoading(true);
+        setError("");
 
-        setMovies(data.results);
-        setTotalResults(data.total_results);
-      } catch (error: unknown) {
-        console.error(error);
+        try {
+          const response = await fetch(
+            `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`,
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch movies.");
+          }
 
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError("An unknown error occurred while fetching movies.");
+          const data = await response.json();
+          if (data.total_results === 0) {
+            throw new Error("No movies found for the given query.");
+          }
+
+          setMovies(data.results);
+          setTotalResults(data.total_results);
+        } catch (error: unknown) {
+          console.error(error);
+
+          if (error instanceof Error) {
+            setError(error.message);
+          } else {
+            setError("An unknown error occurred while fetching movies.");
+          }
+          setTotalResults(0);
+        } finally {
+          setIsLoading(false);
         }
-      } finally {
-        setIsLoading(false);
       }
-    }
 
-    getMovies();
-  }, []);
+      getMovies();
+    },
+    [searchQuery],
+  );
 
   return (
     <>
@@ -84,7 +107,9 @@ function App() {
               {/* {isLoading ? <Loading /> : <MovieList movies={movies} />} */}
 
               {isLoading && <Loading />}
-              {!isLoading && !error && <MovieList movies={movies} />}
+              {!isLoading && !error && (
+                <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
+              )}
               {!isLoading && error && <ErrorMessage message={error} />}
             </ListContainer>
           </div>

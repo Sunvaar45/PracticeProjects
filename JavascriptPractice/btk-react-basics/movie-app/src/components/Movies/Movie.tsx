@@ -2,12 +2,13 @@ import type { IMovie } from "../../types";
 
 interface MovieProps {
   movie: IMovie;
+  onSelectMovie: (movieId: number) => void;
 }
 
-export function Movie({ movie }: MovieProps) {
+export function Movie({ movie, onSelectMovie }: MovieProps) {
   return (
     <div className="col mb-2">
-      <div className="card">
+      <div className="card" onClick={() => onSelectMovie(movie.id)}>
         <img
           className="card-img-top"
           src={
