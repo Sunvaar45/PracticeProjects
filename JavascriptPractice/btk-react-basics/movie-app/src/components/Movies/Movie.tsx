@@ -8,7 +8,7 @@ interface MovieProps {
 export function Movie({ movie, onSelectMovie }: MovieProps) {
   return (
     <div className="col mb-2">
-      <div className="card" onClick={() => onSelectMovie(movie.id)}>
+      <div className="card movie-card" onClick={() => onSelectMovie(movie.id)}>
         <img
           className="card-img-top"
           src={
