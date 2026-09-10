@@ -37,7 +37,13 @@ function App() {
   }
 
   function handleAddToSelectedMovies(selectedMovie: ISelectedMovie) {
-    setSelectedMovies([...selectedMovies, selectedMovie]);
+    setSelectedMovies((selectedMovies) => [...selectedMovies, selectedMovie]);
+  }
+
+  function handleRemoveFromSelectedMovies(movieId: number) {
+    setSelectedMovies((selectedMovies) =>
+      selectedMovies.filter((movie) => movie.id !== movieId),
+    );
   }
 
   // helpers
@@ -136,7 +142,10 @@ function App() {
               ) : (
                 <>
                   <SelectedMovieListSummary selectedMovies={selectedMovies} />
-                  <SelectedMovieList selectedMovies={selectedMovies} />
+                  <SelectedMovieList
+                    selectedMovies={selectedMovies}
+                    onRemoveFromSelectedMovies={handleRemoveFromSelectedMovies}
+                  />
                 </>
               )}
             </CollapsiblePanel>

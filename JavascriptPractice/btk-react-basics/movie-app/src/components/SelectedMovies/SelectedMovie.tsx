@@ -1,10 +1,14 @@
 import type { ISelectedMovie } from "../../types";
 
 interface SelectedMovieProps {
-  movie: ISelectedMovie;
+  selectedMovie: ISelectedMovie;
+  onRemoveFromSelectedMovies: (movieId: number) => void;
 }
 
-export function SelectedMovie({ movie }: SelectedMovieProps) {
+export function SelectedMovie({
+  selectedMovie,
+  onRemoveFromSelectedMovies,
+}: SelectedMovieProps) {
   return (
     <div className="card mb-2">
       <div className="row g-0">
@@ -12,26 +16,35 @@ export function SelectedMovie({ movie }: SelectedMovieProps) {
           <img
             className="img-fluid rounded-start"
             src={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w500` + movie.poster_path
+              selectedMovie.poster_path
+                ? `https://image.tmdb.org/t/p/w500` + selectedMovie.poster_path
                 : "/img/no-image.jpg"
             }
-            alt={movie.title}
+            alt={selectedMovie.title}
           ></img>
         </div>
         <div className="col-8">
           <div className="card-body">
-            <h6 className="card-title">{movie.title}</h6>
+            <h6 className="card-title">{selectedMovie.title}</h6>
+
+            {/* rating and duration */}
             <div className="d-flex justify-content-between">
               <p>
                 <i className="bi bi-star-fill text-warning me-1"></i>
-                <span>{movie.rating.toFixed(1)}</span>
+                <span>{selectedMovie.rating.toFixed(1)}</span>
               </p>
               <p>
                 <i className="bi bi-hourglass text-warning me-1"></i>
-                <span>{movie.duration} min</span>
+                <span>{selectedMovie.duration} min</span>
               </p>
             </div>
+
+            <button
+              className="btn btn-danger"
+              onClick={() => onRemoveFromSelectedMovies(selectedMovie.id)}
+            >
+              Remove
+            </button>
           </div>
         </div>
       </div>

@@ -21,8 +21,3 @@ export interface IMovie {
   vote_average: number;
   vote_count: number;
 }
-
-// export interface ISelectedMovie extends IMovie {
-//   rating: number;
-//   duration: number;
-// }
