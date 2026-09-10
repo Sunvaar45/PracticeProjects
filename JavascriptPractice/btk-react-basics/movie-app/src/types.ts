@@ -19,3 +19,10 @@ export interface ISelectedMovie extends IMovie {
   Rating: number;
   Duration: number;
 }
+
+export interface IMovieDetails extends Omit<IMovie, "genre_ids"> {
+  runtime: number;
+  imdb_id: string;
+  tagline: string;
+  genres: { id: number; name: string }[];
+}

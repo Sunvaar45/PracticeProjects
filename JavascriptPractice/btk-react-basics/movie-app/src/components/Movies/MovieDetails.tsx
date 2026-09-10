@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import type { IMovieDetails } from "../../types";
 
 interface MovieDetailsProps {
   selectedMovieId: number;
@@ -11,6 +12,8 @@ export function MovieDetails({
   onUnselectMovie,
   API_KEY,
 }: MovieDetailsProps) {
+  const [movieDetails, setMovieDetails] = useState<IMovieDetails | null>(null);
+
   useEffect(
     function () {
       async function getMovieDetails() {
@@ -27,7 +30,8 @@ export function MovieDetails({
             throw new Error("No movie details found for the given ID.");
           }
 
-          console.log("Movie Details:", data);
+          console.log(data);
+          setMovieDetails(data);
         } catch (error) {
           console.error(error);
         }
@@ -39,8 +43,23 @@ export function MovieDetails({
   );
 
   return (
-    <div>
-      <p className="form-label">Selected Movie ID: {selectedMovieId}</p>
+    <div className="border p-2 mb-3">
+      <div className="row">
+        <div className="col-4">
+          {movieDetails && (
+            <img
+              className="img-fluid rounded"
+              src={
+                movieDetails.poster_path
+                  ? `https://image.tmdb.org/t/p/w500` + movieDetails.poster_path
+                  : "/img/no-image.jpg"
+              }
+              alt={movieDetails.title}
+            ></img>
+          )}
+        </div>
+        <div className="col-8"></div>
+      </div>
       <button className="btn btn-outline-secondary" onClick={onUnselectMovie}>
         Cancel
       </button>
