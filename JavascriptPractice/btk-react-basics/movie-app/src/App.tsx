@@ -28,8 +28,8 @@ function App() {
   const [selectedMovieId, setSelectedMovieId] = useState<null | number>(null);
 
   function handleSelectMovie(movieId: number) {
-    console.log("pressed movie id", movieId);
-    setSelectedMovieId(movieId);
+    // Toggle selection: if the movie is already selected, unselect it; otherwise, select it
+    setSelectedMovieId(selectedMovieId === movieId ? null : movieId);
   }
 
   function handleUnselectMovie() {
