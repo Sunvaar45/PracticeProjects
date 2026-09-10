@@ -128,6 +128,7 @@ function App() {
                 <MovieDetails
                   selectedMovieId={selectedMovieId}
                   onUnselectMovie={handleUnselectMovie}
+                  API_KEY={API_KEY}
                 />
               )}
             </CollapsiblePanel>
