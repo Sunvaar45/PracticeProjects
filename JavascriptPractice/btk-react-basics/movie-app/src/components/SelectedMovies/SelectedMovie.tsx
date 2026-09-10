@@ -25,7 +25,7 @@ export function SelectedMovie({ movie }: SelectedMovieProps) {
             <div className="d-flex justify-content-between">
               <p>
                 <i className="bi bi-star-fill text-warning me-1"></i>
-                <span>{movie.rating}</span>
+                <span>{movie.rating.toFixed(1)}</span>
               </p>
               <p>
                 <i className="bi bi-hourglass text-warning me-1"></i>

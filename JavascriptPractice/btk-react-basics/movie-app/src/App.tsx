@@ -125,16 +125,19 @@ function App() {
           {/* Selected Movie List */}
           <div className="col-md-3">
             <CollapsiblePanel>
-              <SelectedMovieListSummary selectedMovies={selectedMovies} />
-              <SelectedMovieList selectedMovies={selectedMovies} />
-
-              {selectedMovieId && (
+              {selectedMovieId ? (
                 <MovieDetails
                   selectedMovieId={selectedMovieId}
                   onUnselectMovie={handleUnselectMovie}
                   API_KEY={API_KEY}
                   onAddToSelectedMovies={handleAddToSelectedMovies}
+                  selectedMovies={selectedMovies}
                 />
+              ) : (
+                <>
+                  <SelectedMovieListSummary selectedMovies={selectedMovies} />
+                  <SelectedMovieList selectedMovies={selectedMovies} />
+                </>
               )}
             </CollapsiblePanel>
           </div>

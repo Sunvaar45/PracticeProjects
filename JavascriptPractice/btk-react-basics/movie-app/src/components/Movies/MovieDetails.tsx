@@ -7,6 +7,7 @@ interface MovieDetailsProps {
   onUnselectMovie: () => void;
   API_KEY: string;
   onAddToSelectedMovies: (selectedMovie: ISelectedMovie) => void;
+  selectedMovies: ISelectedMovie[];
 }
 
 export function MovieDetails({
@@ -14,12 +15,19 @@ export function MovieDetails({
   onUnselectMovie,
   API_KEY,
   onAddToSelectedMovies,
+  selectedMovies,
 }: MovieDetailsProps) {
   const [movieDetails, setMovieDetails] = useState<IMovieDetails | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   function handleAddToSelectedMovies() {
     if (movieDetails) {
+      if (selectedMovies.some((movie) => movie.id === movieDetails.id)) {
+        onUnselectMovie();
+        alert("This movie is already in the selected movies list.");
+        return;
+      }
+
       onAddToSelectedMovies({
         id: movieDetails.id,
         poster_path: movieDetails.poster_path,
