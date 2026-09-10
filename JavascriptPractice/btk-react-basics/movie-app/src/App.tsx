@@ -36,6 +36,10 @@ function App() {
     setSelectedMovieId(null);
   }
 
+  function handleAddToSelectedMovies(selectedMovie: ISelectedMovie) {
+    setSelectedMovies([...selectedMovies, selectedMovie]);
+  }
+
   // helpers
   function handleEmptySearch() {
     setMovies([]);
@@ -129,6 +133,7 @@ function App() {
                   selectedMovieId={selectedMovieId}
                   onUnselectMovie={handleUnselectMovie}
                   API_KEY={API_KEY}
+                  onAddToSelectedMovies={handleAddToSelectedMovies}
                 />
               )}
             </CollapsiblePanel>

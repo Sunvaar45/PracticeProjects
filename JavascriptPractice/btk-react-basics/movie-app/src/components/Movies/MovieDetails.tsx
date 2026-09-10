@@ -1,20 +1,37 @@
 import { useEffect, useState } from "react";
-import type { IMovieDetails } from "../../types";
+import type { IMovieDetails, ISelectedMovie } from "../../types";
 import { Loading } from "../Shared/Loading";
 
 interface MovieDetailsProps {
   selectedMovieId: number;
   onUnselectMovie: () => void;
   API_KEY: string;
+  onAddToSelectedMovies: (selectedMovie: ISelectedMovie) => void;
 }
 
 export function MovieDetails({
   selectedMovieId,
   onUnselectMovie,
   API_KEY,
+  onAddToSelectedMovies,
 }: MovieDetailsProps) {
   const [movieDetails, setMovieDetails] = useState<IMovieDetails | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  function handleAddToSelectedMovies() {
+    if (movieDetails) {
+      onAddToSelectedMovies({
+        id: movieDetails.id,
+        poster_path: movieDetails.poster_path,
+        title: movieDetails.title,
+        rating: movieDetails.vote_average,
+        duration: movieDetails.runtime,
+      });
+      onUnselectMovie();
+    } else {
+      console.error("Movie details are not available.");
+    }
+  }
 
   useEffect(
     function () {
@@ -99,6 +116,13 @@ export function MovieDetails({
           </>
         )}
       </div>
+      <button
+        className="btn btn-primary me-1"
+        onClick={handleAddToSelectedMovies}
+      >
+        Add To Section
+      </button>
+
       <button className="btn btn-outline-secondary" onClick={onUnselectMovie}>
         Cancel
       </button>

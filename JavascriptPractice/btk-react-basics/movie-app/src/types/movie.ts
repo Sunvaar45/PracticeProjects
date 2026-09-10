@@ -22,7 +22,7 @@ export interface IMovie {
   vote_count: number;
 }
 
-export interface ISelectedMovie extends IMovie {
-  rating: number;
-  duration: number;
-}
+// export interface ISelectedMovie extends IMovie {
+//   rating: number;
+//   duration: number;
+// }
