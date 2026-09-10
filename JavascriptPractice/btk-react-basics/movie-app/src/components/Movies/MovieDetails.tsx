@@ -45,20 +45,46 @@ export function MovieDetails({
   return (
     <div className="border p-2 mb-3">
       <div className="row">
-        <div className="col-4">
-          {movieDetails && (
-            <img
-              className="img-fluid rounded"
-              src={
-                movieDetails.poster_path
-                  ? `https://image.tmdb.org/t/p/w500` + movieDetails.poster_path
-                  : "/img/no-image.jpg"
-              }
-              alt={movieDetails.title}
-            ></img>
-          )}
-        </div>
-        <div className="col-8"></div>
+        {movieDetails && (
+          <>
+            <div className="col-4">
+              <img
+                className="img-fluid rounded"
+                src={
+                  movieDetails.poster_path
+                    ? `https://image.tmdb.org/t/p/w500` +
+                      movieDetails.poster_path
+                    : "/img/no-image.jpg"
+                }
+                alt={movieDetails.title}
+              ></img>
+            </div>
+
+            <div className="col-8">
+              <h6>{movieDetails.title}</h6>
+              <p>
+                <span className="badge bg-secondary">
+                  {movieDetails.release_date}
+                </span>
+              </p>
+              <p>
+                <i className="bi bi-star-fill text-warning"></i>
+                <span>{movieDetails.vote_average}</span>
+              </p>
+            </div>
+
+            <div className="col-12 border-top p-3 mt-3">
+              <p>{movieDetails.overview}</p>
+              <p>
+                {movieDetails.genres?.map((genre) => (
+                  <span key={genre.id} className="badge bg-primary me-1">
+                    {genre.name}
+                  </span>
+                ))}
+              </p>
+            </div>
+          </>
+        )}
       </div>
       <button className="btn btn-outline-secondary" onClick={onUnselectMovie}>
         Cancel
