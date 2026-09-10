@@ -11,7 +11,11 @@ export function SelectedMovie({ movie }: SelectedMovieProps) {
         <div className="col-4">
           <img
             className="img-fluid rounded-start"
-            src={movie.poster_path}
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500` + movie.poster_path
+                : "/img/no-image.jpg"
+            }
             alt={movie.title}
           ></img>
         </div>
@@ -21,11 +25,11 @@ export function SelectedMovie({ movie }: SelectedMovieProps) {
             <div className="d-flex justify-content-between">
               <p>
                 <i className="bi bi-star-fill text-warning me-1"></i>
-                <span>{movie.Rating}</span>
+                <span>{movie.rating}</span>
               </p>
               <p>
                 <i className="bi bi-hourglass text-warning me-1"></i>
-                <span>{movie.Duration} min</span>
+                <span>{movie.duration} min</span>
               </p>
             </div>
           </div>

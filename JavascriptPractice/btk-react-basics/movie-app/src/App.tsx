@@ -11,7 +11,7 @@ import { MovieList } from "./components/Movies/MovieList";
 import { CollapsiblePanel } from "./components/Shared/CollapsiblePanel";
 import { SelectedMovieList } from "./components/SelectedMovies/SelectedMovieList";
 import { SelectedMovieListSummary } from "./components/SelectedMovies/SelectedMovieListSummary";
-import type { IMovie } from "./types";
+import type { IMovie, ISelectedMovie } from "./types";
 import { Loading } from "./components/Shared/Loading";
 import { ErrorMessage } from "./components/Shared/ErrorMessage";
 import { MovieDetails } from "./components/Movies/MovieDetails";
@@ -20,7 +20,7 @@ const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 function App() {
   const [movies, setMovies] = useState<IMovie[]>([]);
-  const [selectedMovies, setSelectedMovies] = useState<IMovie[]>([]);
+  const [selectedMovies, setSelectedMovies] = useState<ISelectedMovie[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");

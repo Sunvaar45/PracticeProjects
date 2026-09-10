@@ -8,9 +8,9 @@ interface SelectedMovieListSummaryProps {
 export function SelectedMovieListSummary({
   selectedMovies,
 }: SelectedMovieListSummaryProps) {
-  const averageRating = getAverage(selectedMovies.map((movie) => movie.Rating));
+  const averageRating = getAverage(selectedMovies.map((movie) => movie.rating));
   const averageDuration = getAverage(
-    selectedMovies.map((movie) => movie.Duration),
+    selectedMovies.map((movie) => movie.duration),
   );
 
   return (
