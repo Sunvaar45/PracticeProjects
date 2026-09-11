@@ -20,6 +20,7 @@ export function MovieDetails({
 }: MovieDetailsProps) {
   const [movieDetails, setMovieDetails] = useState<IMovieDetails | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [userRating, setUserRating] = useState(0);
 
   function handleAddToSelectedMovies() {
     if (movieDetails) {
@@ -111,7 +112,7 @@ export function MovieDetails({
               </p>
             </div>
 
-            {/* overview, genre badges, buttons */}
+            {/* overview, rating, genre badges, buttons */}
             <div className="col-12 border-top p-3 mt-3">
               <p>{movieDetails.overview}</p>
               <p>
@@ -123,7 +124,12 @@ export function MovieDetails({
               </p>
 
               <div className="my-4">
-                <StarRating maxRating={10} starSize="20px" />
+                <StarRating
+                  maxRating={10}
+                  starSize="20px"
+                  rating={userRating}
+                  onUserRatingChange={setUserRating}
+                />
               </div>
 
               <button

@@ -17,17 +17,20 @@ const textStyle = {
 };
 
 interface StarRatingProps {
+  rating: number;
+  onUserRatingChange: (rating: number) => void;
   maxRating?: number;
   starColor?: string;
   starSize?: string;
 }
 
 export function StarRating({
+  rating,
+  onUserRatingChange,
   maxRating = 5,
   starColor = "#ffc107",
   starSize = "32px",
 }: StarRatingProps) {
-  const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
 
   return (
@@ -39,7 +42,7 @@ export function StarRating({
             starColor={starColor}
             starSize={starSize}
             isFilled={hoverRating ? index < hoverRating : index < rating}
-            onRatingChange={() => setRating(index + 1)}
+            onRatingChange={() => onUserRatingChange(index + 1)}
             onHoverEnter={() => setHoverRating(index + 1)}
             onHoverLeave={() => setHoverRating(0)}
           />
