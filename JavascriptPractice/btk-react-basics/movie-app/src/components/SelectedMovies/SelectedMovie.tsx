@@ -34,6 +34,10 @@ export function SelectedMovie({
                 <span>{selectedMovie.rating.toFixed(1)}</span>
               </p>
               <p>
+                <i className="bi bi-stars text-warning me-1"></i>
+                <span>{selectedMovie.userRating.toFixed(1)}</span>
+              </p>
+              <p>
                 <i className="bi bi-hourglass text-warning me-1"></i>
                 <span>{selectedMovie.duration} min</span>
               </p>

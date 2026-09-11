@@ -9,6 +9,9 @@ export function SelectedMovieListSummary({
   selectedMovies,
 }: SelectedMovieListSummaryProps) {
   const averageRating = getAverage(selectedMovies.map((movie) => movie.rating));
+  const averageUserRating = getAverage(
+    selectedMovies.map((movie) => movie.userRating || 0),
+  );
   const averageDuration = getAverage(
     selectedMovies.map((movie) => movie.duration),
   );
@@ -21,6 +24,10 @@ export function SelectedMovieListSummary({
           <p>
             <i className="bi bi-star-fill text-warning me-1"></i>
             <span>{averageRating.toFixed(1)}</span>
+          </p>
+          <p>
+            <i className="bi bi-stars text-warning me-1"></i>
+            <span>{averageUserRating.toFixed(1)}</span>
           </p>
           <p>
             <i className="bi bi-hourglass text-warning me-1"></i>

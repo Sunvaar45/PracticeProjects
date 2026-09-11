@@ -4,5 +4,6 @@ export interface ISelectedMovie {
   poster_path: null | string;
   title: string;
   rating: number;
+  userRating: number;
   duration: number;
 }
