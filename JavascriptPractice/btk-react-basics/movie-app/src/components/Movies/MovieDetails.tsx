@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { IMovieDetails, ISelectedMovie } from "../../types";
 import { Loading } from "../Shared/Loading";
+import { StarRating } from "../Shared/StarRating";
 
 interface MovieDetailsProps {
   selectedMovieId: number;
@@ -106,11 +107,11 @@ export function MovieDetails({
               </p>
               <p>
                 <i className="bi bi-star-fill text-warning"></i>
-                <span>{movieDetails.vote_average}</span>
+                <span>{movieDetails.vote_average.toFixed(1)}</span>
               </p>
             </div>
 
-            {/* overview and genre badges */}
+            {/* overview, genre badges, buttons */}
             <div className="col-12 border-top p-3 mt-3">
               <p>{movieDetails.overview}</p>
               <p>
@@ -120,20 +121,28 @@ export function MovieDetails({
                   </span>
                 ))}
               </p>
+
+              <div className="my-4">
+                <StarRating maxRating={10} starSize="20px" />
+              </div>
+
+              <button
+                className="btn btn-primary me-1"
+                onClick={handleAddToSelectedMovies}
+              >
+                Add To Section
+              </button>
+
+              <button
+                className="btn btn-outline-secondary"
+                onClick={onUnselectMovie}
+              >
+                Cancel
+              </button>
             </div>
           </>
         )}
       </div>
-      <button
-        className="btn btn-primary me-1"
-        onClick={handleAddToSelectedMovies}
-      >
-        Add To Section
-      </button>
-
-      <button className="btn btn-outline-secondary" onClick={onUnselectMovie}>
-        Cancel
-      </button>
     </div>
   );
 }
