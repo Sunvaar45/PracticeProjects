@@ -34,7 +34,7 @@ export function MovieDetails({
         id: movieDetails.id,
         poster_path: movieDetails.poster_path,
         title: movieDetails.title,
-        rating: movieDetails.vote_average,
+        rating: userRating,
         duration: movieDetails.runtime,
       });
       onUnselectMovie();

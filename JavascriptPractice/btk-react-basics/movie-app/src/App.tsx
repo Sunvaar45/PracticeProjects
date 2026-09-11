@@ -133,6 +133,7 @@ function App() {
             <CollapsiblePanel>
               {selectedMovieId ? (
                 <MovieDetails
+                  key={selectedMovieId} // Add a key prop to force re-render when selectedMovieId changes
                   selectedMovieId={selectedMovieId}
                   onUnselectMovie={handleUnselectMovie}
                   API_KEY={API_KEY}
